@@ -1,5 +1,5 @@
 ---
-// Footer.astro — Minimal Vercel-style footer
+// Footer.astro — Vercel-style footer with site navigation
 ---
 
 <footer class="footer">
@@ -11,6 +11,24 @@
       </a>
       <p class="footer-pitch">A clear, fast number system converter built with clarity in mind.</p>
     </div>
+    <div class="footer-nav">
+      <div class="footer-nav-col">
+        <h4 class="footer-nav-heading">Pages</h4>
+        <ul class="footer-nav-list">
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4 class="footer-nav-heading">Legal</h4>
+        <ul class="footer-nav-list">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-container footer-bottom">
     <p class="footer-copy">&copy; 2026 NumSys Converter. All rights reserved.</p>
   </div>
 </footer>
@@ -19,21 +37,23 @@
   .footer {
     background: var(--color-canvas);
     border-top: 1px solid var(--color-hairline);
-    padding: var(--spacing-4xl) var(--spacing-lg) var(--spacing-lg);
+    padding: var(--spacing-4xl) var(--spacing-lg) 0;
   }
 
   .footer-inner {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-2xl);
+    padding-bottom: var(--spacing-3xl);
   }
 
   .footer-left {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
+    max-width: 300px;
   }
 
   .footer-logo {
@@ -58,7 +78,55 @@
     font-size: 14px;
     color: var(--color-mute);
     line-height: 20px;
-    max-width: 380px;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: var(--spacing-4xl);
+  }
+
+  .footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .footer-nav-heading {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-mute);
+    margin: 0;
+  }
+
+  .footer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .footer-nav-list a {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--color-body);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer-nav-list a:hover {
+    color: var(--color-ink);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-hairline);
+    padding: var(--spacing-lg) 0;
   }
 
   .footer-copy {
@@ -66,16 +134,21 @@
     color: var(--color-mute);
     font-family: var(--font-mono);
     line-height: 16px;
+    margin: 0;
   }
 
   @media (max-width: 600px) {
     .footer {
-      padding: var(--spacing-3xl) var(--spacing-md) var(--spacing-lg);
+      padding: var(--spacing-3xl) var(--spacing-md) 0;
     }
 
     .footer-inner {
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    .footer-nav {
+      gap: var(--spacing-2xl);
     }
   }
 </style>

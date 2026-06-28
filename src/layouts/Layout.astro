@@ -74,6 +74,9 @@ const siteName = 'Number System Converter';
 		<meta name="twitter:image" content={new URL('/og-image.png', canonicalURL).href} />
 		<meta name="twitter:image:alt" content="Number System Converter – Convert Indian to International and back instantly" />
 
+		<!-- Per-page head content (e.g. structured data) -->
+		<slot name="head" />
+
 		<!-- Schema.org Structured Data: WebApplication -->
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",

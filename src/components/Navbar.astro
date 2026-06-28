@@ -9,10 +9,15 @@
       <span class="logo-text">NumSys</span>
     </a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#converter">Converter</a></li>
-      <li><a href="#how-it-works">How It Works</a></li>
-      <li><a href="#reference">Reference</a></li>
+      <ul class="nav-links" id="navLinks">
+      <li><a href="/#converter">Converter</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#reference">Reference</a></li>
+      <li class="nav-divider" aria-hidden="true"></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy-policy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -35,11 +40,24 @@
     menuToggle.classList.toggle('active');
   });
 
-  // Close menu on nav link click
+  // Close menu & smooth-scroll on nav link click
   navLinks?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      // Close mobile menu
       navLinks?.classList.remove('open');
       menuToggle?.classList.remove('active');
+
+      // Handle anchor links (#converter, #how-it-works, #reference) programmatically
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const navHeight = 64;
+          const top = (target as HTMLElement).offsetTop - navHeight;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
     });
   });
 
@@ -125,6 +143,14 @@
     background: var(--color-canvas-soft);
   }
 
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--color-hairline);
+    align-self: center;
+    margin: 0 4px;
+  }
+
   .nav-actions {
     display: flex;
     align-items: center;
@@ -183,6 +209,10 @@
   @media (max-width: 600px) {
     .hamburger {
       display: flex;
+    }
+
+    .nav-divider {
+      display: none;
     }
 
     .nav-links {
