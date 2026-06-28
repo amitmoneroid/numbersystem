@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'Terms & Conditions – Number System Converter';
+const pageDescription = 'Terms and conditions for the Number System Converter. By using this free online tool, you agree to these terms governing use, accuracy disclaimers, and intellectual property.';
+const pageCanonical = 'https://numbersystemconverter.com/terms';
+const pageKeywords = 'terms and conditions, terms of use, number system converter terms, usage agreement, disclaimer';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={pageCanonical}
+  keywords={pageKeywords}
+>
+  <Navbar />
+
+  <main>
+    <!-- ═══════════════ HERO BAND ═══════════════ -->
+    <section class="hero-band mesh-gradient">
+      <div class="page-container hero-content">
+        <span class="eyebrow hero-eyebrow">Legal</span>
+        <h1 class="display-xl hero-headline">Terms & Conditions.</h1>
+        <p class="body-lg hero-lead">
+          By using the Number System Converter, you agree to the following terms. Please read them carefully before using the tool.
+        </p>
+        <p class="last-updated caption-mono">Last updated: June 28, 2026</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CONTENT ═══════════════ -->
+    <section class="band-canvas-soft section-band">
+      <div class="page-container">
+        <article class="prose">
+
+          <!-- Acceptance -->
+          <div class="prose-section">
+            <h2 class="display-sm">Acceptance of Terms.</h2>
+            <p class="body-md">By accessing and using the Number System Converter ("the Tool"), you accept and agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you should not use the Tool.</p>
+          </div>
+
+          <!-- Use of the Tool -->
+          <div class="prose-section">
+            <h2 class="display-sm">Use of the Tool.</h2>
+            <p class="body-md">The Number System Converter is a free, client-side web application provided for personal, educational, and commercial use. You may use the Tool to:</p>
+            <ul class="prose-list">
+              <li>Convert numbers between Indian and International number systems.</li>
+              <li>View full word expansions of numbers in both systems.</li>
+              <li>Compare number formatting and naming conventions side by side.</li>
+            </ul>
+            <p class="body-md">You agree not to use the Tool for any unlawful purpose, or to attempt to disrupt, overload, or interfere with its functioning. Since the Tool is entirely client-side, such interference would only affect your own browsing experience.</p>
+          </div>
+
+          <!-- Accuracy Disclaimer -->
+          <div class="prose-section">
+            <h2 class="display-sm">Accuracy Disclaimer.</h2>
+            <p class="body-md">While we strive for accuracy in all number conversions, the Tool is provided <strong>"as is"</strong> without any warranty of any kind, express or implied. We make no guarantees that the results produced by the Tool are free from errors or omissions.</p>
+            <p class="body-md">The Number System Converter is intended as an educational and reference tool. For financial, legal, or other critical applications where numerical accuracy is essential, you should independently verify the results. <strong>We are not responsible for any decisions made based on the output of this Tool.</strong></p>
+          </div>
+
+          <!-- Intellectual Property -->
+          <div class="prose-section">
+            <h2 class="display-sm">Intellectual Property.</h2>
+            <p class="body-md">All content on the Number System Converter — including the design, layout, code, and written content — is the intellectual property of its creators. You may not reproduce, distribute, or create derivative works from any part of the Tool without explicit written permission.</p>
+            <p class="body-md">You are welcome to link to the Tool, share its URL, and reference its output in your own work. The number conversion results themselves are factual data and not subject to copyright.</p>
+          </div>
+
+          <!-- Limitation of Liability -->
+          <div class="prose-section">
+            <h2 class="display-sm">Limitation of Liability.</h2>
+            <p class="body-md">To the fullest extent permitted by applicable law, the creators of the Number System Converter shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or in connection with your use of the Tool.</p>
+            <p class="body-md">This includes, but is not limited to, damages for loss of profits, data, goodwill, or other intangible losses resulting from:</p>
+            <ul class="prose-list">
+              <li>Your use of or inability to use the Tool.</li>
+              <li>Any errors or inaccuracies in conversion results.</li>
+              <li>Any interruption or cessation of the Tool's availability.</li>
+            </ul>
+          </div>
+
+          <!-- Third-Party Links -->
+          <div class="prose-section">
+            <h2 class="display-sm">Third-Party Links.</h2>
+            <p class="body-md">The Tool may contain links to third-party websites or resources. These are provided solely as a convenience and do not constitute an endorsement. We are not responsible for the content, privacy practices, or availability of any third-party sites.</p>
+          </div>
+
+          <!-- Modifications -->
+          <div class="prose-section">
+            <h2 class="display-sm">Modifications to Terms.</h2>
+            <p class="body-md">We reserve the right to modify these Terms and Conditions at any time. Changes will be posted on this page with an updated "Last updated" date. Your continued use of the Tool after any changes constitutes your acceptance of the revised terms.</p>
+            <p class="body-md">We encourage you to review these terms periodically to stay informed of any updates.</p>
+          </div>
+
+          <!-- Governing Law -->
+          <div class="prose-section">
+            <h2 class="display-sm">Governing Law.</h2>
+            <p class="body-md">These Terms and Conditions shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any disputes arising from these terms shall be resolved in the courts of India.</p>
+          </div>
+
+          <!-- Contact -->
+          <div class="prose-section">
+            <h2 class="display-sm">Contact.</h2>
+            <p class="body-md">If you have any questions about these Terms and Conditions, please reach out to us through our <a href="/contact">Contact page</a>.</p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ════════════ HERO ════════════ */
+  .hero-band {
+    padding: var(--spacing-section) var(--spacing-lg) var(--spacing-6xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-canvas-soft);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .hero-eyebrow {
+    color: var(--color-violet);
+    margin-bottom: 0;
+  }
+
+  .hero-headline {
+    color: var(--color-ink);
+  }
+
+  .hero-lead {
+    color: var(--color-body);
+    max-width: 620px;
+  }
+
+  .last-updated {
+    color: var(--color-mute);
+    margin-top: 0;
+  }
+
+  /* ════════════ SECTION BAND ════════════ */
+  .section-band {
+    padding: var(--spacing-5xl) var(--spacing-lg);
+  }
+
+  /* ════════════ PROSE ════════════ */
+  .prose {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4xl);
+  }
+
+  .prose-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .prose-section h2 {
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .prose-section p {
+    color: var(--color-body);
+  }
+
+  .prose-section strong {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .prose-section a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-section a:hover {
+    color: var(--color-link-deep);
+  }
+
+  .prose-list {
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-sm) 0;
+    color: var(--color-body);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .prose-list li {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .prose-list strong {
+    color: var(--color-ink);
+  }
+
+  /* ════════════ RESPONSIVE ════════════ */
+  @media (max-width: 600px) {
+    .hero-band {
+      padding: 96px var(--spacing-md) 64px;
+    }
+
+    .section-band {
+      padding: var(--spacing-4xl) var(--spacing-md);
+    }
+  }
+</style>

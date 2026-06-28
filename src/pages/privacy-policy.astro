@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'Privacy Policy – Number System Converter';
+const pageDescription = 'Privacy policy for the Number System Converter. Learn how we handle your data — spoiler: we don\'t collect any. All conversions happen entirely in your browser.';
+const pageCanonical = 'https://numbersystemconverter.com/privacy-policy';
+const pageKeywords = 'privacy policy, number system converter privacy, data collection, cookies, local storage, client-side converter';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={pageCanonical}
+  keywords={pageKeywords}
+>
+  <Navbar />
+
+  <main>
+    <!-- ═══════════════ HERO BAND ═══════════════ -->
+    <section class="hero-band mesh-gradient">
+      <div class="page-container hero-content">
+        <span class="eyebrow hero-eyebrow">Legal</span>
+        <h1 class="display-xl hero-headline">Privacy Policy.</h1>
+        <p class="body-lg hero-lead">
+          Your privacy matters to us. This policy explains what data the Number System Converter collects, how it's used, and how you can control it.
+        </p>
+        <p class="last-updated caption-mono">Last updated: June 28, 2026</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CONTENT ═══════════════ -->
+    <section class="band-canvas-soft section-band">
+      <div class="page-container">
+        <article class="prose">
+
+          <!-- Introduction -->
+          <div class="prose-section">
+            <h2 class="display-sm">Introduction.</h2>
+            <p class="body-md">The Number System Converter ("we", "our", "the Tool") is a free, client-side web application that converts numbers between Indian and International number systems. This privacy policy describes our practices regarding data collection, use, and storage. Because our tool runs entirely in your browser with no server-side processing, our data practices are minimal by design.</p>
+          </div>
+
+          <!-- Information We Collect -->
+          <div class="prose-section">
+            <h2 class="display-sm">Information We Collect.</h2>
+            <p class="body-md"><strong>We do not collect any personal information.</strong> The Number System Converter does not require you to create an account, sign in, or provide any personal details such as your name, email address, or phone number.</p>
+            <p class="body-md">The numbers you enter into the converter are processed entirely within your browser. They are never transmitted to our servers or any third-party service. When you close the browser tab or navigate away, your input is gone — we have no way to access it.</p>
+          </div>
+
+          <!-- How We Use Information -->
+          <div class="prose-section">
+            <h2 class="display-sm">How We Use Information.</h2>
+            <p class="body-md">Since we do not collect any personal information, there is no data for us to use, share, or sell. The tool exists to provide instant number conversions, and that's all it does.</p>
+          </div>
+
+          <!-- Cookies & Local Storage -->
+          <div class="prose-section">
+            <h2 class="display-sm">Cookies & Local Storage.</h2>
+            <p class="body-md">The Number System Converter uses your browser's <strong>localStorage</strong> to remember your theme preference (light or dark mode). This is a single key-value pair stored on your device:</p>
+            <div class="code-block">
+              <code>Key: "theme" &nbsp;|&nbsp; Value: "light" or "dark"</code>
+            </div>
+            <p class="body-md">This data is never sent to any server. You can clear it at any time by clearing your browser's local storage for this site. We do not use cookies for tracking, advertising, or analytics.</p>
+          </div>
+
+          <!-- Third-Party Services -->
+          <div class="prose-section">
+            <h2 class="display-sm">Third-Party Services.</h2>
+            <p class="body-md">The Number System Converter loads the following third-party resources:</p>
+            <ul class="prose-list">
+              <li><strong>Google Fonts</strong> — We load the Inter and JetBrains Mono font families from fonts.googleapis.com to render text. Google may collect your IP address and browser information when fonts are loaded. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a> for details.</li>
+            </ul>
+            <p class="body-md">We do not integrate any advertising networks, analytics platforms, or social media trackers.</p>
+          </div>
+
+          <!-- Data Security -->
+          <div class="prose-section">
+            <h2 class="display-sm">Data Security.</h2>
+            <p class="body-md">Since all processing happens client-side and we do not collect or store any user data on our servers, the attack surface for data breaches is minimal. The tool is served over HTTPS to ensure the integrity of the code delivered to your browser.</p>
+          </div>
+
+          <!-- Children's Privacy -->
+          <div class="prose-section">
+            <h2 class="display-sm">Children's Privacy.</h2>
+            <p class="body-md">The Number System Converter is a general-audience educational tool. We do not knowingly collect personal information from children under 13. Since we do not collect any personal information at all, our tool is safe for users of all ages.</p>
+          </div>
+
+          <!-- Changes -->
+          <div class="prose-section">
+            <h2 class="display-sm">Changes to This Policy.</h2>
+            <p class="body-md">We may update this privacy policy from time to time. Any changes will be posted on this page with an updated "Last updated" date. Your continued use of the tool after any changes constitutes your acceptance of the revised policy.</p>
+          </div>
+
+          <!-- Contact -->
+          <div class="prose-section">
+            <h2 class="display-sm">Contact Us.</h2>
+            <p class="body-md">If you have any questions about this privacy policy, please reach out to us through our <a href="/contact">Contact page</a>.</p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ════════════ HERO ════════════ */
+  .hero-band {
+    padding: var(--spacing-section) var(--spacing-lg) var(--spacing-6xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-canvas-soft);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .hero-eyebrow {
+    color: var(--color-violet);
+    margin-bottom: 0;
+  }
+
+  .hero-headline {
+    color: var(--color-ink);
+  }
+
+  .hero-lead {
+    color: var(--color-body);
+    max-width: 620px;
+  }
+
+  .last-updated {
+    color: var(--color-mute);
+    margin-top: 0;
+  }
+
+  /* ════════════ SECTION BAND ════════════ */
+  .section-band {
+    padding: var(--spacing-5xl) var(--spacing-lg);
+  }
+
+  /* ════════════ PROSE ════════════ */
+  .prose {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4xl);
+  }
+
+  .prose-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .prose-section h2 {
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .prose-section p {
+    color: var(--color-body);
+  }
+
+  .prose-section strong {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .prose-section a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-section a:hover {
+    color: var(--color-link-deep);
+  }
+
+  .code-block {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-ink);
+    margin: var(--spacing-sm) 0;
+    overflow-x: auto;
+  }
+
+  .prose-list {
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-sm) 0;
+    color: var(--color-body);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .prose-list li {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .prose-list strong {
+    color: var(--color-ink);
+  }
+
+  /* ════════════ RESPONSIVE ════════════ */
+  @media (max-width: 600px) {
+    .hero-band {
+      padding: 96px var(--spacing-md) 64px;
+    }
+
+    .section-band {
+      padding: var(--spacing-4xl) var(--spacing-md);
+    }
+  }
+</style>
