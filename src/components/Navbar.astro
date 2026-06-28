@@ -1,0 +1,221 @@
+---
+// Navbar.astro — Clean Vercel-style navigation bar
+---
+
+<header class="navbar">
+  <nav class="page-container nav-inner">
+    <a href="/" class="logo">
+      <span class="logo-mark"></span>
+      <span class="logo-text">NumSys</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#converter">Converter</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#reference">Reference</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon" id="themeIcon">🌙</span>
+      </button>
+      <button class="hamburger" id="menuToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    menuToggle.classList.toggle('active');
+  });
+
+  // Close menu on nav link click
+  navLinks?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks?.classList.remove('open');
+      menuToggle?.classList.remove('active');
+    });
+  });
+
+  // ── Dark Mode Toggle ──
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  function updateThemeIcon() {
+    if (themeIcon) {
+      themeIcon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    }
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcon();
+  });
+
+  // Initialize icon on page load
+  updateThemeIcon();
+</script>
+
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 64px;
+    background: var(--color-canvas);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .nav-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--color-gradient-develop-start), var(--color-gradient-preview-end));
+  }
+
+  .logo-text {
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    color: var(--color-ink);
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    color: var(--color-body);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 9999px;
+    transition: all 0.15s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-ink);
+    background: var(--color-canvas-soft);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.15s ease;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    background: var(--color-canvas-soft-2);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-ink);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 600px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--color-canvas);
+      border-bottom: 1px solid var(--color-hairline);
+      flex-direction: column;
+      padding: var(--spacing-lg);
+      gap: 0;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: var(--spacing-sm) 0;
+      border-radius: 0;
+      font-size: 16px;
+    }
+
+    .nav-links a:hover {
+      background: none;
+    }
+  }
+</style>

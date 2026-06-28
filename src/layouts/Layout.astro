@@ -1,23 +1,246 @@
+---
+//
+// Layout.astro — SEO-optimized layout shell with OG + structured data
+//
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  keywords?: string;
+  ogType?: string;
+}
+
+const {
+  title = 'Number System Converter – Indian to International & Vice Versa | Free Online Tool',
+  description = 'Free Number System Converter calculator. Instantly convert between Indian (Lakh, Crore) and International (Million, Billion) number systems with full word expansion and side-by-side comparison.',
+  canonicalURL = 'https://numbersystemconverter.com/',
+  keywords = 'number system converter, indian to international number system converter, international to indian number system converter, national to international number system converter, international number system converter, number system converter calculator, lakh to million, crore to billion',
+  ogType = 'website',
+} = Astro.props;
+
+const siteName = 'Number System Converter';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="Number System Converter" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<!-- Prevent FOUC: set dark class before paint -->
+		<script is:inline>
+			(function() {
+				const stored = localStorage.getItem('theme');
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				if (stored === 'dark' || (!stored && prefersDark)) {
+					document.documentElement.classList.add('dark');
+				}
+			})();
+		</script>
+
+		<!-- Primary SEO Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<meta name="author" content="Number System Converter" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Open Graph / Facebook Meta Tags -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content={new URL('/og-image.png', canonicalURL).href} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Number System Converter – Convert Indian to International and back instantly" />
+
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL('/og-image.png', canonicalURL).href} />
+		<meta name="twitter:image:alt" content="Number System Converter – Convert Indian to International and back instantly" />
+
+		<!-- Schema.org Structured Data: WebApplication -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebApplication",
+			"name": "Number System Converter",
+			"url": canonicalURL,
+			"description": description,
+			"applicationCategory": "UtilityApplication",
+			"operatingSystem": "All",
+			"browserRequirements": "Requires JavaScript",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"featureList": [
+				"Convert Indian number system to International format",
+				"Convert International number system to Indian format",
+				"Full word expansion in both systems",
+				"Side-by-side comparison",
+				"Breakdown table showing scale mapping",
+				"Quick example chips for common values"
+			],
+			"creator": {
+				"@type": "Organization",
+				"name": "Number System Converter"
+			}
+		})} />
+
+		<!-- Schema.org Structured Data: FAQPage -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "How to convert numbers into international systems?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "To convert a number into the International number system, group the digits in sets of three from the right and place commas between each group. Then read each group using the International scale names: Thousand (1,000), Million (1,000,000), Billion (1,000,000,000), and Trillion (1,000,000,000,000). For example, 78921092 becomes 78,921,092 which reads as Seventy-Eight Million Nine Hundred Twenty-One Thousand Ninety-Two."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is 100000000000000000000 in words?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "100,000,000,000,000,000,000 (1 followed by 20 zeros) is read as One Hundred Quintillion in the International number system. In the Indian number system, this is called One Shankh and is formatted as 1,00,00,00,00,00,00,00,00,000."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How do I convert my number to an international number?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Write the number without any commas, then starting from the rightmost digit, insert a comma after every three digits. Read each comma-separated group using International names (Thousand, Million, Billion, Trillion). For example: 5000000 becomes 5,000,000 which reads as Five Million."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is 1000000000 in words in Indian?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "1,000,000,000 (1 Billion in the International system) is read as One Arab in the Indian number system. In Indian formatting, this is written as 1,00,00,00,000. Equivalently, 1 Arab = 100 Crore = 1,000 Million = 1 Billion."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What are the 4 types of number system?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "The four fundamental types of numeral systems based on their base/radix are: Decimal (Base-10) using digits 0-9, Binary (Base-2) using only 0 and 1, Octal (Base-8) using digits 0-7, and Hexadecimal (Base-16) using digits 0-9 and letters A-F. Note: These numeral base systems are different from Indian vs International naming conventions (Lakh/Crore vs Million/Billion), which are both base-10 systems that simply group and name large numbers differently."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is 78921092 in words international system?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "78,921,092 in the International system is read as Seventy-Eight Million Nine Hundred Twenty-One Thousand Ninety-Two. In the Indian system, the same number is 7,89,21,092 and is read as Seven Crore Eighty-Nine Lakh Twenty-One Thousand Ninety-Two."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How do you say this number 13170000000000000000000000?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "The number 13,170,000,000,000,000,000,000,000 (13.17 x 10^24) is read as Thirteen Septillion One Hundred Seventy Sextillion. A septillion is 10^24 (1 followed by 24 zeros). This number is vastly larger than a trillion (10^12) or even a quadrillion (10^15)."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Does 1 zillion exist?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "No, zillion is not a real number. It is an informal, humorous word used to describe an arbitrarily large, indeterminate number. The real number scale in the International system is: Million (10^6), Billion (10^9), Trillion (10^12), Quadrillion (10^15), Quintillion (10^18), Sextillion (10^21), Septillion (10^24), and so on. Each named number is exactly 1,000 times the previous one."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How to write 20 billion in numbers?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "20 Billion in the International number system is written as 20,000,000,000. That is 20 followed by 9 zeros (10 digits total). In the Indian system, 20 Billion equals 2 Arab and is written as 2,00,00,00,000."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Who is bigger, 1 trillion or 1 billion?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "1 Trillion is 1,000 times bigger than 1 Billion. 1 Trillion = 1,000,000,000,000 while 1 Billion = 1,000,000,000. In the Indian system, 1 Trillion equals 1 Lakh Crore, while 1 Billion equals 1 Arab."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is 20000000 in number names?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "20,000,000 in the International system is called Twenty Million. In the Indian number system, this is 2,00,00,000 and is called Two Crore. So 20 Million = 2 Crore."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is 100 lakh is 1 billion?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "No, 100 Lakh is not 1 Billion. 100 Lakh = 1 Crore = 10 Million. 1 Billion = 100 Crore = 1 Arab. So 1 Billion (1,000,000,000) is actually equal to 10,000 Lakh, not 100 Lakh. 100 Lakh only gets you to 1 Crore (10,000,000), which is ten times smaller than 1 Billion."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How many zeros are in 20 trillion?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "20 Trillion has 12 zeros after the 2: 20,000,000,000,000. The number is 13 digits long in total. In scientific notation, 20 trillion = 2 x 10^13."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What number is this 100000000000000000000000000000000?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "This is 1 followed by 32 zeros, which equals 10^32. In the short-scale International system, this is 100 Nonillion. The naming progression for very large numbers is: Million (10^6), Billion (10^9), Trillion (10^12), Quadrillion (10^15), Quintillion (10^18), Sextillion (10^21), Septillion (10^24), Octillion (10^27), Nonillion (10^30), Decillion (10^33)."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is 40 trillion in numbers?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "40 Trillion in the International number system is 40,000,000,000,000. That is 40 followed by 12 zeros (14 digits total). In the Indian number system, 40 Trillion is formatted as 40,00,000,00,00,000 and equals approximately 4 Shankh."
+					}
+				}
+			]
+		})} />
+
+		<!-- Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+	@import "../styles/global.css";
 </style>

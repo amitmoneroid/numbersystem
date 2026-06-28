@@ -1,0 +1,449 @@
+---
+// FAQ.astro — SEO-friendly FAQ section with accordion
+---
+
+<section id="faq" class="band-canvas-soft section-band">
+  <div class="page-container">
+    <div class="section-header">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="display-lg">Frequently asked questions about number systems.</h2>
+      <p class="body-md" style="color: var(--color-body); max-width: 640px;">
+        Clear answers to the most common questions about converting between International and Indian number systems, reading large numbers, and understanding number naming conventions.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      <!-- Q1 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">How to convert numbers into international systems?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>To convert a number into the International number system, group the digits in sets of <strong>three from the right</strong> and place commas between each group. Then read each group using the International scale names: <strong>Thousand</strong> (1,000), <strong>Million</strong> (1,000,000), <strong>Billion</strong> (1,000,000,000), and <strong>Trillion</strong> (1,000,000,000,000).</p>
+          <p class="faq-example">For example, 78921092 becomes <strong>78,921,092</strong> &rarr; Seventy-Eight Million Nine Hundred Twenty-One Thousand Ninety-Two.</p>
+          <p>Use the converter above for instant, accurate results with full word expansion in both systems.</p>
+        </div>
+      </details>
+
+      <!-- Q2 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What is 100000000000000000000 in words?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>100,000,000,000,000,000,000</strong> (that's 1 followed by 20 zeros) is read as <strong>One Hundred Quintillion</strong> in the International number system.</p>
+          <p>In the Indian number system, this number is formatted as <strong>1,00,00,00,00,00,00,00,00,000</strong> and is called <strong>One Shankh</strong> (also written as 10 Arab &times; 10 Lakh Crore). The Indian system uses the first-three-then-pairs comma grouping from the right.</p>
+        </div>
+      </details>
+
+      <!-- Q3 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">How do I convert my number to an international number?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>Converting a number to the International format is simple:</p>
+          <ol class="faq-steps">
+            <li>Write the number without any commas.</li>
+            <li>Starting from the <strong>rightmost digit</strong>, insert a comma after every <strong>three digits</strong>.</li>
+            <li>Read each comma-separated group using International names (Thousand, Million, Billion, Trillion).</li>
+          </ol>
+          <p class="faq-example">Example: 5000000 &rarr; <strong>5,000,000</strong> &rarr; Five Million.</p>
+          <p>The converter on this page handles this automatically — just type your number and see both International and Indian formats side by side.</p>
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What is 1000000000 in words in Indian?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>1,000,000,000</strong> (1 Billion in the International system) is read as <strong>One Arab</strong> in the Indian number system.</p>
+          <p>In Indian formatting, this is written as <strong>1,00,00,00,000</strong> &rarr; One Arab. Equivalently, 1 Arab = 100 Crore = 1,000 Million = 1 Billion.</p>
+        </div>
+      </details>
+
+      <!-- Q5 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What are the 4 types of number system?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>The four fundamental types of numeral systems (based on their base/radix) are:</p>
+          <ol class="faq-steps">
+            <li><strong>Decimal (Base-10)</strong> &mdash; Uses digits 0&ndash;9. This is the everyday number system we use for counting and arithmetic.</li>
+            <li><strong>Binary (Base-2)</strong> &mdash; Uses only 0 and 1. The foundation of all digital computing.</li>
+            <li><strong>Octal (Base-8)</strong> &mdash; Uses digits 0&ndash;7. Historically used in computing as a shorthand for binary.</li>
+            <li><strong>Hexadecimal (Base-16)</strong> &mdash; Uses digits 0&ndash;9 and letters A&ndash;F. Widely used in programming, color codes, and memory addressing.</li>
+          </ol>
+          <p><em>Note:</em> Don't confuse these numeral base systems with the <strong>Indian vs International naming conventions</strong> (Lakh/Crore vs Million/Billion) &mdash; both are base-10 systems that simply group and name large numbers differently.</p>
+        </div>
+      </details>
+
+      <!-- Q6 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What is 78921092 in words international system?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>78,921,092</strong> in the International system is read as:</p>
+          <p class="faq-highlight"><strong>Seventy-Eight Million Nine Hundred Twenty-One Thousand Ninety-Two</strong></p>
+          <p>In the Indian system, the same number is <strong>7,89,21,092</strong> &rarr; Seven Crore Eighty-Nine Lakh Twenty-One Thousand Ninety-Two.</p>
+        </div>
+      </details>
+
+      <!-- Q7 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">How do you say this number 13170000000000000000000000?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>The number <strong>13,170,000,000,000,000,000,000,000</strong> (13.17 &times; 10<sup>24</sup>) is read as:</p>
+          <p class="faq-highlight"><strong>Thirteen Septillion One Hundred Seventy Sextillion</strong></p>
+          <p>Breaking it down: 13 septillion + 170 sextillion. A septillion is 10<sup>24</sup> (1 followed by 24 zeros). This number is vastly larger than a trillion (10<sup>12</sup>) or even a quadrillion (10<sup>15</sup>).</p>
+        </div>
+      </details>
+
+      <!-- Q8 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">Does 1 zillion exist?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>No, "zillion" is not a real number.</strong> It's an informal, humorous word used to describe an arbitrarily large, indeterminate number &mdash; similar to "bazillion," "gazillion," or "jillion."</p>
+          <p>The real number scale in the International system follows this progression:</p>
+          <p class="faq-highlight">Million (10<sup>6</sup>) &rarr; Billion (10<sup>9</sup>) &rarr; Trillion (10<sup>12</sup>) &rarr; Quadrillion (10<sup>15</sup>) &rarr; Quintillion (10<sup>18</sup>) &rarr; Sextillion (10<sup>21</sup>) &rarr; Septillion (10<sup>24</sup>) &rarr; &hellip;</p>
+          <p>Each named number is exactly 1,000 times the previous one in the short-scale system used in English-speaking countries.</p>
+        </div>
+      </details>
+
+      <!-- Q9 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">How to write 20 billion in numbers?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>20 Billion</strong> in the International number system is written as:</p>
+          <p class="faq-highlight"><strong>20,000,000,000</strong></p>
+          <p>That's 20 followed by 9 zeros (10 digits total). In the Indian system, 20 Billion equals <strong>2 Arab</strong> and is written as <strong>2,00,00,00,000</strong>.</p>
+        </div>
+      </details>
+
+      <!-- Q10 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">Who is bigger, 1 trillion or 1 billion?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>1 Trillion is 1,000 times bigger than 1 Billion.</strong></p>
+          <p class="faq-highlight">1 Trillion = 1,000,000,000,000 &nbsp;vs&nbsp; 1 Billion = 1,000,000,000</p>
+          <p>In the Indian system: 1 Trillion = 1 Lakh Crore (or 10 Shankh-scale), while 1 Billion = 1 Arab. To put it in perspective, if you had 1 billion seconds, that's about 31.7 years. 1 trillion seconds would be about 31,700 years.</p>
+        </div>
+      </details>
+
+      <!-- Q11 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What is 20000000 in number names?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>20,000,000</strong> in the International system is called:</p>
+          <p class="faq-highlight"><strong>Twenty Million</strong></p>
+          <p>In the Indian number system, this is <strong>2,00,00,000</strong> &rarr; <strong>Two Crore</strong>. So 20 Million = 2 Crore.</p>
+        </div>
+      </details>
+
+      <!-- Q12 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">Is 100 lakh is 1 billion?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>No, 100 Lakh is not 1 Billion.</strong> Here's the correct conversion:</p>
+          <ul class="faq-bullets">
+            <li><strong>100 Lakh = 1 Crore = 10 Million</strong></li>
+            <li><strong>1 Billion = 100 Crore = 1 Arab</strong></li>
+          </ul>
+          <p>So 1 Billion (1,000,000,000) is actually equal to <strong>10,000 Lakh</strong>, not 100 Lakh. 100 Lakh only gets you to 1 Crore (10,000,000), which is ten times smaller than 1 Billion.</p>
+        </div>
+      </details>
+
+      <!-- Q13 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">How many zeros are in 20 trillion?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>20 Trillion</strong> has <strong>12 zeros</strong> after the 2:</p>
+          <p class="faq-highlight">20,000,000,000,000</p>
+          <p>The number is 13 digits long in total. In scientific notation, 20 trillion = 2 &times; 10<sup>13</sup>.</p>
+        </div>
+      </details>
+
+      <!-- Q14 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What number is this 100000000000000000000000000000000?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>This is <strong>1 followed by 32 zeros</strong>, which equals 10<sup>32</sup>:</p>
+          <p class="faq-highlight"><strong>100 Nonillion</strong> (in the short-scale International system)</p>
+          <p>The naming progression for very large numbers: Million (10<sup>6</sup>) &rarr; Billion (10<sup>9</sup>) &rarr; Trillion (10<sup>12</sup>) &rarr; Quadrillion (10<sup>15</sup>) &rarr; Quintillion (10<sup>18</sup>) &rarr; Sextillion (10<sup>21</sup>) &rarr; Septillion (10<sup>24</sup>) &rarr; Octillion (10<sup>27</sup>) &rarr; Nonillion (10<sup>30</sup>) &rarr; Decillion (10<sup>33</sup>). Since this number has 33 digits, it's 100 &times; 10<sup>30</sup> = 100 Nonillion.</p>
+        </div>
+      </details>
+
+      <!-- Q15 -->
+      <details class="faq-item card shadow-level-2">
+        <summary class="faq-question">
+          <h3 class="faq-question-text">What is 40 trillion in numbers?</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>40 Trillion</strong> in the International number system is:</p>
+          <p class="faq-highlight"><strong>40,000,000,000,000</strong></p>
+          <p>That's 40 followed by 12 zeros (14 digits total). In the Indian number system, 40 Trillion is formatted as <strong>40,00,000,00,00,000</strong> and equals approximately <strong>4 Shankh</strong> (4 &times; 10<sup>11</sup> = 4,00,00,00,00,000 per Shankh).</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    max-width: 800px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  /* ── Accordion Item ── */
+  .faq-item {
+    overflow: hidden;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .faq-item:hover {
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0px 2px 2px rgba(0, 0, 0, 0.04),
+      0px 8px 8px -8px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .faq-item:hover {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0px 2px 2px rgba(0, 0, 0, 0.4),
+      0px 8px 8px -8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ── Question (Summary) ── */
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  /* ── Toggle Icon (+ / −) ── */
+  .faq-toggle {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .faq-toggle::before,
+  .faq-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--color-mute);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  /* Horizontal bar */
+  .faq-toggle::before {
+    width: 12px;
+    height: 2px;
+  }
+
+  /* Vertical bar (the "+" part) */
+  .faq-toggle::after {
+    width: 2px;
+    height: 12px;
+  }
+
+  /* When open, rotate vertical bar to form "−" */
+  .faq-item[open] .faq-toggle::after {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .faq-item[open] .faq-toggle {
+    background: var(--color-link-bg-soft);
+    border-color: var(--color-link);
+  }
+
+  .faq-item[open] .faq-toggle::before {
+    background: var(--color-link);
+  }
+
+  /* ── Answer ── */
+  .faq-answer {
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+  }
+
+  .faq-answer p {
+    color: var(--color-body);
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .faq-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-answer strong {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .faq-answer em {
+    font-style: italic;
+    color: var(--color-mute);
+  }
+
+  /* Highlighted answer value */
+  .faq-highlight {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-link-bg-soft);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-link-deep);
+    margin: var(--spacing-sm) 0;
+  }
+
+  .dark .faq-highlight {
+    color: var(--color-link);
+  }
+
+  /* Inline example */
+  .faq-example {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--color-ink);
+  }
+
+  /* Ordered steps */
+  .faq-steps {
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-sm) 0;
+    color: var(--color-body);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .faq-steps li {
+    margin-bottom: var(--spacing-xxs);
+  }
+
+  .faq-steps strong {
+    color: var(--color-ink);
+  }
+
+  /* Bullet lists */
+  .faq-bullets {
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-sm) 0;
+    color: var(--color-body);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .faq-bullets li {
+    margin-bottom: var(--spacing-xxs);
+  }
+
+  .faq-bullets strong {
+    color: var(--color-ink);
+  }
+
+  /* Divider between Q and A */
+  .faq-item[open] .faq-question {
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .faq-question-text {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.28px;
+    }
+
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+    }
+
+    .faq-toggle::before {
+      width: 10px;
+      height: 2px;
+    }
+
+    .faq-toggle::after {
+      width: 2px;
+      height: 10px;
+    }
+
+    .faq-answer {
+      padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-lg);
+    }
+  }
+</style>

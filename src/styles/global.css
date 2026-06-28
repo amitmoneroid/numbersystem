@@ -1,0 +1,408 @@
+@import "tailwindcss";
+
+/* ── Vercel-inspired Design Tokens ── */
+@theme {
+  /* Fonts */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Brand & Accent Colors */
+  --color-ink: #171717;
+  --color-on-primary: #ffffff;
+  --color-body: #4d4d4d;
+  --color-mute: #888888;
+  --color-hairline: #ebebeb;
+  --color-hairline-strong: #a1a1a1;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #fafafa;
+  --color-canvas-soft-2: #f5f5f5;
+  --color-link: #0070f3;
+  --color-link-deep: #0761d1;
+  --color-link-bg-soft: #d3e5ff;
+  --color-success: #0070f3;
+  --color-error: #ee0000;
+  --color-error-soft: #f7d4d6;
+  --color-warning: #f5a623;
+  --color-warning-soft: #ffefcf;
+  --color-violet: #7928ca;
+  --color-violet-soft: #d8ccf1;
+  --color-cyan: #50e3c2;
+  --color-cyan-soft: #aaffec;
+  --color-highlight-pink: #ff0080;
+  --color-highlight-magenta: #eb367f;
+
+  /* Gradient endpoints */
+  --color-gradient-develop-start: #007cf0;
+  --color-gradient-develop-end: #00dfd8;
+  --color-gradient-preview-start: #7928ca;
+  --color-gradient-preview-end: #ff0080;
+  --color-gradient-ship-start: #ff4d4d;
+  --color-gradient-ship-end: #f9cb28;
+  --color-selection-bg: #171717;
+  --color-selection-fg: #f2f2f2;
+
+  /* Spacing (4px base) */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+  --spacing-6xl: 128px;
+  --spacing-section: 192px;
+
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill-sm: 64px;
+  --radius-pill: 100px;
+  --radius-full: 9999px;
+
+  /* Page width */
+  --container-max: 1200px;
+}
+
+/* ── Dark Mode Token Overrides ── */
+.dark {
+  --color-ink: #ededed;
+  --color-on-primary: #ffffff;
+  --color-body: #a1a1a1;
+  --color-mute: #666666;
+  --color-hairline: #2e2e2e;
+  --color-hairline-strong: #444444;
+  --color-canvas: #0a0a0a;
+  --color-canvas-soft: #111111;
+  --color-canvas-soft-2: #1a1a1a;
+  --color-link: #4da6ff;
+  --color-link-deep: #79bfff;
+  --color-link-bg-soft: #1a3a5c;
+  --color-error: #ff4444;
+  --color-error-soft: #5c1a1a;
+  --color-warning: #f5a623;
+  --color-warning-soft: #5c4515;
+  --color-violet: #9b5de5;
+  --color-violet-soft: #2a1f3d;
+  --color-cyan: #50e3c2;
+  --color-cyan-soft: #1a3d35;
+  --color-selection-bg: #ededed;
+  --color-selection-fg: #0a0a0a;
+}
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-canvas-soft);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-fg);
+}
+
+/* ── Typography Classes ── */
+.display-xl {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+}
+
+.display-lg {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -1.28px;
+}
+
+.display-md {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.96px;
+}
+
+.display-sm {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.6px;
+}
+
+.body-lg {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.body-md {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.body-md-strong {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.body-sm {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.body-sm-strong {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.caption {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.caption-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* ── Vercel Mesh Gradient (hero atmospheric backdrop) ── */
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 124, 240, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(0, 223, 216, 0.12) 0%, transparent 40%),
+    radial-gradient(ellipse 50% 35% at 70% 10%, rgba(121, 40, 202, 0.12) 0%, transparent 40%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(255, 0, 128, 0.10) 0%, transparent 35%),
+    radial-gradient(ellipse 35% 25% at 20% 30%, rgba(249, 203, 40, 0.08) 0%, transparent 30%);
+}
+
+.dark .mesh-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 124, 240, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(0, 223, 216, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse 50% 35% at 70% 10%, rgba(121, 40, 202, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(255, 0, 128, 0.05) 0%, transparent 35%),
+    radial-gradient(ellipse 35% 25% at 20% 30%, rgba(249, 203, 40, 0.04) 0%, transparent 30%);
+}
+
+/* ── Stacked Shadow System (Vercel) ── */
+.shadow-level-1 {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.dark .shadow-level-1 {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.shadow-level-2 {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 2px 2px rgba(0, 0, 0, 0.04);
+}
+
+.dark .shadow-level-2 {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.3),
+    0px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.shadow-level-3 {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    0px 8px 8px -8px rgba(0, 0, 0, 0.04);
+}
+
+.dark .shadow-level-3 {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0px 2px 2px rgba(0, 0, 0, 0.4),
+    0px 8px 8px -8px rgba(0, 0, 0, 0.5);
+}
+
+.shadow-level-4 {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    0px 8px 16px -4px rgba(0, 0, 0, 0.04);
+}
+
+.dark .shadow-level-4 {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0px 2px 2px rgba(0, 0, 0, 0.4),
+    0px 8px 16px -4px rgba(0, 0, 0, 0.5);
+}
+
+.shadow-level-5 {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 8px 16px -4px rgba(0, 0, 0, 0.04),
+    0px 24px 32px -8px rgba(0, 0, 0, 0.06);
+}
+
+.dark .shadow-level-5 {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.3),
+    0px 8px 16px -4px rgba(0, 0, 0, 0.5),
+    0px 24px 32px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Responsive Typography ── */
+@media (max-width: 600px) {
+  .display-xl {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -1.6px;
+  }
+  .display-lg {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.96px;
+  }
+}
+
+/* ── Base Interactive Styles ── */
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-link-deep);
+}
+
+/* ── Page Container ── */
+.page-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--spacing-lg);
+}
+
+@media (max-width: 600px) {
+  .page-container {
+    padding-inline: var(--spacing-md);
+  }
+}
+
+/* ── Eyebrow / Mono Label ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-body);
+}
+
+/* ── Section Band Utilities ── */
+.band-canvas-soft {
+  background-color: var(--color-canvas-soft);
+}
+
+.band-canvas {
+  background-color: var(--color-canvas);
+}
+
+.band-ink {
+  background-color: var(--color-ink);
+  color: var(--color-on-primary);
+}
+
+.dark .band-ink {
+  background-color: #171717;
+  color: #ededed;
+}
+
+/* ── Table Styling ── */
+.reference-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.reference-table th {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--color-mute);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dark .reference-table th {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #888;
+}
+
+.reference-table td {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 14px;
+}
+
+.dark .reference-table td {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.reference-table tr:last-child td {
+  border-bottom: none;
+}
+
+.reference-table .num-intl {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.reference-table .num-indian {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-cyan);
+}
+
+.reference-table .scale-name {
+  font-weight: 500;
+}
