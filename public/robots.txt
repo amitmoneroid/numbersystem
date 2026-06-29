@@ -1,0 +1,8 @@
+# robots.txt for Number System Converter
+# https://numbersystemconverter.com/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://numbersystemconverter.com/sitemap.xml
