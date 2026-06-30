@@ -9,111 +9,128 @@ import FAQ from '../components/FAQ.astro';
   <Navbar />
 
   <main>
-    <!-- ═══════════════ HERO BAND ═══════════════ -->
-    <section class="hero-band mesh-gradient">
-      <div class="page-container hero-content">
-        <span class="eyebrow hero-eyebrow">Number System Converter</span>
-        <h1 class="display-xl hero-headline">
-          Convert numbers between International and Indian systems.
-        </h1>
-        <p class="body-lg hero-lead">
-          Enter any number to instantly see its representation in both International (Western) and Indian numbering formats, with full word expansion and side-by-side comparison.
-        </p>
-        <div class="hero-ctas">
-          <a href="#converter" class="btn btn-primary">Start Converting</a>
-          <a href="#how-it-works" class="btn btn-secondary">Learn How</a>
-        </div>
-      </div>
-    </section>
+    <!-- ═══════════════ CONVERTER (TOP OF PAGE) ═══════════════ -->
+    <section class="converter-hero mesh-gradient" id="converter">
+      <div class="page-container converter-container">
 
-    <!-- ═══════════════ CONVERTER SECTION ═══════════════ -->
-    <section id="converter" class="band-canvas-soft section-band">
-      <div class="page-container">
-        <div class="section-header">
-          <span class="eyebrow">Converter</span>
-          <h2 class="display-lg">Enter any number to see both representations.</h2>
-        </div>
-
-        <!-- Input Card -->
+        <!-- Converter Card -->
         <div class="converter-card card shadow-level-3">
-          <label for="numInput" class="body-sm-strong input-label">Enter a Number</label>
-          <div class="input-row">
-            <input
-              type="text"
-              id="numInput"
-              class="converter-input"
-              placeholder="e.g. 1000000"
-              inputmode="numeric"
-              autocomplete="off"
-            />
-            <button id="clearBtn" class="clear-btn" title="Clear input">&times;</button>
+          <!-- Title inside card -->
+          <div class="converter-header">
+            <h1 class="converter-title">Number System Converter</h1>
+            <p class="converter-lead">Convert between Indian & International number systems</p>
           </div>
+
+          <!-- Row 1: Amount + From Unit -->
+          <div class="converter-input-row">
+            <div class="field-group field-amount">
+              <label for="numInput" class="body-sm-strong field-label">Amount</label>
+              <input
+                type="text"
+                id="numInput"
+                class="converter-input"
+                placeholder="e.g. 5.4"
+                inputmode="decimal"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field-group field-scale">
+              <label for="fromScale" class="body-sm-strong field-label">From</label>
+              <select id="fromScale" class="scale-select">
+                <optgroup label="International System">
+                  <option value="1e3">Thousand</option>
+                  <option value="1e6">Million</option>
+                  <option value="1e9" selected>Billion</option>
+                  <option value="1e12">Trillion</option>
+                  <option value="1e15">Quadrillion</option>
+                  <option value="1e18">Quintillion</option>
+                </optgroup>
+                <optgroup label="Indian System">
+                  <option value="1e5">Lakh</option>
+                  <option value="1e7">Crore</option>
+                  <option value="1e9">Arab</option>
+                  <option value="1e11">Kharab</option>
+                  <option value="1e13">Neel</option>
+                  <option value="1e15">Padma</option>
+                  <option value="1e17">Shankh</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
           <div id="inputError" class="input-error"></div>
 
+          <!-- Row 2: Target System Toggle -->
+          <div class="target-system-row">
+            <span class="target-label">Convert to:</span>
+            <div class="system-toggle" role="radiogroup" aria-label="Target number system">
+              <button class="system-pill active" data-system="ind" role="radio" aria-checked="true">
+                Indian System
+              </button>
+              <button class="system-pill" data-system="intl" role="radio" aria-checked="false">
+                International System
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Example Chips -->
           <div class="chips-row">
-            <span class="chips-label">Quick examples:</span>
+            <span class="chips-label">Try:</span>
             <div class="chips">
-              <button class="chip" data-value="1000">1 Thousand</button>
-              <button class="chip" data-value="100000">1 Lakh</button>
-              <button class="chip" data-value="1000000">1 Million</button>
-              <button class="chip" data-value="10000000">1 Crore</button>
-              <button class="chip" data-value="1000000000">1 Billion</button>
-              <button class="chip" data-value="100000000000">1 Shankh</button>
+              <button class="chip" data-value="1" data-from="1e3">1 Thousand</button>
+              <button class="chip" data-value="1" data-from="1e5">1 Lakh</button>
+              <button class="chip" data-value="1" data-from="1e6">1 Million</button>
+              <button class="chip" data-value="1" data-from="1e7">1 Crore</button>
+              <button class="chip" data-value="5.4" data-from="1e9">5.4 Billion</button>
+              <button class="chip" data-value="1" data-from="1e12">1 Trillion</button>
+              <button class="chip" data-value="1" data-from="1e17">1 Shankh</button>
+            </div>
+          </div>
+
+          <!-- ═══════ RESULTS ═══════ -->
+          <div id="resultsArea" class="results-area hidden">
+            <!-- Separator -->
+            <div class="results-divider"></div>
+
+            <!-- Best Fit Highlight -->
+            <div id="bestFitCard" class="best-fit-card">
+              <div class="best-fit-value code" id="bestFitValue">—</div>
+              <div class="best-fit-subtitle body-sm" id="bestFitSubtitle">—</div>
+            </div>
+
+            <!-- All Representations Table -->
+            <div class="representations-section">
+              <h3 class="representations-title body-sm-strong" id="representationsTitle">—</h3>
+              <div class="representations-grid" id="representationsGrid">
+              </div>
+            </div>
+
+            <!-- Full Number Display -->
+            <div class="full-number-section">
+              <div class="number-format-group">
+                <div class="number-format-row">
+                  <span class="number-format-label">International</span>
+                  <span class="number-format-value code" id="fullIntlNumber">—</span>
+                  <button class="copy-btn" data-target="fullIntlNumber" title="Copy" aria-label="Copy international formatted number">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="number-words body-sm" id="intlWords">—</div>
+              </div>
+              <div class="number-format-group">
+                <div class="number-format-row">
+                  <span class="number-format-label">Indian</span>
+                  <span class="number-format-value code" id="fullIndNumber">—</span>
+                  <button class="copy-btn" data-target="fullIndNumber" title="Copy" aria-label="Copy Indian formatted number">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="number-words body-sm" id="indWords">—</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Results Area -->
-        <div id="resultsArea" class="results-area hidden">
-          <!-- Equivalency Banner -->
-          <div id="equivalencyBanner" class="equivalency-banner"></div>
-
-          <div class="results-grid">
-            <!-- International Result Card -->
-            <div class="result-card card shadow-level-2">
-              <div class="result-card-header">
-                <span class="result-badge result-badge-intl">International</span>
-                <span class="result-subtitle">Multiples of 1,000</span>
-              </div>
-              <div class="result-number code" id="intFormatted">—</div>
-              <div class="result-name body-lg" id="intName">—</div>
-            </div>
-
-            <!-- Indian Result Card -->
-            <div class="result-card card shadow-level-2">
-              <div class="result-card-header">
-                <span class="result-badge result-badge-ind">Indian</span>
-                <span class="result-subtitle">Multiples of 100</span>
-              </div>
-              <div class="result-number code" id="indFormatted">—</div>
-              <div class="result-name body-lg" id="indName">—</div>
-            </div>
-          </div>
-
-          <!-- Breakdown Insight Table -->
-          <div class="insight-card card shadow-level-2">
-            <div class="insight-header">
-              <span class="insight-icon">&#128161;</span>
-              <h3 class="display-sm">Breakdown</h3>
-            </div>
-            <p class="body-sm insight-desc">
-              International number system counts in multiples of <strong>thousands</strong> while Indian number system counts in multiples of <strong>hundreds</strong>. See how the same value groups differently:
-            </p>
-            <div class="insight-table-wrapper">
-              <table class="insight-table" id="insightTable">
-                <thead>
-                  <tr>
-                    <th>Scale</th>
-                    <th>International</th>
-                    <th>Indian</th>
-                  </tr>
-                </thead>
-                <tbody id="insightBody">
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -150,7 +167,7 @@ import FAQ from '../components/FAQ.astro';
             </div>
             <h3 class="display-sm">Multiples of Hundreds</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              The Indian system groups the first three digits from the right, then every two digits after that. Each new name represents a hundred times the previous: <strong>Lakh</strong> (10&sup5;), <strong>Crore</strong> (10&sup7;), <strong>Arab</strong> (10&sup9;), <strong>Shankh</strong> (10&sup1;&sup1;).
+              The Indian system groups the first three digits from the right, then every two digits after that. Each new name represents a hundred times the previous: <strong>Lakh</strong> (10&sup5;), <strong>Crore</strong> (10&sup7;), <strong>Arab</strong> (10&sup9;), <strong>Shankh</strong> (10&sup1;&sup7;).
             </p>
             <div class="feature-example code">
               1,00,00,00,000 &rarr; One Arab
@@ -240,18 +257,32 @@ import FAQ from '../components/FAQ.astro';
                 <td class="num-indian">1,00,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup1;&sup0;</td>
-                <td>Ten Billion</td>
-                <td class="num-intl">10,000,000,000</td>
-                <td>Ten Arab</td>
-                <td class="num-indian">10,00,00,00,000</td>
-              </tr>
-              <tr>
                 <td class="scale-name">10&sup1;&sup1;</td>
                 <td>Hundred Billion</td>
                 <td class="num-intl">100,000,000,000</td>
-                <td>Shankh</td>
+                <td>Kharab</td>
                 <td class="num-indian">1,00,00,00,00,000</td>
+              </tr>
+              <tr>
+                <td class="scale-name">10&sup1;&sup3;</td>
+                <td>Ten Trillion</td>
+                <td class="num-intl">10,000,000,000,000</td>
+                <td>Neel</td>
+                <td class="num-indian">1,00,00,00,00,00,000</td>
+              </tr>
+              <tr>
+                <td class="scale-name">10&sup1;&sup5;</td>
+                <td>Quadrillion</td>
+                <td class="num-intl">1,000,000,000,000,000</td>
+                <td>Padma</td>
+                <td class="num-indian">1,00,00,00,00,00,00,000</td>
+              </tr>
+              <tr>
+                <td class="scale-name">10&sup1;&sup7;</td>
+                <td>Hundred Quadrillion</td>
+                <td class="num-intl">100,000,000,000,000,000</td>
+                <td>Shankh</td>
+                <td class="num-indian">1,00,00,00,00,00,00,00,000</td>
               </tr>
             </tbody>
           </table>
@@ -268,15 +299,59 @@ import FAQ from '../components/FAQ.astro';
 <script>
   // ── DOM Elements ──
   const numInput = document.getElementById('numInput') as HTMLInputElement;
-  const clearBtn = document.getElementById('clearBtn') as HTMLButtonElement;
+  const fromScale = document.getElementById('fromScale') as HTMLSelectElement;
   const inputError = document.getElementById('inputError') as HTMLDivElement;
   const resultsArea = document.getElementById('resultsArea') as HTMLDivElement;
-  const intFormatted = document.getElementById('intFormatted') as HTMLDivElement;
-  const intName = document.getElementById('intName') as HTMLDivElement;
-  const indFormatted = document.getElementById('indFormatted') as HTMLDivElement;
-  const indName = document.getElementById('indName') as HTMLDivElement;
-  const equivalencyBanner = document.getElementById('equivalencyBanner') as HTMLDivElement;
-  const insightBody = document.getElementById('insightBody') as HTMLTableSectionElement;
+
+  // Results
+  const bestFitValue = document.getElementById('bestFitValue') as HTMLDivElement;
+  const bestFitSubtitle = document.getElementById('bestFitSubtitle') as HTMLDivElement;
+  const representationsTitle = document.getElementById('representationsTitle') as HTMLHeadingElement;
+  const representationsGrid = document.getElementById('representationsGrid') as HTMLDivElement;
+  const fullIntlNumber = document.getElementById('fullIntlNumber') as HTMLDivElement;
+  const fullIndNumber = document.getElementById('fullIndNumber') as HTMLDivElement;
+  const intlWords = document.getElementById('intlWords') as HTMLDivElement;
+  const indWords = document.getElementById('indWords') as HTMLDivElement;
+
+  // ── State ──
+  let targetSystem: 'ind' | 'intl' = 'ind'; // Default to Indian system
+
+  // ── Scale Data ──
+  const intlScales = [
+    { multiplier: 1e18, name: 'Quintillion' },
+    { multiplier: 1e15, name: 'Quadrillion' },
+    { multiplier: 1e12, name: 'Trillion' },
+    { multiplier: 1e9,  name: 'Billion' },
+    { multiplier: 1e6,  name: 'Million' },
+    { multiplier: 1e3,  name: 'Thousand' },
+  ];
+
+  const indScales = [
+    { multiplier: 1e17, name: 'Shankh' },
+    { multiplier: 1e15, name: 'Padma' },
+    { multiplier: 1e13, name: 'Neel' },
+    { multiplier: 1e11, name: 'Kharab' },
+    { multiplier: 1e9,  name: 'Arab' },
+    { multiplier: 1e7,  name: 'Crore' },
+    { multiplier: 1e5,  name: 'Lakh' },
+  ];
+
+  // Map from select value to system type
+  const internationalMultipliers = [1e3, 1e6, 1e9, 1e12, 1e15, 1e18];
+  const indianMultipliers = [1e5, 1e7, 1e9, 1e11, 1e13, 1e15, 1e17];
+
+  function getFromSystem(multiplier: number): 'intl' | 'ind' {
+    // Indian-exclusive multipliers (not shared with International)
+    if ([1e5, 1e7, 1e11, 1e13, 1e17].includes(multiplier)) return 'ind';
+    // International-exclusive multipliers (not shared with Indian)
+    if ([1e3, 1e6, 1e12, 1e18].includes(multiplier)) return 'intl';
+    // Shared: 1e9 and 1e15 — use the optgroup label from select
+    // Since we can't easily get the optgroup, default: these are ambiguous,
+    // but practically "Billion" is Intl, "Arab" is Ind.
+    // The select has them in both optgroups with same value.
+    // Default to intl for 1e9 and 1e15 if we can't determine.
+    return 'intl';
+  }
 
   // ── Number Words Helpers ──
   const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
@@ -297,16 +372,18 @@ import FAQ from '../components/FAQ.astro';
     return ones[h] + ' Hundred' + (r ? ' ' + convertUnder100(r) : '');
   }
 
-  // ── International Number to Words (groups of 1,000) ──
+  // ── International Number to Words ──
   function numberToWordsInternational(num: number): string {
     if (num === 0) return 'Zero';
     const scales = [
+      { value: 1e18, name: 'Quintillion' },
+      { value: 1e15, name: 'Quadrillion' },
       { value: 1e12, name: 'Trillion' },
       { value: 1e9,  name: 'Billion' },
       { value: 1e6,  name: 'Million' },
       { value: 1e3,  name: 'Thousand' },
     ];
-    let n = num;
+    let n = Math.floor(num);
     let result = '';
     for (const scale of scales) {
       if (n >= scale.value) {
@@ -322,16 +399,19 @@ import FAQ from '../components/FAQ.astro';
     return result.trim();
   }
 
-  // ── Indian Number to Words (groups of 100 after lakh) ──
+  // ── Indian Number to Words ──
   function numberToWordsIndian(num: number): string {
     if (num === 0) return 'Zero';
     const scales = [
-      { value: 1e11, name: 'Shankh' },  // 100 Arab
-      { value: 1e9,  name: 'Arab' },    // 100 Crore
-      { value: 1e7,  name: 'Crore' },   // 100 Lakh
-      { value: 1e5,  name: 'Lakh' },    // 100 Thousand
+      { value: 1e17, name: 'Shankh' },
+      { value: 1e15, name: 'Padma' },
+      { value: 1e13, name: 'Neel' },
+      { value: 1e11, name: 'Kharab' },
+      { value: 1e9,  name: 'Arab' },
+      { value: 1e7,  name: 'Crore' },
+      { value: 1e5,  name: 'Lakh' },
     ];
-    let n = num;
+    let n = Math.floor(num);
     let result = '';
     for (const scale of scales) {
       if (n >= scale.value) {
@@ -341,14 +421,12 @@ import FAQ from '../components/FAQ.astro';
         if (n > 0) result += ' ';
       }
     }
-    // Thousands (1–99)
     if (n >= 1000) {
       const chunk = Math.floor(n / 1000);
       n = n % 1000;
       result += convertUnder100(chunk) + ' Thousand';
       if (n > 0) result += ' ';
     }
-    // Hundreds, tens, ones (0–999)
     if (n > 0) {
       result += convertUnder1000(n);
     }
@@ -357,8 +435,8 @@ import FAQ from '../components/FAQ.astro';
 
   // ── Number Formatting ──
   function formatInternational(num: number): string {
-    // Group every 3 digits from right
-    const str = num.toString();
+    if (num === 0) return '0';
+    const str = Math.floor(num).toString();
     let result = '';
     let count = 0;
     for (let i = str.length - 1; i >= 0; i--) {
@@ -370,10 +448,11 @@ import FAQ from '../components/FAQ.astro';
   }
 
   function formatIndian(num: number): string {
-    const str = num.toString();
+    if (num === 0) return '0';
+    const str = Math.floor(num).toString();
     if (str.length <= 3) return str;
 
-    let result = str.slice(-3); // Last 3 digits
+    let result = str.slice(-3);
     let remaining = str.slice(0, -3);
 
     while (remaining.length > 2) {
@@ -388,388 +467,272 @@ import FAQ from '../components/FAQ.astro';
     return result;
   }
 
-  // ── Get Equivalent Name (for equivalency banner) ──
-  function getEquivalency(num: number): string {
-    const intlName = numberToWordsInternational(num);
-    const indName = numberToWordsIndian(num);
+  // ── Format a value for display in a scale (handles decimals nicely) ──
+  function formatScaledValue(value: number): string {
+    if (value === 0) return '0';
 
-    // Only show equivalency if both names are non-trivial (i.e., different from just the number)
-    if (num < 1000) {
-      return `${intlName}`;
+    const absVal = Math.abs(value);
+
+    if (absVal >= 1) {
+      // Integer or mixed number
+      if (Number.isInteger(value)) {
+        return value.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+      }
+      // Decimal — show up to 4 decimal places, strip trailing zeros
+      const fixed = value.toFixed(4);
+      const stripped = parseFloat(fixed).toString();
+      // Add commas to the integer part
+      const parts = stripped.split('.');
+      const intPart = parseInt(parts[0]).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+      return parts.length > 1 ? `${intPart}.${parts[1]}` : intPart;
     }
 
-    // Find matching major scale names
-    const intlScales: { value: number; name: string }[] = [
-      { value: 1e12, name: 'Trillion' },
-      { value: 1e9,  name: 'Billion' },
-      { value: 1e6,  name: 'Million' },
-      { value: 1e3,  name: 'Thousand' },
-    ];
-    const indScales: { value: number; name: string }[] = [
-      { value: 1e11, name: 'Shankh' },
-      { value: 1e9,  name: 'Arab' },
-      { value: 1e7,  name: 'Crore' },
-      { value: 1e5,  name: 'Lakh' },
-    ];
-
-    // Build a natural equivalency string
-    for (const is of intlScales) {
-      if (num === is.value) {
-        const indEquiv = numberToWordsIndian(num);
-        return `1 ${is.name} = ${indEquiv}`;
-      }
-      if (num === is.value * 10) {
-        return `10 ${is.name} = ${indName}`;
-      }
-      if (num === is.value * 100) {
-        return `100 ${is.name} = ${indName}`;
-      }
-    }
-    for (const is of indScales) {
-      if (num === is.value) {
-        const intlEquiv = numberToWordsInternational(num);
-        return `1 ${is.name} = ${intlEquiv}`;
-      }
-      if (num === is.value * 10) {
-        return `10 ${is.name} = ${intlName}`;
-      }
-      if (num === is.value * 100) {
-        return `100 ${is.name} = ${intlName}`;
-      }
-    }
-
-    // For arbitrary numbers, show both names
-    if (intlName !== indName) {
-      return `${intlName} = ${indName}`;
-    }
-    return intlName;
+    // Very small numbers — show up to 6 significant digits
+    const formatted = value.toPrecision(6);
+    // Strip trailing zeros after decimal
+    return parseFloat(formatted).toString();
   }
 
-  // ── Build Insight Table ──
-  function buildInsightTable(num: number): void {
-    const rows: { scale: string; intl: string; indian: string }[] = [];
-
-    // Define all scales that are <= the input number
-    const scaleMap = [
-      { exponent: 12, intlName: 'Trillion',  indDivisor: 1e11, indName: 'Shankh' },
-      { exponent: 11, intlName: '—',         indDivisor: 1e11, indName: 'Shankh' },
-      { exponent: 10, intlName: '—',         indDivisor: 1e9,  indName: 'Arab' },
-      { exponent: 9,  intlName: 'Billion',   indDivisor: 1e9,  indName: 'Arab' },
-      { exponent: 8,  intlName: '—',         indDivisor: 1e7,  indName: 'Crore' },
-      { exponent: 7,  intlName: '—',         indDivisor: 1e7,  indName: 'Crore' },
-      { exponent: 6,  intlName: 'Million',   indDivisor: 1e5,  indName: 'Lakh' },
-      { exponent: 5,  intlName: '—',         indDivisor: 1e5,  indName: 'Lakh' },
-      { exponent: 3,  intlName: 'Thousand',  indDivisor: 1e3,  indName: 'Thousand' },
-    ];
-
-    for (const s of scaleMap) {
-      const val = Math.pow(10, s.exponent);
-      let intlChunk = 0;
-      let indChunk = 0;
-
-      // Don't show scales larger than the number unless it's the exact match or within range
-      if (val > num) continue;
-
-      // For international: groups of 3 from right
-      if (s.intlName !== '—') {
-        intlChunk = Math.floor(num / val);
-      }
-
-      // For Indian: the specific divisor
-      if (s.indName !== '—') {
-        indChunk = Math.floor(num / s.indDivisor);
-      }
-
-      // Avoid duplicate scales
-      const alreadyAdded = rows.some(r => r.scale === `10^${s.exponent}`);
-      if (alreadyAdded) continue;
-
-      // Format the value at this scale
-      const intlLabel = s.intlName !== '—' ? s.intlName : '—';
-      const indLabel = s.indName;
-
-      rows.push({
-        scale: `10${s.exponent === 3 ? '³' : s.exponent === 5 ? '⁵' : s.exponent === 6 ? '⁶' : s.exponent === 7 ? '⁷' : s.exponent === 8 ? '⁸' : s.exponent === 9 ? '⁹' : s.exponent === 10 ? '¹⁰' : s.exponent === 11 ? '¹¹' : s.exponent === 12 ? '¹²' : '^' + s.exponent}`,
-        intl: intlLabel,
-        indian: indLabel,
-      });
-    }
-
-    // Build a simpler, more focused insight table based on the actual number
-    insightBody.innerHTML = '';
-
-    // Show the dynamic breakdown for this specific number
-    const breakdown = getNumberBreakdown(num);
-    for (const row of breakdown) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="insight-scale">${row.scale}</td>
-        <td class="insight-intl">${row.intl}</td>
-        <td class="insight-ind">${row.indian}</td>
-      `;
-      insightBody.appendChild(tr);
-    }
-  }
-
-  function getNumberBreakdown(num: number): { scale: string; intl: string; indian: string }[] {
-    const rows: { scale: string; intl: string; indian: string }[] = [];
-    let n = num;
-
-    // International breakdown (groups of 3)
-    const intlParts: { name: string; value: number }[] = [];
-    let tmpN = num;
-    const intlScaleNames = ['', 'Thousand', 'Million', 'Billion', 'Trillion'];
-    let intlIdx = 0;
-    const intlChunks: number[] = [];
-    while (tmpN > 0) {
-      intlChunks.unshift(tmpN % 1000);
-      tmpN = Math.floor(tmpN / 1000);
-    }
-
-    // Indian breakdown (first 3, then groups of 2)
-    const indChunks: { name: string; value: number }[] = [];
-    const str = num.toString();
-    if (str.length > 3) {
-      let remaining = str.slice(0, -3);
-      const bottom = parseInt(str.slice(-3));
-      // Collect pairs from right
-      const pairs: string[] = [];
-      while (remaining.length > 2) {
-        pairs.unshift(remaining.slice(-2));
-        remaining = remaining.slice(0, -2);
-      }
-      if (remaining.length > 0) pairs.unshift(remaining);
-
-      const indScaleNames = ['Thousand', 'Lakh', 'Crore', 'Arab', 'Shankh'];
-      // First, bottom 3 digits = ones/hundreds
-      if (bottom > 0) {
-        // Will handle below
-      }
-      // pairs[0] = thousands+lakhs depending on position
-      // For Indian, from right of pairs: first pair is always "Thousand" range
-      for (let i = 0; i < pairs.length; i++) {
-        const val = parseInt(pairs[i]);
-        if (val > 0) {
-          const scaleIdx = pairs.length - 1 - i; // 0 = leftmost = highest
-          const name = scaleIdx < indScaleNames.length ? indScaleNames[scaleIdx] : '';
-          indChunks.push({ name, value: val });
-        }
-      }
-    }
-
-    // Build comparison rows
-    // Show scales that are relevant to this number
-    const relevantScales = [
-      { power: 12, intlLabel: 'Trillion',  indLabel: 'Shankh',  indDiv: 1e11 },
-      { power: 11, intlLabel: '—',         indLabel: 'Shankh',  indDiv: 1e11 },
-      { power: 10, intlLabel: '—',         indLabel: 'Arab',    indDiv: 1e9 },
-      { power: 9,  intlLabel: 'Billion',   indLabel: 'Arab',    indDiv: 1e9 },
-      { power: 8,  intlLabel: '—',         indLabel: 'Crore',   indDiv: 1e7 },
-      { power: 7,  intlLabel: '—',         indLabel: 'Crore',   indDiv: 1e7 },
-      { power: 6,  intlLabel: 'Million',   indLabel: 'Lakh',    indDiv: 1e5 },
-      { power: 5,  intlLabel: '—',         indLabel: 'Lakh',    indDiv: 1e5 },
-      { power: 3,  intlLabel: 'Thousand',  indLabel: 'Thousand', indDiv: 1e3 },
-      { power: 0,  intlLabel: 'Ones',      indLabel: 'Ones',     indDiv: 1 },
-    ];
-
-    // Filter to only scales where the number has non-zero digits
-    const maxPower = num > 0 ? Math.floor(Math.log10(num)) : 0;
-    const usedScales = relevantScales.filter(s => s.power <= maxPower + 1 && s.power >= 0);
-
-    // Deduplicate: keep only unique power entries, prefer the one with an intlLabel if both exist
-    const seen = new Set<number>();
-    const filtered: typeof relevantScales = [];
-    for (const s of relevantScales) {
-      if (s.power > maxPower + 1) continue;
-      if (seen.has(s.power)) continue;
-      seen.add(s.power);
-
-      // For overlapping powers (like 9 which is both Billion and Arab), include the row
-      // Show both names on the same row
-      const val = Math.pow(10, s.power);
-      const hasIntlChunk = s.intlLabel !== '—';
-      const hasIndChunk = s.indLabel !== '—';
-
-      // Check if there's a non-zero chunk at this power
-      let intlChunk = 0;
-      let indChunk = 0;
-
-      if (hasIntlChunk) {
-        if (s.power === 0) {
-          intlChunk = num % 1000;
-        } else {
-          // Groups of 3: find which 3-digit group this power falls in
-          const groupIndex = Math.floor(s.power / 3);
-          const divisor = Math.pow(10, groupIndex * 3);
-          intlChunk = Math.floor((num % (divisor * 1000)) / divisor);
-        }
-      }
-
-      if (hasIndChunk) {
-        if (s.power === 0) {
-          indChunk = num % 1000;
-        } else {
-          const divisor = s.indDiv;
-          // Indian chunks are 2 digits each (except first which is up to 2)
-          if (s.indDiv === 1e3) {
-            indChunk = Math.floor((num % 1e5) / 1e3);
-          } else if (s.indDiv === 1e5) {
-            indChunk = Math.floor((num % 1e7) / 1e5);
-          } else if (s.indDiv === 1e7) {
-            indChunk = Math.floor((num % 1e9) / 1e7);
-          } else if (s.indDiv === 1e9) {
-            indChunk = Math.floor((num % 1e11) / 1e9);
-          } else if (s.indDiv === 1e11) {
-            indChunk = Math.floor((num % 1e13) / 1e11);
-          }
-        }
-      }
-
-      // For overlapping powers (like 9 = Billion = Arab), merge the row
-      // Check if another scale at same power exists
-      const overlap = relevantScales.find(s2 => s2.power === s.power && s2 !== s);
-      let finalIntlLabel = s.intlLabel;
-      let finalIndLabel = s.indLabel;
-      if (overlap) {
-        if (s.intlLabel === '—' && overlap.intlLabel !== '—') finalIntlLabel = overlap.intlLabel;
-        if (s.indLabel === '—' && overlap.indLabel !== '—') finalIndLabel = overlap.indLabel;
-      }
-
-      const powerLabel = s.power === 0 ? '1' : `10${superscript(s.power)}`;
-      const intlDisplay = finalIntlLabel !== '—'
-        ? (intlChunk > 0 ? `${intlChunk} ${finalIntlLabel}` : finalIntlLabel)
-        : '—';
-      const indDisplay = finalIndLabel !== '—'
-        ? (indChunk > 0 ? `${indChunk} ${finalIndLabel}` : finalIndLabel)
-        : '—';
-
-      filtered.push({
-        power: s.power,
-        intlLabel: finalIntlLabel !== '—' ? intlDisplay : '',
-        indLabel: finalIndLabel !== '—' ? indDisplay : '',
-        indDiv: s.indDiv,
-      });
-    }
-
-    // Deduplicate again by power, merging labels
-    const merged = new Map<number, { scale: string; intl: string; indian: string }>();
-    for (const f of filtered) {
-      if (f.power > maxPower + 1) continue;
-      const key = f.power;
-      if (!merged.has(key)) {
-        merged.set(key, {
-          scale: f.power === 0 ? '1' : `10${superscript(f.power)}`,
-          intl: f.intlLabel || '—',
-          indian: f.indLabel || '—',
-        });
-      } else {
-        const existing = merged.get(key)!;
-        if (f.intlLabel) existing.intl = f.intlLabel;
-        if (f.indLabel) existing.indian = f.indLabel;
-      }
-    }
-
-    // Convert to array and reverse (highest power first), skip rows where both are "—"
-    const result = Array.from(merged.values()).reverse().filter(r => r.intl !== '—' || r.indian !== '—');
-
-    // Ensure we have at least the basic row
-    if (result.length === 0) {
-      result.push({
-        scale: '1',
-        intl: num > 0 ? `${num}` : '0',
-        indian: num > 0 ? `${num}` : '0',
-      });
-    }
-
-    return result;
-  }
-
-  function superscript(n: number): string {
-    const superMap: Record<string, string> = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
-    return n.toString().split('').map(c => superMap[c] || c).join('');
-  }
-
-  // ── Parse & Validate Input ──
-  function parseInput(): number | null {
+  // ── Parse Input ──
+  function parseInput(): { rawValue: number; integerPart: number; amount: number; fromMultiplier: number } | null {
     const raw = numInput.value.replace(/[,，\s]/g, '');
     if (raw === '') return null;
 
-    const num = parseInt(raw, 10);
-    if (isNaN(num) || num < 0) return null;
-    if (num > 9999999999999) {
-      inputError.textContent = 'Number too large. Please enter a value up to 99 Shankh (≈ 10¹³).';
+    const amount = parseFloat(raw);
+    if (isNaN(amount) || amount < 0) {
+      inputError.textContent = 'Please enter a valid positive number.';
       inputError.classList.add('visible');
       return null;
     }
+
+    const fromMultiplier = parseFloat(fromScale.value);
+    const rawValue = amount * fromMultiplier;
+
+    if (rawValue > 1e20) {
+      inputError.textContent = 'Number too large. Please enter a smaller value.';
+      inputError.classList.add('visible');
+      return null;
+    }
+
     inputError.textContent = '';
     inputError.classList.remove('visible');
-    return num;
+
+    return {
+      rawValue,
+      integerPart: Math.floor(rawValue),
+      amount,
+      fromMultiplier,
+    };
   }
 
-  // ── Perform Conversion ──
+  // ── Find the best-fit scale ──
+  function findBestFit(rawValue: number, scales: { multiplier: number; name: string }[]): { value: number; name: string } | null {
+    // Best fit = smallest scale where value >= 1
+    let best: { value: number; name: string } | null = null;
+    for (const scale of scales) {
+      const val = rawValue / scale.multiplier;
+      if (val >= 1) {
+        best = { value: val, name: scale.name };
+        // Don't break — keep going to find the smallest scale with value >= 1
+      }
+    }
+    return best;
+  }
+
+  // ── Show All Representations ──
+  function showAllRepresentations(rawValue: number): void {
+    const scales = targetSystem === 'ind' ? indScales : intlScales;
+    const systemLabel = targetSystem === 'ind' ? 'Indian' : 'International';
+
+    // Title
+    representationsTitle.textContent = `All ${systemLabel} Representations`;
+
+    // Build grid
+    representationsGrid.innerHTML = '';
+
+    // Find best fit for highlighting
+    const bestFit = findBestFit(rawValue, scales.slice().reverse()); // reverse for ascending order
+
+    for (const scale of scales) {
+      const value = rawValue / scale.multiplier;
+      const isBestFit = bestFit && bestFit.name === scale.name;
+
+      const item = document.createElement('div');
+      item.className = `representation-item${isBestFit ? ' best-fit' : ''}`;
+      item.innerHTML = `
+        <span class="rep-scale-name${isBestFit ? ' best-fit-name' : ''}">${scale.name}</span>
+        <span class="rep-scale-value${isBestFit ? ' best-fit-value' : ''}">${formatScaledValue(value)}</span>
+      `;
+      representationsGrid.appendChild(item);
+    }
+
+    // Best fit highlight card
+    if (bestFit) {
+      const fromName = getFromScaleName();
+      const bestFitFormatted = formatScaledValue(bestFit.value);
+      bestFitValue.textContent = `${bestFitFormatted} ${bestFit.name}`;
+      bestFitSubtitle.textContent = `${numInput.value} ${fromName} = ${bestFitFormatted} ${bestFit.name}`;
+      bestFitCard.classList.remove('hidden');
+    } else {
+      bestFitCard.classList.add('hidden');
+    }
+  }
+
+  // ── Get the "From" scale display name ──
+  function getFromScaleName(): string {
+    const val = parseFloat(fromScale.value);
+    // Check in International scales first
+    const intlMatch = intlScales.find(s => s.multiplier === val);
+    // Check in Indian scales
+    const indMatch = indScales.find(s => s.multiplier === val);
+
+    // For shared multipliers (1e9, 1e15), try to determine from optgroup
+    // We'll look at the selected option's parent optgroup
+    const selectedOption = fromScale.options[fromScale.selectedIndex];
+    const optgroup = selectedOption?.parentElement;
+    const label = optgroup?.getAttribute('label') ?? '';
+
+    if (label.includes('Indian')) {
+      return indMatch?.name ?? intlMatch?.name ?? '';
+    }
+    return intlMatch?.name ?? indMatch?.name ?? '';
+  }
+
+  // ── Convert ──
   function convert(): void {
-    const num = parseInput();
-    if (num === null || num === 0 && numInput.value.replace(/[,，\s]/g, '') === '') {
-      resultsArea.classList.add('hidden');
+    const parsed = parseInput();
+    if (!parsed) {
+      if (numInput.value.replace(/[,，\s]/g, '') === '') {
+        resultsArea.classList.add('hidden');
+      }
       return;
     }
 
-    if (num === 0) {
-      // Show zero
-      resultsArea.classList.remove('hidden');
-      intFormatted.textContent = '0';
-      intName.textContent = 'Zero';
-      indFormatted.textContent = '0';
-      indName.textContent = 'Zero';
-      equivalencyBanner.innerHTML = '<span class="eq-label">Zero</span>';
-      insightBody.innerHTML = '<tr><td class="insight-scale">1</td><td class="insight-intl">0</td><td class="insight-ind">0</td></tr>';
-      return;
-    }
-
+    const { rawValue, integerPart } = parsed;
     resultsArea.classList.remove('hidden');
 
-    // Format numbers
-    intFormatted.textContent = formatInternational(num);
-    indFormatted.textContent = formatIndian(num);
+    // Show all representations
+    showAllRepresentations(rawValue);
 
-    // Number names
-    const intWords = numberToWordsInternational(num);
-    const indWords = numberToWordsIndian(num);
-    intName.textContent = intWords;
-    indName.textContent = indWords;
+    // Full number formats
+    fullIntlNumber.textContent = formatInternational(integerPart);
+    fullIndNumber.textContent = formatIndian(integerPart);
 
-    // Equivalency banner
-    const eq = getEquivalency(num);
-    equivalencyBanner.innerHTML = `<span class="eq-label">${eq}</span>`;
+    // Words
+    intlWords.textContent = numberToWordsInternational(integerPart);
+    indWords.textContent = numberToWordsIndian(integerPart);
 
-    // Insight table
-    buildInsightTable(num);
-
-    // Animate results appearance
+    // Animate
     resultsArea.style.animation = 'none';
-    resultsArea.offsetHeight; // force reflow
+    resultsArea.offsetHeight;
     resultsArea.style.animation = 'fadeInUp 0.4s ease';
   }
 
+  // ── System Toggle ──
+  const bestFitCard = document.getElementById('bestFitCard') as HTMLDivElement;
+  const systemPills = document.querySelectorAll('.system-pill') as NodeListOf<HTMLButtonElement>;
+
+  systemPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const system = pill.dataset.system as 'ind' | 'intl';
+      targetSystem = system;
+
+      // Update active state
+      systemPills.forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-checked', 'false');
+      });
+      pill.classList.add('active');
+      pill.setAttribute('aria-checked', 'true');
+
+      convert();
+    });
+  });
+
+  // ── Auto-select target system based on From scale ──
+  fromScale.addEventListener('change', () => {
+    const fromMult = parseFloat(fromScale.value);
+    const selectedOption = fromScale.options[fromScale.selectedIndex];
+    const optgroup = selectedOption?.parentElement;
+    const label = optgroup?.getAttribute('label') ?? '';
+
+    // If "From" is International, default target to Indian; vice versa
+    if (label.includes('Indian') && targetSystem !== 'intl') {
+      targetSystem = 'intl';
+      systemPills.forEach(p => {
+        const isActive = p.dataset.system === 'intl';
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
+    } else if (label.includes('International') && targetSystem !== 'ind') {
+      targetSystem = 'ind';
+      systemPills.forEach(p => {
+        const isActive = p.dataset.system === 'ind';
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
+    }
+
+    convert();
+  });
+
+  // ── Copy to Clipboard ──
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = (btn as HTMLButtonElement).dataset.target;
+      if (!targetId) return;
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      const text = targetEl.textContent?.trim() ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1200);
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(targetEl);
+        const sel = window.getSelection();
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+    });
+  });
+
   // ── Event Listeners ──
   numInput.addEventListener('input', convert);
-
-  clearBtn.addEventListener('click', () => {
-    numInput.value = '';
-    inputError.textContent = '';
-    inputError.classList.remove('visible');
-    resultsArea.classList.add('hidden');
-    numInput.focus();
-  });
 
   // Quick example chips
   document.querySelectorAll('.chip').forEach(chip => {
     chip.addEventListener('click', () => {
       const val = (chip as HTMLButtonElement).dataset.value;
-      if (val) {
+      const from = (chip as HTMLButtonElement).dataset.from;
+      if (val !== undefined) {
         numInput.value = val;
-        convert();
       }
+      if (from !== undefined) {
+        fromScale.value = from;
+
+        // Auto-set target system based on chip's from-scale
+        const fromMult = parseFloat(from);
+        const isIntlScale = internationalMultipliers.includes(fromMult);
+        if (isIntlScale) {
+          targetSystem = 'ind';
+          systemPills.forEach(p => {
+            const isActive = p.dataset.system === 'ind';
+            p.classList.toggle('active', isActive);
+            p.setAttribute('aria-checked', isActive ? 'true' : 'false');
+          });
+        } else {
+          targetSystem = 'intl';
+          systemPills.forEach(p => {
+            const isActive = p.dataset.system === 'intl';
+            p.classList.toggle('active', isActive);
+            p.setAttribute('aria-checked', isActive ? 'true' : 'false');
+          });
+        }
+      }
+      convert();
     });
   });
 
@@ -783,157 +746,83 @@ import FAQ from '../components/FAQ.astro';
 </script>
 
 <style>
-  /* ════════════ HERO ════════════ */
-  .hero-band {
-    padding: var(--spacing-section) var(--spacing-lg) var(--spacing-6xl);
+  /* ════════════ CONVERTER HERO ════════════ */
+  .converter-hero {
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-4xl);
     text-align: center;
     position: relative;
     overflow: hidden;
     background-color: var(--color-canvas-soft);
   }
 
-  .hero-content {
+  .converter-container {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-lg);
-    max-width: 800px;
+    max-width: 720px;
     margin-inline: auto;
-  }
-
-  .hero-eyebrow {
-    color: var(--color-violet);
-    margin-bottom: 0;
-  }
-
-  .hero-headline {
-    color: var(--color-ink);
-  }
-
-  .hero-lead {
-    color: var(--color-body);
-    max-width: 620px;
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: var(--spacing-sm);
-  }
-
-  /* ════════════ BUTTONS ════════════ */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    transition: all 0.15s ease;
-    cursor: pointer;
-    border: none;
-  }
-
-  .btn-primary {
-    background: var(--color-ink);
-    color: var(--color-on-primary);
-    font-size: 16px;
-    line-height: 24px;
-    padding: 12px 24px;
-  }
-
-  .btn-primary:hover {
-    background: #000;
-    color: #fff;
-  }
-
-  .dark .btn-primary {
-    background: #ededed;
-    color: #0a0a0a;
-  }
-
-  .dark .btn-primary:hover {
-    background: #fff;
-    color: #000;
-  }
-
-  .dark .btn-secondary {
-    background: #1a1a1a;
-    color: #ededed;
-    box-shadow: inset 0 0 0 1px var(--color-hairline);
-  }
-
-  .dark .btn-secondary:hover {
-    background: #2e2e2e;
-  }
-
-  .btn-secondary {
-    background: var(--color-canvas);
-    color: var(--color-ink);
-    font-size: 16px;
-    line-height: 24px;
-    padding: 12px 24px;
-    box-shadow: inset 0 0 0 1px var(--color-hairline);
-  }
-
-  .btn-secondary:hover {
-    background: var(--color-canvas-soft-2);
-  }
-
-  /* ════════════ SECTION BAND ════════════ */
-  .section-band {
-    padding: var(--spacing-5xl) var(--spacing-lg);
-  }
-
-  .section-header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-4xl);
-  }
-
-  .section-header-dark .eyebrow {
-    color: rgba(255,255,255,0.5);
-  }
-
-  .section-header h2 {
-    color: var(--color-ink);
   }
 
   /* ════════════ CARD ════════════ */
   .card {
     background-color: var(--color-canvas);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
   }
 
   /* ════════════ CONVERTER CARD ════════════ */
   .converter-card {
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-2xl);
+    padding: var(--spacing-xl) var(--spacing-lg);
   }
 
-  .input-label {
-    display: block;
-    margin-bottom: var(--spacing-xs);
+  .converter-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .converter-title {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -1px;
+    color: var(--color-ink);
+    margin: 0 0 4px;
+  }
+
+  .converter-lead {
+    font-size: 14px;
+    color: var(--color-body);
+    margin: 0;
+  }
+
+  /* ════════════ INPUT ROW ════════════ */
+  .converter-input-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: flex-end;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .field-label {
     color: var(--color-ink);
   }
 
-  .input-row {
-    position: relative;
-    display: flex;
-    align-items: center;
+  .field-amount {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .field-scale {
+    min-width: 160px;
   }
 
   .converter-input {
     width: 100%;
     height: 48px;
-    padding: 0 var(--spacing-3xl) 0 var(--spacing-sm);
+    padding: 0 var(--spacing-md);
     font-family: var(--font-mono);
     font-size: 18px;
     font-weight: 400;
@@ -955,26 +844,31 @@ import FAQ from '../components/FAQ.astro';
     font-weight: 400;
   }
 
-  .clear-btn {
-    position: absolute;
-    right: var(--spacing-xs);
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    color: var(--color-mute);
-    font-size: 20px;
+  .scale-select {
+    width: 100%;
+    height: 48px;
+    padding: 0 var(--spacing-md);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-ink);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    outline: none;
     cursor: pointer;
-    border-radius: var(--radius-xs);
-    transition: all 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
   }
 
-  .clear-btn:hover {
-    color: var(--color-ink);
-    background: var(--color-canvas-soft-2);
+  .scale-select:focus {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 1px var(--color-ink);
   }
 
   .input-error {
@@ -986,6 +880,53 @@ import FAQ from '../components/FAQ.astro';
 
   .input-error.visible {
     display: block;
+  }
+
+  /* ════════════ TARGET SYSTEM TOGGLE ════════════ */
+  .target-system-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .target-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .system-toggle {
+    display: flex;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .system-pill {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-body);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .system-pill:hover {
+    color: var(--color-ink);
+  }
+
+  .system-pill.active {
+    background: var(--color-ink);
+    color: var(--color-on-primary);
+    border-radius: var(--radius-full);
   }
 
   /* ════════════ CHIPS ════════════ */
@@ -1044,152 +985,196 @@ import FAQ from '../components/FAQ.astro';
     display: none;
   }
 
-  .equivalency-banner {
+  .results-divider {
+    height: 1px;
+    background: var(--color-hairline);
+    margin-top: var(--spacing-sm);
+  }
+
+  /* ════════════ BEST FIT CARD ════════════ */
+  .best-fit-card {
     text-align: center;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-lg);
     background: var(--color-link-bg-soft);
-    border-radius: var(--radius-pill);
-    font-family: var(--font-mono);
+    border-radius: var(--radius-md);
+  }
+
+  .best-fit-card.hidden {
+    display: none;
+  }
+
+  .best-fit-value {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--color-link);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .dark .best-fit-value {
+    color: var(--color-link-deep);
+  }
+
+  .best-fit-subtitle {
+    color: var(--color-link-deep);
     font-size: 13px;
   }
 
-  .eq-label {
-    color: var(--color-link-deep);
-    font-weight: 500;
+  .dark .best-fit-subtitle {
+    color: var(--color-link);
   }
 
-  .results-grid {
+  /* ════════════ REPRESENTATIONS GRID ════════════ */
+  .representations-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .representations-title {
+    color: var(--color-mute);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .representations-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
+    gap: 2px;
+    background: var(--color-hairline);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
   }
 
-  .result-card {
-    padding: var(--spacing-lg);
-  }
-
-  .result-card-header {
+  .representation-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .result-badge {
-    display: inline-flex;
     align-items: center;
-    height: 24px;
-    padding: 0 10px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
-    border-radius: var(--radius-full);
-    letter-spacing: 0.02em;
+    padding: 10px 14px;
+    background: var(--color-canvas-soft);
   }
 
-  .result-badge-intl {
+  .representation-item.best-fit {
     background: var(--color-link-bg-soft);
+  }
+
+  .rep-scale-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .rep-scale-name.best-fit-name {
     color: var(--color-link);
   }
 
-  .result-badge-ind {
-    background: #e6f9f3;
-    color: #29bc9b;
-  }
-
-  .result-subtitle {
-    font-size: 11px;
-    color: var(--color-mute);
+  .rep-scale-value {
     font-family: var(--font-mono);
-  }
-
-  .result-number {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.5px;
-    word-break: break-all;
-    margin-bottom: var(--spacing-xs);
-    min-height: 32px;
-  }
-
-  .result-name {
+    font-size: 14px;
     color: var(--color-body);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
   }
 
-  /* ════════════ INSIGHT TABLE ════════════ */
-  .insight-card {
-    padding: var(--spacing-lg);
+  .rep-scale-value.best-fit-value {
+    color: var(--color-link);
+    font-weight: 500;
   }
 
-  .insight-header {
+  /* ════════════ FULL NUMBER SECTION ════════════ */
+  .full-number-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .number-format-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .number-format-row {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-sm);
   }
 
-  .insight-icon {
-    font-size: 20px;
-  }
-
-  .insight-card h3 {
-    color: var(--color-ink);
-  }
-
-  .insight-desc {
-    color: var(--color-body);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .insight-table-wrapper {
-    overflow-x: auto;
-  }
-
-  .insight-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .insight-table th {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-align: left;
-    padding: 6px 12px;
-    color: var(--color-mute);
-    border-bottom: 1px solid var(--color-hairline);
-  }
-
-  .insight-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--color-hairline);
-    font-size: 13px;
-  }
-
-  .insight-table tr:last-child td {
-    border-bottom: none;
-  }
-
-  .insight-scale {
-    font-family: var(--font-mono);
+  .number-format-label {
     font-size: 12px;
+    font-weight: 500;
     color: var(--color-mute);
+    min-width: 90px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-mono);
   }
 
-  .insight-intl {
+  .number-format-value {
+    font-size: 16px;
     font-weight: 500;
-    color: var(--color-link);
+    color: var(--color-ink);
+    flex: 1;
+    letter-spacing: -0.3px;
+    word-break: break-all;
   }
 
-  .insight-ind {
-    font-weight: 500;
+  .number-words {
+    padding-left: calc(90px + var(--spacing-sm));
+    color: var(--color-body);
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* ════════════ COPY BUTTON ════════════ */
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xs);
+    color: var(--color-mute);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+  }
+
+  .copy-btn:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .copy-btn.copied {
     color: #29bc9b;
+    border-color: #29bc9b;
+    background: #e6f9f3;
+  }
+
+  /* ════════════ SECTION BAND ════════════ */
+  .section-band {
+    padding: var(--spacing-5xl) var(--spacing-lg);
+  }
+
+  .section-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .section-header-dark .eyebrow {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .section-header h2 {
+    color: var(--color-ink);
   }
 
   /* ════════════ FEATURES ════════════ */
@@ -1257,30 +1242,61 @@ import FAQ from '../components/FAQ.astro';
   }
 
   @media (max-width: 600px) {
-    .hero-band {
-      padding: 96px var(--spacing-md) 64px;
+    .converter-hero {
+      padding: var(--spacing-md) var(--spacing-md) var(--spacing-3xl);
     }
 
-    .section-band {
-      padding: var(--spacing-4xl) var(--spacing-md);
+    .converter-card {
+      padding: var(--spacing-lg) var(--spacing-md);
     }
 
-    .results-grid {
+    .converter-input-row {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .field-scale {
+      min-width: 100%;
+    }
+
+    .converter-title {
+      font-size: 22px;
+    }
+
+    .best-fit-value {
+      font-size: 28px;
+    }
+
+    .representations-grid {
       grid-template-columns: 1fr;
+    }
+
+    .number-format-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .number-words {
+      padding-left: 0;
+    }
+
+    .number-format-label {
+      min-width: unset;
+    }
+
+    .target-system-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-xs);
     }
 
     .features-grid {
       grid-template-columns: 1fr;
     }
 
-    .hero-ctas {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .btn-primary, .btn-secondary {
-      width: 100%;
-      text-align: center;
+    .section-band {
+      padding: var(--spacing-4xl) var(--spacing-md);
     }
 
     .ref-table-card {
