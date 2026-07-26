@@ -58,19 +58,45 @@ import FAQ from '../components/FAQ.astro';
             </div>
           </div>
 
+          <!-- Row 2: To Unit -->
+          <div class="converter-input-row">
+            <div class="field-group field-amount" style="flex: 0 0 auto; width: auto; min-width: 140px;">
+              <label class="body-sm-strong field-label" style="visibility: hidden; height: 0; margin: 0; padding: 0;">&nbsp;</label>
+              <span class="converter-arrow" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </div>
+            <div class="field-group field-scale">
+              <label for="toScale" class="body-sm-strong field-label">To</label>
+              <select id="toScale" class="scale-select">
+                <optgroup label="Indian System">
+                  <option value="1e5">Lakh</option>
+                  <option value="1e7">Crore</option>
+                  <option value="1e9" selected>Arab</option>
+                  <option value="1e11">Kharab</option>
+                  <option value="1e13">Neel</option>
+                  <option value="1e15">Padma</option>
+                  <option value="1e17">Shankh</option>
+                </optgroup>
+                <optgroup label="International System">
+                  <option value="1e3">Thousand</option>
+                  <option value="1e6">Million</option>
+                  <option value="1e9">Billion</option>
+                  <option value="1e12">Trillion</option>
+                  <option value="1e15">Quadrillion</option>
+                  <option value="1e18">Quintillion</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
           <div id="inputError" class="input-error"></div>
 
-          <!-- Row 2: Target System Toggle -->
-          <div class="target-system-row">
-            <span class="target-label">Convert to:</span>
-            <div class="system-toggle" role="radiogroup" aria-label="Target number system">
-              <button class="system-pill active" data-system="ind" role="radio" aria-checked="true">
-                Indian System
-              </button>
-              <button class="system-pill" data-system="intl" role="radio" aria-checked="false">
-                International System
-              </button>
-            </div>
+          <!-- Converted Value Display -->
+          <div id="convertedValueArea" class="converted-value-area hidden">
+            <div class="converted-value-label">Converted Value</div>
+            <div id="convertedValue" class="converted-value code">—</div>
+            <div id="convertedSubtitle" class="converted-subtitle body-sm">—</div>
           </div>
 
           <!-- Quick Example Chips -->
@@ -300,8 +326,12 @@ import FAQ from '../components/FAQ.astro';
   // ── DOM Elements ──
   const numInput = document.getElementById('numInput') as HTMLInputElement;
   const fromScale = document.getElementById('fromScale') as HTMLSelectElement;
+  const toScale = document.getElementById('toScale') as HTMLSelectElement;
   const inputError = document.getElementById('inputError') as HTMLDivElement;
   const resultsArea = document.getElementById('resultsArea') as HTMLDivElement;
+  const convertedValueArea = document.getElementById('convertedValueArea') as HTMLDivElement;
+  const convertedValue = document.getElementById('convertedValue') as HTMLDivElement;
+  const convertedSubtitle = document.getElementById('convertedSubtitle') as HTMLDivElement;
 
   // Results
   const bestFitValue = document.getElementById('bestFitValue') as HTMLDivElement;
@@ -314,7 +344,7 @@ import FAQ from '../components/FAQ.astro';
   const indWords = document.getElementById('indWords') as HTMLDivElement;
 
   // ── State ──
-  let targetSystem: 'ind' | 'intl' = 'ind'; // Default to Indian system
+  // No longer need targetSystem state since we have explicit "To" dropdown
 
   // ── Scale Data ──
   const intlScales = [
@@ -541,8 +571,11 @@ import FAQ from '../components/FAQ.astro';
 
   // ── Show All Representations ──
   function showAllRepresentations(rawValue: number): void {
-    const scales = targetSystem === 'ind' ? indScales : intlScales;
-    const systemLabel = targetSystem === 'ind' ? 'Indian' : 'International';
+    // Determine target system from the "To" scale
+    const toMult = parseFloat(toScale.value);
+    const isTargetIndian = indianMultipliers.includes(toMult);
+    const scales = isTargetIndian ? indScales : intlScales;
+    const systemLabel = isTargetIndian ? 'Indian' : 'International';
 
     // Title
     representationsTitle.textContent = `All ${systemLabel} Representations`;
@@ -604,15 +637,26 @@ import FAQ from '../components/FAQ.astro';
     if (!parsed) {
       if (numInput.value.replace(/[,，\s]/g, '') === '') {
         resultsArea.classList.add('hidden');
+        convertedValueArea.classList.add('hidden');
       }
       return;
     }
 
     const { rawValue, integerPart } = parsed;
     resultsArea.classList.remove('hidden');
+    convertedValueArea.classList.remove('hidden');
 
     // Show all representations
     showAllRepresentations(rawValue);
+
+    // Calculate and show converted value
+    const toMultiplier = parseFloat(toScale.value);
+    const converted = rawValue / toMultiplier;
+    const toScaleName = getToScaleName();
+    const fromName = getFromScaleName();
+
+    convertedValue.textContent = formatScaledValue(converted);
+    convertedSubtitle.textContent = `${numInput.value} ${fromName} = ${formatScaledValue(converted)} ${toScaleName}`;
 
     // Full number formats
     fullIntlNumber.textContent = formatInternational(integerPart);
@@ -628,51 +672,24 @@ import FAQ from '../components/FAQ.astro';
     resultsArea.style.animation = 'fadeInUp 0.4s ease';
   }
 
-  // ── System Toggle ──
-  const bestFitCard = document.getElementById('bestFitCard') as HTMLDivElement;
-  const systemPills = document.querySelectorAll('.system-pill') as NodeListOf<HTMLButtonElement>;
+  // ── Get the "To" scale display name ──
+  function getToScaleName(): string {
+    const val = parseFloat(toScale.value);
+    const intlMatch = intlScales.find(s => s.multiplier === val);
+    const indMatch = indScales.find(s => s.multiplier === val);
 
-  systemPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const system = pill.dataset.system as 'ind' | 'intl';
-      targetSystem = system;
-
-      // Update active state
-      systemPills.forEach(p => {
-        p.classList.remove('active');
-        p.setAttribute('aria-checked', 'false');
-      });
-      pill.classList.add('active');
-      pill.setAttribute('aria-checked', 'true');
-
-      convert();
-    });
-  });
-
-  // ── Auto-select target system based on From scale ──
-  fromScale.addEventListener('change', () => {
-    const fromMult = parseFloat(fromScale.value);
-    const selectedOption = fromScale.options[fromScale.selectedIndex];
+    const selectedOption = toScale.options[toScale.selectedIndex];
     const optgroup = selectedOption?.parentElement;
     const label = optgroup?.getAttribute('label') ?? '';
 
-    // If "From" is International, default target to Indian; vice versa
-    if (label.includes('Indian') && targetSystem !== 'intl') {
-      targetSystem = 'intl';
-      systemPills.forEach(p => {
-        const isActive = p.dataset.system === 'intl';
-        p.classList.toggle('active', isActive);
-        p.setAttribute('aria-checked', isActive ? 'true' : 'false');
-      });
-    } else if (label.includes('International') && targetSystem !== 'ind') {
-      targetSystem = 'ind';
-      systemPills.forEach(p => {
-        const isActive = p.dataset.system === 'ind';
-        p.classList.toggle('active', isActive);
-        p.setAttribute('aria-checked', isActive ? 'true' : 'false');
-      });
+    if (label.includes('Indian')) {
+      return indMatch?.name ?? intlMatch?.name ?? '';
     }
+    return intlMatch?.name ?? indMatch?.name ?? '';
+  }
 
+  // ── To Scale Change ──
+  toScale.addEventListener('change', () => {
     convert();
   });
 
@@ -713,23 +730,14 @@ import FAQ from '../components/FAQ.astro';
       if (from !== undefined) {
         fromScale.value = from;
 
-        // Auto-set target system based on chip's from-scale
+        // Auto-set "To" scale based on "From" scale
+        // If "From" is International, default "To" to Indian; vice versa
         const fromMult = parseFloat(from);
         const isIntlScale = internationalMultipliers.includes(fromMult);
         if (isIntlScale) {
-          targetSystem = 'ind';
-          systemPills.forEach(p => {
-            const isActive = p.dataset.system === 'ind';
-            p.classList.toggle('active', isActive);
-            p.setAttribute('aria-checked', isActive ? 'true' : 'false');
-          });
+          toScale.value = '1e9'; // Arab (Indian)
         } else {
-          targetSystem = 'intl';
-          systemPills.forEach(p => {
-            const isActive = p.dataset.system === 'intl';
-            p.classList.toggle('active', isActive);
-            p.setAttribute('aria-checked', isActive ? 'true' : 'false');
-          });
+          toScale.value = '1e9'; // Billion (International)
         }
       }
       convert();
@@ -748,7 +756,7 @@ import FAQ from '../components/FAQ.astro';
 <style>
   /* ════════════ CONVERTER HERO ════════════ */
   .converter-hero {
-    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-4xl);
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-3xl);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -770,12 +778,12 @@ import FAQ from '../components/FAQ.astro';
 
   /* ════════════ CONVERTER CARD ════════════ */
   .converter-card {
-    padding: var(--spacing-xl) var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-lg);
   }
 
   .converter-header {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
   }
 
   .converter-title {
@@ -796,7 +804,7 @@ import FAQ from '../components/FAQ.astro';
   /* ════════════ INPUT ROW ════════════ */
   .converter-input-row {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
     align-items: flex-end;
   }
 
@@ -844,6 +852,21 @@ import FAQ from '../components/FAQ.astro';
     font-weight: 400;
   }
 
+  /* ════════════ CONVERTER ARROW ════════════ */
+  .converter-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 48px;
+    color: var(--color-mute);
+    flex-shrink: 0;
+  }
+
+  .converter-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
   .scale-select {
     width: 100%;
     height: 48px;
@@ -882,51 +905,69 @@ import FAQ from '../components/FAQ.astro';
     display: block;
   }
 
-  /* ════════════ TARGET SYSTEM TOGGLE ════════════ */
-  .target-system-row {
+  /* ════════════ CONVERTER ARROW ════════════ */
+  .converter-arrow {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
-    flex-wrap: wrap;
-  }
-
-  .target-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-ink);
-    white-space: nowrap;
-  }
-
-  .system-toggle {
-    display: flex;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    color: var(--color-body);
     background: var(--color-canvas-soft);
     border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-full);
-    overflow: hidden;
+    border-radius: var(--radius-sm);
   }
 
-  .system-pill {
-    height: 36px;
-    padding: 0 16px;
-    font-size: 13px;
+  .converter-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-ink);
+  }
+
+  /* ════════════ CONVERTED VALUE AREA ════════════ */
+  .converted-value-area {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-link-bg-soft);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .converted-value-area.hidden {
+    display: none;
+  }
+
+  .converted-value-label {
+    font-size: 12px;
     font-weight: 500;
-    color: var(--color-body);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    color: var(--color-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+    margin-bottom: 4px;
   }
 
-  .system-pill:hover {
-    color: var(--color-ink);
+  .converted-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-link);
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 4px;
   }
 
-  .system-pill.active {
-    background: var(--color-ink);
-    color: var(--color-on-primary);
-    border-radius: var(--radius-full);
+  .dark .converted-value {
+    color: var(--color-link-deep);
+  }
+
+  .converted-subtitle {
+    color: var(--color-link-deep);
+    font-size: 13px;
+  }
+
+  .dark .converted-subtitle {
+    color: var(--color-link);
   }
 
   /* ════════════ CHIPS ════════════ */
@@ -934,7 +975,7 @@ import FAQ from '../components/FAQ.astro';
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-sm);
     flex-wrap: wrap;
   }
 
@@ -1283,12 +1324,6 @@ import FAQ from '../components/FAQ.astro';
 
     .number-format-label {
       min-width: unset;
-    }
-
-    .target-system-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-xs);
     }
 
     .features-grid {
