@@ -96,6 +96,33 @@
   --color-selection-fg: #0a0a0a;
 }
 
+/* Light mode overrides (when user explicitly toggles to light) */
+.light {
+  --color-ink: #171717;
+  --color-on-primary: #ffffff;
+  --color-body: #4d4d4d;
+  --color-mute: #888888;
+  --color-hairline: #ebebeb;
+  --color-hairline-strong: #a1a1a1;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #fafafa;
+  --color-canvas-soft-2: #f5f5f5;
+  --color-link: #0070f3;
+  --color-link-deep: #0761d1;
+  --color-link-bg-soft: #d3e5ff;
+  --color-success: #0070f3;
+  --color-error: #ee0000;
+  --color-error-soft: #f7d4d6;
+  --color-warning: #f5a623;
+  --color-warning-soft: #ffefcf;
+  --color-violet: #7928ca;
+  --color-violet-soft: #d8ccf1;
+  --color-cyan: #50e3c2;
+  --color-cyan-soft: #aaffec;
+  --color-selection-bg: #171717;
+  --color-selection-fg: #f2f2f2;
+}
+
 /* ── Base Styles ── */
 html {
   scroll-behavior: smooth;
@@ -209,7 +236,8 @@ body {
     radial-gradient(ellipse 35% 25% at 20% 30%, rgba(249, 203, 40, 0.08) 0%, transparent 30%);
 }
 
-.dark .mesh-gradient {
+.dark .mesh-gradient,
+.light .mesh-gradient {
   background:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 124, 240, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 30% 0%, rgba(0, 223, 216, 0.06) 0%, transparent 40%),
@@ -223,7 +251,8 @@ body {
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
-.dark .shadow-level-1 {
+.dark .shadow-level-1,
+.light .shadow-level-1 {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
@@ -234,7 +263,8 @@ body {
     0px 2px 2px rgba(0, 0, 0, 0.04);
 }
 
-.dark .shadow-level-2 {
+.dark .shadow-level-2,
+.light .shadow-level-2 {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.3),
@@ -248,28 +278,30 @@ body {
     0px 8px 8px -8px rgba(0, 0, 0, 0.04);
 }
 
-.dark .shadow-level-3 {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0px 2px 2px rgba(0, 0, 0, 0.4),
-    0px 8px 8px -8px rgba(0, 0, 0, 0.5);
-}
+.dark .shadow-level-3,
+  .light .shadow-level-3 {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0px 2px 2px rgba(0, 0, 0, 0.4),
+      0px 8px 8px -8px rgba(0, 0, 0, 0.5);
+  }
 
-.shadow-level-4 {
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-    0px 2px 2px rgba(0, 0, 0, 0.04),
-    0px 8px 16px -4px rgba(0, 0, 0, 0.04);
-}
+  .shadow-level-4 {
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+      0px 2px 2px rgba(0, 0, 0, 0.04),
+      0px 8px 16px -4px rgba(0, 0, 0, 0.04);
+  }
 
-.dark .shadow-level-4 {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0px 2px 2px rgba(0, 0, 0, 0.4),
-    0px 8px 16px -4px rgba(0, 0, 0, 0.5);
-}
+  .dark .shadow-level-4,
+  .light .shadow-level-4 {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0px 2px 2px rgba(0, 0, 0, 0.4),
+      0px 8px 16px -4px rgba(0, 0, 0, 0.5);
+  }
 
-.shadow-level-5 {
+  .shadow-level-5 {
   box-shadow:
     inset 0 0 0 1px rgba(0, 0, 0, 0.08),
     0px 1px 1px rgba(0, 0, 0, 0.02),
@@ -277,7 +309,8 @@ body {
     0px 24px 32px -8px rgba(0, 0, 0, 0.06);
 }
 
-.dark .shadow-level-5 {
+.dark .shadow-level-5,
+.light .shadow-level-5 {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.3),
@@ -348,7 +381,8 @@ a:hover {
   color: var(--color-on-primary);
 }
 
-.dark .band-ink {
+.dark .band-ink,
+.light .band-ink {
   background-color: #171717;
   color: #ededed;
 }
@@ -373,7 +407,8 @@ a:hover {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.dark .reference-table th {
+.dark .reference-table th,
+.light .reference-table th {
   border-bottom-color: rgba(255, 255, 255, 0.08);
   color: #888;
 }
@@ -384,7 +419,8 @@ a:hover {
   font-size: 14px;
 }
 
-.dark .reference-table td {
+.dark .reference-table td,
+.light .reference-table td {
   border-bottom-color: rgba(255, 255, 255, 0.05);
 }
 

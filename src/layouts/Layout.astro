@@ -39,7 +39,8 @@ const siteName = 'Number System Converter';
 			(function() {
 				const stored = localStorage.getItem('theme');
 				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				if (stored === 'dark' || (!stored && prefersDark)) {
+				// Default to dark mode unless explicitly set to light
+				if (stored === 'dark' || (!stored && prefersDark) || stored === null) {
 					document.documentElement.classList.add('dark');
 				}
 			})();

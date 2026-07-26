@@ -61,13 +61,14 @@
     });
   });
 
-  // ── Dark Mode Toggle ──
+  // ── Dark Mode Toggle (Dark is default) ──
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
 
   function updateThemeIcon() {
     if (themeIcon) {
-      themeIcon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+      // Dark is default, so light mode = sun icon, dark mode = moon icon
+      themeIcon.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
     }
   }
 
