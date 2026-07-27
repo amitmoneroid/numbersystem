@@ -1,0 +1,6 @@
+# Redirect www to non-www (HTTPS) - using domain pattern
+www.numbersystemconverter.com/* https://numbersystemconverter.com/:splat 301!
+
+# Redirect HTTP to HTTPS non-www
+http://numbersystemconverter.com/* https://numbersystemconverter.com/:splat 301!
+http://www.numbersystemconverter.com/* https://numbersystemconverter.com/:splat 301!
