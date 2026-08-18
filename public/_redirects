@@ -1,3 +1,18 @@
+# Redirect non-trailing-slash to trailing-slash (canonical) for all known paths
+# This ensures consistent URLs matching sitemap and canonical tags
+# Root (/) does not need a trailing slash redirect
+# SPECIFIC PATHS FIRST (before wildcards) to avoid redirect chains
+https://numbersystemconverter.com/about https://numbersystemconverter.com/about/ 301!
+https://numbersystemconverter.com/contact https://numbersystemconverter.com/contact/ 301!
+https://numbersystemconverter.com/privacy-policy https://numbersystemconverter.com/privacy-policy/ 301!
+https://numbersystemconverter.com/terms https://numbersystemconverter.com/terms/ 301!
+
+# Also handle www versions of non-trailing-slash paths (specific before wildcard)
+www.numbersystemconverter.com/about https://numbersystemconverter.com/about/ 301!
+www.numbersystemconverter.com/contact https://numbersystemconverter.com/contact/ 301!
+www.numbersystemconverter.com/privacy-policy https://numbersystemconverter.com/privacy-policy/ 301!
+www.numbersystemconverter.com/terms https://numbersystemconverter.com/terms/ 301!
+
 # Redirect www to non-www (HTTPS) - using domain pattern
 www.numbersystemconverter.com/* https://numbersystemconverter.com/:splat 301!
 
