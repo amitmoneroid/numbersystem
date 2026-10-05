@@ -1,0 +1,786 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+
+  <main class="knowledge-catalog-page">
+    <!-- Header Section -->
+    <section class="catalog-header">
+      <div class="page-container">
+        <h1 class="catalog-title">Knowledge Catalog</h1>
+        <p class="catalog-description">Explore comprehensive information about number systems, their applications, and educational resources.</p>
+      </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <section class="catalog-tabs">
+      <div class="page-container">
+        <div class="tabs-container">
+          <button class="tab-btn active" data-tab="utility-type">Utility Type</button>
+          <button class="tab-btn" data-tab="use-cases">Use Cases</button>
+          <button class="tab-btn" data-tab="quick-education">Quick Education</button>
+          <button class="tab-btn" data-tab="target-audience">Target Audience</button>
+          <button class="tab-btn" data-tab="tech-stack">Tech Stack</button>
+          <button class="tab-btn" data-tab="faqs">FAQs</button>
+          <button class="tab-btn" data-tab="coming-soon">Coming Soon</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab Content -->
+    <section class="catalog-content">
+      <div class="page-container">
+        <!-- Utility Type Tab -->
+        <div class="tab-panel active" id="utility-type">
+          <div class="tab-content">
+            <h2 class="tab-title">Utility Type</h2>
+            <p class="tab-description">
+              The Number System Converter is a microtool designed specifically for converting numbers between the International and Indian number systems. It provides instant, accurate conversions with support for multiple scales ranging from thousands to shankh.
+            </p>
+            <div class="tab-features">
+              <div class="feature-item">
+                <h3>Precision Conversion</h3>
+                <p>Accurately converts values between International (Thousand, Million, Billion) and Indian (Lakh, Crore, Arab) systems.</p>
+              </div>
+              <div class="feature-item">
+                <h3>Multiple Scale Support</h3>
+                <p>Supports 13+ different scales including Thousand, Lakh, Million, Crore, Billion, Arab, Trillion, and up to Shankh.</p>
+              </div>
+              <div class="feature-item">
+                <h3>User-Friendly Interface</h3>
+                <p>Intuitive design with clear input fields, dropdown selectors, and instant results display.</p>
+              </div>
+              <div class="feature-item">
+                <h3>Educational Value</h3>
+                <p>Helps users understand the relationship between different number naming systems through visual representations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use Cases Tab -->
+        <div class="tab-panel" id="use-cases">
+          <div class="tab-content">
+            <h2 class="tab-title">Use Cases</h2>
+            <p class="tab-description">
+              The Number System Converter proves invaluable in various scenarios where understanding large numbers across different systems is essential for comprehension and decision-making.
+            </p>
+            <div class="use-cases-list">
+              <div class="use-case-item">
+                <h3>Financial News Analysis</h3>
+                <p>When reading financial reports or stock market news, professionals often encounter large numbers expressed in different systems. Converting ₹2.5 Crore to its International equivalent ($300,000 approximately) enables better understanding of market movements and investment opportunities.</p>
+              </div>
+              <div class="use-case-item">
+                <h3>Academic Research</h3>
+                <p>Students and researchers working with international datasets or Indian economic data need to standardize numbers for comparison. Converting 1 Billion USD to 100 Crore INR helps in cross-country economic analysis.</p>
+              </div>
+              <div class="use-case-item">
+                <h3>Business Reporting</h3>
+                <p>Multinational companies operating in India need to present financial information in locally understood terms while maintaining global standards. A revenue of ₹500 Crore can be clearly communicated as $60 Million approximately to international stakeholders.</p>
+              </div>
+              <div class="use-case-item">
+                <h3>Educational Learning</h3>
+                <p>Mathematics students learning about different numbering systems can use the converter to verify their manual calculations and build intuition about scale relationships between Lakh/Million and Crore/Billion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Education Tab -->
+        <div class="tab-panel" id="quick-education">
+          <div class="tab-content">
+            <h2 class="tab-title">Quick Education</h2>
+            <p class="tab-description">
+              Learn the fundamental differences between International and Indian number systems through simple explanations and practical examples.
+            </p>
+            <div class="education-content">
+              <div class="education-section">
+                <h3>Core Difference in Grouping</h3>
+                <p>
+                  The International number system counts in multiples of thousands, while the Indian number system counts in multiples of hundreds after the initial thousand.
+                </p>
+                <div class="example-box">
+                  <strong>International System:</strong> Thousand (10³), Million (10⁶), Billion (10⁹), Trillion (10¹²)<br>
+                  <strong>Indian System:</strong> Thousand (10³), Lakh (10⁵), Crore (10⁷), Arab (10⁹)
+                </div>
+              </div>
+
+              <div class="education-section">
+                <h3>Practical Conversion Examples</h3>
+                <p>Understanding these relationships makes conversions intuitive:</p>
+                <ul class="example-list">
+                  <li>1 Million = 10 Lakh</li>
+                  <li>1 Billion = 1 Arab = 100 Crore</li>
+                  <li>1 Trillion = 1 Lakh Crore</li>
+                  <li>1 Kharab = 100 Billion</li>
+                </ul>
+              </div>
+
+              <div class="education-section">
+                <h3>Visual Representation Difference</h3>
+                <p>Notice how comma placement differs between systems:</p>
+                <div class="format-example">
+                  <div class="format-item">
+                    <strong>International:</strong> 1,000,000,000 (One Billion)<br>
+                    <strong>Indian:</strong> 1,00,00,00,000 (One Arab)
+                  </div>
+                  <div class="format-item">
+                    <strong>International:</strong> 1,000,000 (One Million)<br>
+                    <strong>Indian:</strong> 10,00,000 (Ten Lakh)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Audience Tab -->
+        <div class="tab-panel" id="target-audience">
+          <div class="tab-content">
+            <h2 class="tab-title">Target Audience</h2>
+            <p class="tab-description">
+              The Number System Converter serves a diverse range of users who regularly work with large numbers and need clarity in understanding financial, academic, or business data.
+            </p>
+            <div class="audience-grid">
+              <div class="audience-item">
+                <h3>Finance Professionals</h3>
+                <p>Investment analysts, bankers, and financial advisors who need to interpret international financial reports in Indian context or vice versa.</p>
+              </div>
+              <div class="audience-item">
+                <h3>Students & Educators</h3>
+                <p>Learners studying mathematics, economics, or business who need to understand different numbering systems for academic success.</p>
+              </div>
+              <div class="audience-item">
+                <h3>Business Owners</h3>
+                <p>Entrepreneurs and corporate professionals dealing with international transactions, investments, or cross-border trade.</p>
+              </div>
+              <div class="audience-item">
+                <h3>Researchers & Analysts</h3>
+                <p>Data scientists and market researchers working with datasets that use different number formatting conventions.</p>
+              </div>
+              <div class="audience-item">
+                <h3>General Public</h3>
+                <p>Anyone reading news, financial statements, or educational material who encounters large numbers and wants quick clarification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Tab -->
+        <div class="tab-panel" id="tech-stack">
+          <div class="tab-content">
+            <h2 class="tab-title">Tech Stack</h2>
+            <p class="tab-description">
+              Built with modern web technologies focusing on performance, accessibility, and user experience. The converter uses client-side JavaScript for instant conversions without page reloads.
+            </p>
+            <div class="tech-details">
+              <div class="tech-category">
+                <h3>Frontend Framework</h3>
+                <p><strong>Astro</strong> - Modern static site builder that delivers optimal performance by shipping zero JavaScript by default.</p>
+              </div>
+              <div class="tech-category">
+                <h3>Styling</h3>
+                <p><strong>CSS Variables & Custom Properties</strong> - Clean, maintainable styling system with dark/light theme support.</p>
+              </div>
+              <div class="tech-category">
+                <h3>Logic & Interactivity</h3>
+                <p><strong>TypeScript</strong> - Ensures type safety and maintainable code for conversion logic and UI interactions.</p>
+              </div>
+              <div class="tech-category">
+                <h3>Features</h3>
+                <ul class="tech-features">
+                  <li><strong>Instant Conversion:</strong> Real-time calculation as you type</li>
+                  <li><strong>Dark/Light Theme:</strong> Automatic preference detection with manual toggle</li>
+                  <li><strong>Mobile Responsive:</strong> Works seamlessly across all device sizes</li>
+                  <li><strong>Accessibility:</strong> ARIA labels, keyboard navigation, and screen reader friendly</li>
+                  <li><strong>Copy to Clipboard:</strong> One-click copying of results</li>
+                  <li><strong>No External Dependencies:</strong> All logic runs client-side for privacy and speed</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQs Tab -->
+        <div class="tab-panel" id="faqs">
+          <div class="tab-content">
+            <h2 class="tab-title">Frequently Asked Questions</h2>
+            <p class="tab-description">
+              Find answers to common questions about the Number System Converter and number systems in general.
+            </p>
+
+            <!-- Search Box -->
+            <div class="faq-search-container">
+              <input type="text" id="faqSearch" placeholder="Search questions..." class="faq-search-input">
+              <span class="faq-search-icon">🔍</span>
+            </div>
+
+            <div class="faq-container">
+              <!-- Existing FAQs -->
+              <div class="faq-item">
+                <h3 class="faq-question">What is the difference between International and Indian number systems?</h3>
+                <div class="faq-answer">
+                  <p>The International system groups digits in sets of three (thousands), while the Indian system groups the first three digits from right, then sets of two (hundreds). For example:</p>
+                  <ul>
+                    <li>International: 1,000,000 (One Million)</li>
+                    <li>Indian: 10,00,000 (Ten Lakh)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">Is the converter accurate for very large numbers?</h3>
+                <div class="faq-answer">
+                  <p>Yes, the converter supports numbers up to 10²⁰ (hundred quintillions) with precision. It uses mathematical operations that maintain accuracy for both integer and decimal values within the supported range.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">Can I use this converter offline?</h3>
+                <div class="faq-answer">
+                  <p>Once loaded, the converter works entirely client-side and can be used offline. All conversion logic runs in your browser without requiring server communication after initial page load.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How does the converter handle decimal values?</h3>
+                <div class="faq-answer">
+                  <p>The converter properly handles decimal values by converting the entire numeric value (including decimal portions) and displaying results with appropriate precision. For example, 5.5 Million converts accurately to 55 Lakh.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">What number scales are supported?</h3>
+                <div class="faq-answer">
+                  <p>The converter supports 13+ scales across both systems:</p>
+                  <ul>
+                    <li><strong>International:</strong> Thousand, Million, Billion, Trillion, Quadrillion, Quintillion</li>
+                    <li><strong>Indian:</strong> Thousand, Lakh, Crore, Arab, Kharab, Neel, Padma, Shankh</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Additional FAQs from Excel data -->
+              <div class="faq-item">
+                <h3 class="faq-question">What is the Babylonian number system and how did it work?</h3>
+                <div class="faq-answer">
+                  <p>The Babylonian number system was a base-60 (sexagesimal) system developed around 1800 BCE. It used only two symbols: a vertical wedge for units and a horizontal wedge for tens. Numbers were written in cuneiform on clay tablets, with place values increasing by powers of 60. This system influenced our modern time measurement (60 seconds, 60 minutes) and angular measurement (360 degrees).</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How did the Mayan number system represent zero?</h3>
+                <div class="faq-answer">
+                  <p>The Mayan number system, developed around 300 BCE, was one of the earliest to use a true zero concept. They used a shell-like symbol to represent zero in their vigesimal (base-20) system. The zero was crucial for their complex calendar calculations and astronomical observations, allowing them to represent large numbers and perform advanced mathematics.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">What makes the Roman number system unique among ancient systems?</h3>
+                <div class="faq-answer">
+                  <p>The Roman number system is unique because it's not a positional system but uses additive and subtractive principles with specific symbols: I=1, V=5, X=10, L=50, C=100, D=500, M=1000. Unlike place-value systems, the same symbol always represents the same value regardless of position, though placement can indicate subtraction (IV=4, IX=9).</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How does the binary number system used in computers differ from decimal?</h3>
+                <div class="faq-answer">
+                  <p>The binary system (base-2) uses only two digits: 0 and 1, representing off/on states in electronic circuits. Each position represents a power of 2 (1, 2, 4, 8, 16...) rather than powers of 10 in decimal. While less intuitive for humans, binary is ideal for digital electronics because it corresponds directly to transistor states and simplifies circuit design.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">What is the hexadecimal system and why is it used in programming?</h3>
+                <div class="faq-answer">
+                  <p>Hexadecimal (base-16) uses digits 0-9 and letters A-F to represent values 10-15. It's used in programming because it provides a more compact representation of binary numbers - each hex digit represents exactly 4 binary bits. This makes it easier for humans to read and write memory addresses, color codes, and machine code while maintaining a direct relationship to binary.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How did ancient Egyptian fractions work differently from modern fractions?</h3>
+                <div class="faq-answer">
+                  <p>Ancient Egyptians used only unit fractions (fractions with numerator 1) except for 2/3. They represented fractions as sums of distinct unit fractions (e.g., 3/4 = 1/2 + 1/4). This system, found in the Rhind Papyrus (~1650 BCE), required special tables for conversion and made complex calculations more challenging than our modern numerator/denominator approach.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">What is the quipu and how did the Inca use it for numerical records?</h3>
+                <div class="faq-answer">
+                  <p>The quipu was an Inca recording device using colored strings with knots to represent numbers. Different knot types and positions indicated values in a base-10 system. The Inca used quipus for census data, tax records, astronomical observations, and possibly narrative information, creating a sophisticated three-dimensional data storage system without written script.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How does the Chinese rod numeral system work?</h3>
+                <div class="faq-answer">
+                  <p>The Chinese rod numeral system used physical rods placed on a counting board to represent numbers. Vertical rods represented units, horizontal rods represented tens, and empty spaces indicated zero. This positional decimal system allowed complex calculations including fractions, square roots, and solving linear equations, predating similar concepts in Europe by centuries.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">What is the purpose of the duodecimal (base-12) system and where is it still used?</h3>
+                <div class="faq-answer">
+                  <p>The duodecimal system has advantages in fractions because 12 is divisible by 2, 3, 4, and 6. It appears in measurements: 12 inches in a foot, 12 months in a year, 12 hours on clock faces, and 12 pence in a shilling (pre-decimal UK currency). Some advocate for its adoption in mathematics due to simpler fractional representations.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How did Indian mathematicians contribute to the development of zero?</h3>
+                <div class="faq-answer">
+                  <p>Indian mathematicians, particularly Brahmagupta in 628 CE, formalized zero as a number with its own properties, not just a placeholder. He established rules for arithmetic with zero (a+0=a, a-0=a, a×0=0) and explored division by zero concepts. This conceptual breakthrough spread to the Islamic world and then to Europe, transforming mathematics.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <h3 class="faq-question">How do computer systems handle negative numbers in binary?</h3>
+                <div class="faq-answer">
+                  <p>Computers use several methods to represent negative numbers in binary: Sign-and-magnitude (first bit indicates sign), One's complement (invert all bits), and Two's complement (invert bits and add 1). Two's complement is most common because it allows simple addition/subtraction operations and has only one representation for zero, simplifying arithmetic logic unit design.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coming Soon Tab -->
+        <div class="tab-panel" id="coming-soon">
+          <div class="tab-content">
+            <h2 class="tab-title">Coming Soon</h2>
+            <p class="tab-description">
+              Exciting new features and enhancements are currently in development to make the Number System Converter even more useful and accessible.
+            </p>
+            <div class="coming-soon-items">
+              <div class="coming-soon-item">
+                <h3>Multi-Language Support</h3>
+                <p>The website will soon be available in language-specific versions, starting with Hindi and other major Indian languages, to serve a broader audience.</p>
+                <div class="coming-soon-badge">Q1 2027</div>
+              </div>
+
+              <div class="coming-soon-item">
+                <h3>API Access</h3>
+                <p>Developers will be able to integrate number conversion capabilities into their applications through a RESTful API endpoint.</p>
+                <div class="coming-soon-badge">Q2 2027</div>
+              </div>
+
+              <div class="coming-soon-item">
+                <h3>Mobile Applications</h3>
+                <p>Native iOS and Android applications will be released for on-the-go number conversion with offline capabilities.</p>
+                <div class="coming-soon-badge">Q3 2027</div>
+              </div>
+
+              <div class="coming-soon-item">
+                <h3>Historical Data Viewer</h3>
+                <p>Explore how number systems have evolved over time with interactive historical data and examples from different eras.</p>
+                <div class="coming-soon-badge">Q4 2027</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .knowledge-catalog-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .catalog-header {
+    text-align: center;
+    padding: var(--spacing-5xl) var(--spacing-lg) var(--spacing-3xl);
+    background: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .catalog-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
+  }
+
+  .catalog-description {
+    font-size: 18px;
+    color: var(--color-body);
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .catalog-tabs {
+    background: var(--color-canvas);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .tabs-container {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: var(--spacing-sm) 0;
+    justify-content: center;
+  }
+
+  .tab-btn {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-body);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 120px;
+  }
+
+  .tab-btn:hover {
+    color: var(--color-ink);
+    background: var(--color-canvas-soft);
+  }
+
+  .tab-btn.active {
+    color: var(--color-link);
+    border-bottom-color: var(--color-link);
+    background: var(--color-link-bg-soft);
+  }
+
+  .catalog-content {
+    flex-grow: 1;
+  }
+
+  .tab-panel {
+    display: none;
+    padding: var(--spacing-4xl) var(--spacing-lg);
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .tab-content {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .tab-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .tab-description {
+    font-size: 16px;
+    color: var(--color-body);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .tab-features, .use-cases-list, .education-content, .audience-grid, .tech-details, .faq-container, .coming-soon-items {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .tab-features {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .use-cases-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .education-content {
+    grid-template-columns: 1fr;
+  }
+
+  .audience-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .tech-details {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .feature-item, .use-case-item, .education-section, .audience-item, .tech-category, .faq-item, .coming-soon-item {
+    background: var(--color-canvas-soft);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--color-hairline);
+  }
+
+  .feature-item h3, .use-case-item h3, .education-section h3, .audience-item h3, .tech-category h3, .faq-question, .coming-soon-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .feature-item p, .use-case-item p, .education-section p, .audience-item p, .tech-category p, .faq-answer, .coming-soon-item p {
+    font-size: 14px;
+    color: var(--color-body);
+    line-height: 1.5;
+  }
+
+  .example-box, .format-example {
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+
+  .example-list {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+
+  .example-list li {
+    padding: var(--spacing-sm);
+    background: var(--color-canvas);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-hairline);
+    font-family: var(--font-mono);
+  }
+
+  .tech-features {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+
+  .tech-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--color-canvas);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-hairline);
+  }
+
+  .tech-features li::before {
+    content: "•";
+    color: var(--color-link);
+    font-weight: bold;
+  }
+
+  .faq-container {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-search-container {
+    display: flex;
+    align-items: center;
+    background: var(--color-canvas-soft);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-2xl);
+    border: 1px solid var(--color-hairline);
+  }
+
+  .faq-search-input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: var(--color-body);
+    padding: var(--spacing-xs) 0;
+  }
+
+  .faq-search-input:focus {
+    outline: none;
+  }
+
+  .faq-search-input::placeholder {
+    color: var(--color-mute);
+    opacity: 0.7;
+  }
+
+  .faq-search-icon {
+    color: var(--color-mute);
+    font-size: 16px;
+    margin-left: var(--spacing-sm);
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--spacing-lg);
+    background: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-hairline);
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::after {
+    content: "▼";
+    font-size: 12px;
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item.active .faq-question::after {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: var(--color-canvas);
+  }
+
+  .faq-item.active .faq-answer {
+    padding: var(--spacing-lg);
+    max-height: 200px;
+  }
+
+  .faq-answer p {
+    margin: 0 0 var(--spacing-sm) 0;
+    line-height: 1.6;
+  }
+
+  .faq-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  .coming-soon-items {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .coming-soon-item {
+    text-align: center;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .coming-soon-item h3 {
+    font-size: 20px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .coming-soon-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-link-bg-soft);
+    color: var(--color-link);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--spacing-sm);
+  }
+
+  @media (max-width: 768px) {
+    .tabs-container {
+      justify-content: flex-start;
+      padding-left: var(--spacing-sm);
+      padding-right: var(--spacing-sm);
+    }
+
+    .tab-btn {
+      min-width: auto;
+      flex-wrap: nowrap;
+    }
+
+    .tab-features, .use-cases-list, .audience-grid, .tech-details, .coming-soon-items {
+      grid-template-columns: 1fr;
+    }
+
+    .catalog-title {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .catalog-header {
+      padding: var(--spacing-4xl) var(--spacing-md) var(--spacing-2xl);
+    }
+
+    .catalog-content {
+      padding: var(--spacing-3xl) var(--spacing-md);
+    }
+
+    .tab-btn {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and panels
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        // Show corresponding panel
+        const tabId = button.getAttribute('data-tab');
+        const panel = document.getElementById(tabId);
+        if (panel) {
+          panel.classList.add('active');
+        }
+      });
+    });
+
+    // Initialize FAQ accordions
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        faqItem.classList.toggle('active');
+      });
+    });
+
+    // Initialize FAQ search
+    const faqSearchInput = document.getElementById('faqSearch');
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    if (faqSearchInput) {
+      faqSearchInput.addEventListener('input', () => {
+        const searchTerm = faqSearchInput.value.toLowerCase().trim();
+
+        faqItems.forEach(item => {
+          const question = item.querySelector('.faq-question');
+          if (question) {
+            const questionText = question.textContent.toLowerCase();
+            if (searchTerm === '' || questionText.includes(searchTerm)) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          }
+        });
+      });
+    }
+  });
+</script>
