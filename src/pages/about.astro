@@ -164,6 +164,47 @@ const pageKeywords = 'about number system converter, indian international number
         </div>
       </div>
     </section>
+    <!-- ═══════════════ METHOD & ACCURACY ═══════════════ -->
+    <section class="band-canvas section-band" id="method">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Method &amp; accuracy</span>
+          <h2 class="display-lg">How the numbers on this site are checked.</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 680px;">
+            Every scale value and every worked example is checked against a single 10ⁿ reference table, then cross-checked in the opposite direction. The table is published, so you can audit the same numbers we use.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">Single source of truth</h3>
+            <p class="body-sm" style="color: var(--color-body);">
+              The Indian scale (lakh 10⁵, crore 10⁷, arab 10⁹, kharab 10¹¹, neel 10¹³, padma 10¹⁵, shankh 10¹⁷) and the International short scale (million 10⁶, billion 10⁹, trillion 10¹²) are stored once in the site data. The converter, the tables and the guides all read from it, so a correction propagates everywhere.
+            </p>
+          </div>
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">Round-trip checks</h3>
+            <p class="body-sm" style="color: var(--color-body);">
+              Base conversions are verified in both directions: decimal → binary → decimal, and decimal → hex → decimal. Naming conversions are checked against the anchors 1 million = 10 lakh, 1 billion = 1 arab = 100 crore, and 1 trillion = 1 lakh crore.
+            </p>
+          </div>
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">Editorial standard</h3>
+            <p class="body-sm" style="color: var(--color-body);">
+              Guides are written and reviewed by the NumSys editorial team and dated on the page. We cite standards bodies for conventions rather than other calculator sites. If you find an error, the <a href="/contact/">contact page</a> reaches the person who can fix it.
+            </p>
+          </div>
+        </div>
+
+        <p class="body-sm" style="color: var(--color-body); max-width: 760px; margin: var(--spacing-2xl) auto 0; text-align: center;">
+          References for the conventions used here:
+          <a href="https://www.bipm.org/en/committees/cg" target="_blank" rel="noopener noreferrer">BIPM / CGPM</a> for the short-scale standard,
+          <a href="https://www.nist.gov/pml/special-publication-811" target="_blank" rel="noopener noreferrer">NIST SP 811</a> for unit and number style,
+          and <a href="https://cldr.unicode.org/" target="_blank" rel="noopener noreferrer">Unicode CLDR</a> for locale digit grouping.
+          Page last reviewed: <time datetime="2026-10-27">27 October 2026</time>.
+        </p>
+      </div>
+    </section>
   </main>
 
   <Footer />

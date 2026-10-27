@@ -1,0 +1,164 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import BaseConverter from '../../components/BaseConverter.astro';
+import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
+import { guides } from '../../data/guides';
+
+const guide = guides.find((g) => g.slug === 'number-system-converter-online')!;
+
+const toc = [
+  { id: 'online-means', label: 'What “online” adds' },
+  { id: 'tool', label: 'Use the converter' },
+  { id: 'naming-vs-base', label: 'Naming vs base' },
+  { id: 'examples', label: 'Values to check' },
+  { id: 'world', label: 'Why results differ by country' },
+  { id: 'privacy', label: 'Privacy and offline use' },
+  { id: 'workflow', label: 'A five-step workflow' },
+];
+
+const faqs = [
+  {
+    question: 'Is this number system converter online free?',
+    answer:
+      'Yes. Every conversion — lakh to million, crore to billion, or binary to hexadecimal — runs in the browser at no cost, with no account, sign-up or download.',
+  },
+  {
+    question: 'Does the converter send my numbers to a server?',
+    answer:
+      'No. All arithmetic runs locally in JavaScript. The page loads once; after that the converter works offline, including in airplane mode.',
+  },
+  {
+    question: 'Why does the same number show different names in different countries?',
+    answer:
+      'Because naming scales differ. Portugal’s <em>bilião</em> is 10¹² while Brazil’s <em>bilhão</em> is 10⁹; Spanish <em>billón</em> is 10¹²; Japanese has no 10⁹ word and writes 10億. The digits are identical — the label attached to them is not.',
+  },
+  {
+    question: 'Can I use the online converter on a phone?',
+    answer:
+      'Yes. The layout is responsive and the inputs use a decimal-friendly keyboard. The base converter accepts letters A–Z for bases above 10, so a physical keyboard is faster for hex work.',
+  },
+];
+---
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+  <h2 id="online-means">What a number system converter online actually adds</h2>
+  <p>
+    You can convert by hand, and for one number you probably should. A <strong>number system converter online</strong> earns its place when the volume rises: a spreadsheet column of crores, a page of hex colour codes, a set of binary masks, or a translated article where every “billion” might mean 10⁹ or 10¹².
+  </p>
+  <div class="answer-box">
+    <p><strong>Three things “online” should mean:</strong> the answer appears as you type, the arithmetic happens in your browser rather than on a server, and the page keeps working after the network drops.</p>
+  </div>
+  <p>
+    This converter does all three. There is no upload step, so a salary figure or a company valuation never leaves the device. The trade-off is that the tool depends on JavaScript: if scripting is disabled, the page still renders the reference tables and explanations, but not live results.
+  </p>
+
+  <h2 id="tool">Use the online converter</h2>
+  <p>
+    The base converter below covers bases 2 to 36 and prints both the positional expansion and the repeated division. For lakh, crore, million and billion, the <a href="/#converter">Indian ⇄ International converter</a> at the top of the homepage handles named scales and word expansion.
+  </p>
+  <BaseConverter />
+
+  <h2 id="naming-vs-base">Naming systems and base systems are different problems</h2>
+  <p>
+    Two questions get mixed together constantly, especially in search results.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Question</th><th>What changes</th><th>Example</th><th>Tool</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Base conversion</td>
+        <td>The radix — how many digits are available</td>
+        <td><code>156₁₀ = 10011100₂ = 234₈ = 9C₁₆</code></td>
+        <td><a href="#tool">Base converter</a></td>
+      </tr>
+      <tr>
+        <td>Naming conversion</td>
+        <td>The name and comma grouping for the same base-10 value</td>
+        <td><code>1,000,000,000 = 1 billion = 1 arab = 100 crore</code></td>
+        <td><a href="/#converter">Indian ⇄ International</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Both are useful; neither replaces the other. A binary-to-hex conversion will never tell you whether a Portuguese “bilião” is a billion, and a lakh-to-million conversion will never turn 255 into <code>FF</code>.
+  </p>
+
+  <h2 id="examples">Values worth checking by hand</h2>
+  <p>These anchors catch most conversion errors. Each one is small enough to verify mentally.</p>
+  <table>
+    <thead>
+      <tr><th>Input</th><th>Correct result</th><th>Why it matters</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1 million</td><td>10 lakh</td><td>The most common Indian ⇄ International anchor</td></tr>
+      <tr><td>1 billion</td><td>1 arab = 100 crore</td><td>Not 100 lakh — that is only 1 crore</td></tr>
+      <tr><td>1 trillion</td><td>1 lakh crore</td><td>Three steps of 1,000 from a billion</td></tr>
+      <tr><td>255 decimal</td><td><code>11111111₂</code> = <code>377₈</code> = <code>FF₁₆</code></td><td>Largest 8-bit value</td></tr>
+      <tr><td>0.6875 decimal</td><td><code>0.1011₂</code></td><td>Fractional conversion reads top-to-bottom</td></tr>
+      <tr><td>1 milliard (French)</td><td>1 billion = 10⁹</td><td>Same value, different label</td></tr>
+      <tr><td>1 billón (Spanish)</td><td>1 trillion = 10¹²</td><td>False friend; a thousand times larger than English “billion”</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="world">Why the same result is described differently around the world</h2>
+  <p>
+    The digits are universal; the words are not. Two systems dominate: the <strong>short scale</strong>, where every new name is 1,000× the previous (English, Brazilian Portuguese, Russian, Arabic, Turkish, Indonesian), and the <strong>long scale</strong>, where every new name is 1,000,000× and a separate word covers 10⁹ (European Portuguese, Spanish, French, German, Italian, Dutch, Polish, Swedish).
+  </p>
+  <p>
+    A third group does not use thousands at all: Japanese, Chinese and Korean group by four, so 10⁸ is a named unit and 10⁹ is built from it. The table below is the quickest way to see where a value lands in each.
+  </p>
+  <WorldSystemsTable caption="Sixteen numbering systems benchmarked against the International short scale (1 billion = 10⁹)." />
+
+  <h3>Worked comparison: one value, four labels</h3>
+  <p>Take 3,400,000,000 — a mid-sized corporate valuation.</p>
+  <ul>
+    <li><strong>International:</strong> 3.4 billion</li>
+    <li><strong>Indian:</strong> 340 crore (or 3.4 arab)</li>
+    <li><strong>Portuguese (Portugal):</strong> 3.4 mil milhões</li>
+    <li><strong>Portuguese (Brazil):</strong> 3.4 bilhões</li>
+    <li><strong>Japanese:</strong> 34億 (34 oku)</li>
+    <li><strong>Spanish:</strong> 3,400 millones</li>
+  </ul>
+  <p class="note">
+    Note that Portuguese splits by country, not by scale family: the European and Brazilian forms for the same number use different words. If a document does not state the locale, check the publication country before assuming a magnitude.
+  </p>
+
+  <h3>Nuance 1: Portugal and Brazil disagree on the same word</h3>
+  <p>
+    A Lisbon report and a São Paulo report can both print a “bilião” figure and mean values 1,000× apart. Portugal’s <em>bilião</em> is 10¹²; Brazil’s <em>bilhão</em> is 10⁹. The online converter cannot resolve that ambiguity for you — the locale has to come from the source.
+  </p>
+
+  <h3>Nuance 2: Spanish has no everyday word for a billion</h3>
+  <p>
+    Spanish says <em>mil millones</em> for 10⁹ and reserves <em>billón</em> for 10¹². An English “billion” translated as “billón” is off by a factor of 1,000, which is the single most common error in Spanish-language financial copy.
+  </p>
+
+  <h3>Nuance 3: Korean quotes budgets in 억</h3>
+  <p>
+    Korean groups by four: 억 (eok) = 10⁸, 조 (jo) = 10¹². A “10억 원” budget is one billion won, not ten billion — the unit already contains two extra zeros. Converting eok to crore means multiplying by 10 first, then applying the crore anchor.
+  </p>
+
+  <h3>Nuance 4: Arabic keeps the scale but changes the digits</h3>
+  <p>
+    Arabic uses the short scale (مليار = 10⁹), so magnitudes line up with English. What changes is the numeral set (٠١٢٣٤٥٦٧٨٩) and the decimal separator, so pasted values often need normalising before a converter will parse them.
+  </p>
+
+  <h2 id="privacy">Privacy, accuracy and offline use</h2>
+  <p>
+    The converter ships as static HTML, CSS and JavaScript. There is no server-side conversion endpoint, so there is nothing to log and no queue to slow the response. Accuracy is fixed by the arithmetic itself: JavaScript integers are exact up to 2⁵³ − 1 (about 9 quadrillion), which covers lakh, crore, million, billion and trillion exactly. Above that, the last significant digits are rounded.
+  </p>
+  <p>
+    Two honest limits: very long fractional expansions are rounded after twelve digits, and a page refresh clears the current input because nothing is stored. Neither affects the reference tables, which are static.
+  </p>
+
+  <h2 id="workflow">A five-step workflow for reliable online conversion</h2>
+  <ol>
+    <li><strong>Name the source.</strong> Base 10 with Indian naming? Base 16? A long-scale language?</li>
+    <li><strong>Choose the right tool.</strong> Base converter for radix, Indian ⇄ International converter for naming.</li>
+    <li><strong>Enter the value without separators.</strong> Commas, thin spaces and Arabic-Indic digits should be stripped or normalised first.</li>
+    <li><strong>Sanity-check the magnitude.</strong> Compare against an anchor: 1 million = 10 lakh, 1 billion = 1 arab.</li>
+    <li><strong>Keep the working.</strong> Copy the step list when the result goes into a report, so a reviewer can follow it.</li>
+  </ol>
+</GuideLayout>

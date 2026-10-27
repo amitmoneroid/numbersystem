@@ -1,0 +1,478 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 15725 >>
+stream
+BT /F2 20 Tf 1 0 0 1 48 734 Tm (Number System Conversion Table) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 714 Tm (Decimal, binary, octal and hexadecimal - values 0 to 63) Tj ET
+0.55 0.55 0.55 RG 0.8 w 48 702 m 564 702 l S
+BT /F2 7.5 Tf 1 0 0 1 48 674 Tm (DEC) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 320 674 Tm (DEC) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 74 674 Tm (BINARY) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 346 674 Tm (BINARY) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 144 674 Tm (OCT) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 416 674 Tm (OCT) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 178 674 Tm (HEX) Tj ET
+BT /F2 7.5 Tf 1 0 0 1 450 674 Tm (HEX) Tj ET
+0.96 0.96 0.96 rg 45 657.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 660 Tm ( 0) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 660 Tm (000000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 660 Tm (000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 660 Tm (00) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 650.4 Tm ( 1) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 650.4 Tm (000001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 650.4 Tm (001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 650.4 Tm (01) Tj ET
+0.96 0.96 0.96 rg 45 638.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 640.8 Tm ( 2) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 640.8 Tm (000010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 640.8 Tm (002) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 640.8 Tm (02) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 631.2 Tm ( 3) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 631.2 Tm (000011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 631.2 Tm (003) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 631.2 Tm (03) Tj ET
+0.96 0.96 0.96 rg 45 619.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 621.6 Tm ( 4) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 621.6 Tm (000100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 621.6 Tm (004) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 621.6 Tm (04) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 612 Tm ( 5) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 612 Tm (000101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 612 Tm (005) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 612 Tm (05) Tj ET
+0.96 0.96 0.96 rg 45 599.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 602.4 Tm ( 6) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 602.4 Tm (000110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 602.4 Tm (006) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 602.4 Tm (06) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 592.8 Tm ( 7) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 592.8 Tm (000111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 592.8 Tm (007) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 592.8 Tm (07) Tj ET
+0.96 0.96 0.96 rg 45 580.7 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 583.2 Tm ( 8) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 583.2 Tm (001000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 583.2 Tm (010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 583.2 Tm (08) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 573.6 Tm ( 9) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 573.6 Tm (001001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 573.6 Tm (011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 573.6 Tm (09) Tj ET
+0.96 0.96 0.96 rg 45 561.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 564 Tm (10) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 564 Tm (001010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 564 Tm (012) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 564 Tm (0A) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 554.4 Tm (11) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 554.4 Tm (001011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 554.4 Tm (013) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 554.4 Tm (0B) Tj ET
+0.96 0.96 0.96 rg 45 542.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 544.8 Tm (12) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 544.8 Tm (001100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 544.8 Tm (014) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 544.8 Tm (0C) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 535.2 Tm (13) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 535.2 Tm (001101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 535.2 Tm (015) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 535.2 Tm (0D) Tj ET
+0.96 0.96 0.96 rg 45 523.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 525.6 Tm (14) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 525.6 Tm (001110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 525.6 Tm (016) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 525.6 Tm (0E) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 516 Tm (15) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 516 Tm (001111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 516 Tm (017) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 516 Tm (0F) Tj ET
+0.96 0.96 0.96 rg 45 503.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 506.4 Tm (16) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 506.4 Tm (010000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 506.4 Tm (020) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 506.4 Tm (10) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 496.8 Tm (17) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 496.8 Tm (010001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 496.8 Tm (021) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 496.8 Tm (11) Tj ET
+0.96 0.96 0.96 rg 45 484.70000000000005 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 487.20000000000005 Tm (18) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 487.20000000000005 Tm (010010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 487.20000000000005 Tm (022) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 487.20000000000005 Tm (12) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 477.6 Tm (19) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 477.6 Tm (010011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 477.6 Tm (023) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 477.6 Tm (13) Tj ET
+0.96 0.96 0.96 rg 45 465.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 468 Tm (20) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 468 Tm (010100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 468 Tm (024) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 468 Tm (14) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 458.4 Tm (21) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 458.4 Tm (010101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 458.4 Tm (025) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 458.4 Tm (15) Tj ET
+0.96 0.96 0.96 rg 45 446.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 448.8 Tm (22) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 448.8 Tm (010110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 448.8 Tm (026) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 448.8 Tm (16) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 439.20000000000005 Tm (23) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 439.20000000000005 Tm (010111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 439.20000000000005 Tm (027) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 439.20000000000005 Tm (17) Tj ET
+0.96 0.96 0.96 rg 45 427.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 429.6 Tm (24) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 429.6 Tm (011000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 429.6 Tm (030) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 429.6 Tm (18) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 420 Tm (25) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 420 Tm (011001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 420 Tm (031) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 420 Tm (19) Tj ET
+0.96 0.96 0.96 rg 45 407.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 410.4 Tm (26) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 410.4 Tm (011010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 410.4 Tm (032) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 410.4 Tm (1A) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 400.8 Tm (27) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 400.8 Tm (011011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 400.8 Tm (033) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 400.8 Tm (1B) Tj ET
+0.96 0.96 0.96 rg 45 388.7 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 391.2 Tm (28) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 391.2 Tm (011100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 391.2 Tm (034) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 391.2 Tm (1C) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 381.6 Tm (29) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 381.6 Tm (011101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 381.6 Tm (035) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 381.6 Tm (1D) Tj ET
+0.96 0.96 0.96 rg 45 369.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 48 372 Tm (30) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 372 Tm (011110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 372 Tm (036) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 372 Tm (1E) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 362.40000000000003 Tm (31) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 74 362.40000000000003 Tm (011111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 144 362.40000000000003 Tm (037) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 178 362.40000000000003 Tm (1F) Tj ET
+0.96 0.96 0.96 rg 317 657.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 660 Tm (32) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 660 Tm (100000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 660 Tm (040) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 660 Tm (20) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 650.4 Tm (33) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 650.4 Tm (100001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 650.4 Tm (041) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 650.4 Tm (21) Tj ET
+0.96 0.96 0.96 rg 317 638.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 640.8 Tm (34) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 640.8 Tm (100010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 640.8 Tm (042) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 640.8 Tm (22) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 631.2 Tm (35) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 631.2 Tm (100011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 631.2 Tm (043) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 631.2 Tm (23) Tj ET
+0.96 0.96 0.96 rg 317 619.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 621.6 Tm (36) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 621.6 Tm (100100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 621.6 Tm (044) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 621.6 Tm (24) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 612 Tm (37) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 612 Tm (100101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 612 Tm (045) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 612 Tm (25) Tj ET
+0.96 0.96 0.96 rg 317 599.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 602.4 Tm (38) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 602.4 Tm (100110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 602.4 Tm (046) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 602.4 Tm (26) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 592.8 Tm (39) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 592.8 Tm (100111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 592.8 Tm (047) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 592.8 Tm (27) Tj ET
+0.96 0.96 0.96 rg 317 580.7 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 583.2 Tm (40) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 583.2 Tm (101000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 583.2 Tm (050) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 583.2 Tm (28) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 573.6 Tm (41) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 573.6 Tm (101001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 573.6 Tm (051) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 573.6 Tm (29) Tj ET
+0.96 0.96 0.96 rg 317 561.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 564 Tm (42) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 564 Tm (101010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 564 Tm (052) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 564 Tm (2A) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 554.4 Tm (43) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 554.4 Tm (101011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 554.4 Tm (053) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 554.4 Tm (2B) Tj ET
+0.96 0.96 0.96 rg 317 542.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 544.8 Tm (44) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 544.8 Tm (101100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 544.8 Tm (054) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 544.8 Tm (2C) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 535.2 Tm (45) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 535.2 Tm (101101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 535.2 Tm (055) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 535.2 Tm (2D) Tj ET
+0.96 0.96 0.96 rg 317 523.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 525.6 Tm (46) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 525.6 Tm (101110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 525.6 Tm (056) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 525.6 Tm (2E) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 516 Tm (47) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 516 Tm (101111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 516 Tm (057) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 516 Tm (2F) Tj ET
+0.96 0.96 0.96 rg 317 503.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 506.4 Tm (48) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 506.4 Tm (110000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 506.4 Tm (060) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 506.4 Tm (30) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 496.8 Tm (49) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 496.8 Tm (110001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 496.8 Tm (061) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 496.8 Tm (31) Tj ET
+0.96 0.96 0.96 rg 317 484.70000000000005 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 487.20000000000005 Tm (50) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 487.20000000000005 Tm (110010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 487.20000000000005 Tm (062) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 487.20000000000005 Tm (32) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 477.6 Tm (51) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 477.6 Tm (110011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 477.6 Tm (063) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 477.6 Tm (33) Tj ET
+0.96 0.96 0.96 rg 317 465.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 468 Tm (52) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 468 Tm (110100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 468 Tm (064) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 468 Tm (34) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 458.4 Tm (53) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 458.4 Tm (110101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 458.4 Tm (065) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 458.4 Tm (35) Tj ET
+0.96 0.96 0.96 rg 317 446.3 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 448.8 Tm (54) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 448.8 Tm (110110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 448.8 Tm (066) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 448.8 Tm (36) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 439.20000000000005 Tm (55) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 439.20000000000005 Tm (110111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 439.20000000000005 Tm (067) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 439.20000000000005 Tm (37) Tj ET
+0.96 0.96 0.96 rg 317 427.1 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 429.6 Tm (56) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 429.6 Tm (111000) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 429.6 Tm (070) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 429.6 Tm (38) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 420 Tm (57) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 420 Tm (111001) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 420 Tm (071) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 420 Tm (39) Tj ET
+0.96 0.96 0.96 rg 317 407.9 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 410.4 Tm (58) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 410.4 Tm (111010) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 410.4 Tm (072) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 410.4 Tm (3A) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 400.8 Tm (59) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 400.8 Tm (111011) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 400.8 Tm (073) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 400.8 Tm (3B) Tj ET
+0.96 0.96 0.96 rg 317 388.7 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 391.2 Tm (60) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 391.2 Tm (111100) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 391.2 Tm (074) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 391.2 Tm (3C) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 381.6 Tm (61) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 381.6 Tm (111101) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 381.6 Tm (075) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 381.6 Tm (3D) Tj ET
+0.96 0.96 0.96 rg 317 369.5 196 9.6 re f
+BT /F3 8.5 Tf 1 0 0 1 320 372 Tm (62) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 372 Tm (111110) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 372 Tm (076) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 372 Tm (3E) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 320 362.40000000000003 Tm (63) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 346 362.40000000000003 Tm (111111) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 416 362.40000000000003 Tm (077) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 362.40000000000003 Tm (3F) Tj ET
+BT /F2 11 Tf 1 0 0 1 48 322.8 Tm (Powers of two) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 304.8 Tm (2^0 = 1) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 304.8 Tm (2^11 = 2,048) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 292.8 Tm (2^1 = 2) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 292.8 Tm (2^12 = 4,096) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 280.8 Tm (2^2 = 4) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 280.8 Tm (2^13 = 8,192) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 268.8 Tm (2^3 = 8) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 268.8 Tm (2^14 = 16,384) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 256.8 Tm (2^4 = 16) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 256.8 Tm (2^15 = 32,768) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 48 244.8 Tm (2^5 = 32) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 182 244.8 Tm (2^16 = 65,536) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 316 304.8 Tm (2^6 = 64) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 304.8 Tm (2^20 = 1,048,576) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 316 292.8 Tm (2^7 = 128) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 292.8 Tm (2^24 = 16,777,216) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 316 280.8 Tm (2^8 = 256) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 280.8 Tm (2^30 = 1,073,741,824) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 316 268.8 Tm (2^9 = 512) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 268.8 Tm (2^32 = 4,294,967,296) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 316 256.8 Tm (2^10 = 1,024) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 450 256.8 Tm (2^40 = 1,099,511,627,776) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 48 78 Tm (Read a row across: the same value in all four bases. Hex digits A-F represent 10-15.) Tj ET
+0.8 0.8 0.8 RG 0.5 w 48 46 m 564 46 l S
+BT /F1 8 Tf 1 0 0 1 48 34 Tm (numbersystemconverter.com - free number system converter with steps) Tj ET
+BT /F1 8 Tf 1 0 0 1 502 34 Tm (Page 1 of 2) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 6717 >>
+stream
+BT /F2 20 Tf 1 0 0 1 48 734 Tm (Methods and World Scales) Tj ET
+BT /F1 9 Tf 1 0 0 1 48 714 Tm (How to convert, and how 10 languages name 1 million, 1 billion and 1 trillion) Tj ET
+0.55 0.55 0.55 RG 0.8 w 48 702 m 564 702 l S
+BT /F2 11 Tf 1 0 0 1 48 672 Tm (Method 1 - decimal to another base \(repeated division\)) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 656 Tm (1. Divide the number by the target base and record the remainder.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 645 Tm (2. Divide the quotient again by the base. Repeat until the quotient is 0.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 634 Tm (3. Read the remainders from bottom to top - that is the converted number.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 623 Tm (Example: 156 / 2 = 78 r0, 78/2=39 r0, 39/2=19 r1, 19/2=9 r1, 9/2=4 r1, 4/2=2 r0, 2/2=1 r0, 1/2=0 r1 -> 10011100.) Tj ET
+BT /F2 11 Tf 1 0 0 1 48 604 Tm (Method 2 - any base to decimal \(positional weights\)) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 588 Tm (1. Number the digit positions from 0 at the right of the integer part, going left.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 577 Tm (2. Multiply each digit by \(base ^ position\) and add the results.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 566 Tm (Example: 1A.8 in hex = 1x16^1 + 10x16^0 + 8x16^-1 = 16 + 10 + 0.5 = 26.5.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 48 555 Tm (Fractions: multiply the fraction by the base, take the carry, repeat. Read carries top to bottom.) Tj ET
+BT /F2 11 Tf 1 0 0 1 48 534 Tm (Indian and International scale) Tj ET
+BT /F2 6.8 Tf 1 0 0 1 48 518 Tm (POWER) Tj ET
+BT /F2 6.8 Tf 1 0 0 1 92 518 Tm (INTERNATIONAL) Tj ET
+BT /F2 6.8 Tf 1 0 0 1 236 518 Tm (INTL FORMAT) Tj ET
+BT /F2 6.8 Tf 1 0 0 1 366 518 Tm (INDIAN) Tj ET
+BT /F2 6.8 Tf 1 0 0 1 480 518 Tm (INDIAN FORMAT) Tj ET
+0.7 0.7 0.7 RG 0.5 w 48 514 m 564 514 l S
+BT /F3 7.6 Tf 1 0 0 1 48 504 Tm (10^3) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 504 Tm (Thousand) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 504 Tm (1,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 504 Tm (Thousand) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 504 Tm (1,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 493.5 Tm (10^5) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 493.5 Tm (Hundred thousand) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 493.5 Tm (100,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 493.5 Tm (Lakh) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 493.5 Tm (1,00,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 483 Tm (10^6) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 483 Tm (Million) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 483 Tm (1,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 483 Tm (Ten lakh) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 483 Tm (10,00,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 472.5 Tm (10^7) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 472.5 Tm (Ten million) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 472.5 Tm (10,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 472.5 Tm (Crore) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 472.5 Tm (1,00,00,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 462 Tm (10^9) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 462 Tm (Billion) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 462 Tm (1,000,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 462 Tm (Arab) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 462 Tm (1,00,00,00,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 451.5 Tm (10^11) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 451.5 Tm (Hundred billion) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 451.5 Tm (100,000,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 451.5 Tm (Kharab) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 451.5 Tm (1,00,00,00,00,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 441 Tm (10^12) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 441 Tm (Trillion) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 441 Tm (1,000,000,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 441 Tm (Lakh crore) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 441 Tm (1,00,000 crore) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 48 430.5 Tm (10^15) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 92 430.5 Tm (Quadrillion) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 236 430.5 Tm (1,000,000,000,000,000) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 366 430.5 Tm (Padma) Tj ET
+BT /F3 7.6 Tf 1 0 0 1 480 430.5 Tm (1,00,00,00,00,00,00,000) Tj ET
+BT /F2 11 Tf 1 0 0 1 48 408 Tm (Where "billion" changes meaning) Tj ET
+BT /F2 7.4 Tf 1 0 0 1 48 392 Tm (English / International) Tj ET
+BT /F2 7.4 Tf 1 0 0 1 228 392 Tm (short) Tj ET
+BT /F2 7.4 Tf 1 0 0 1 300 392 Tm (billion = 10^9) Tj ET
+BT /F2 7.4 Tf 1 0 0 1 446 392 Tm (trillion = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 381.8 Tm (Indian) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 381.8 Tm (indian) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 381.8 Tm (arab = 10^9 \(100 crore\)) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 381.8 Tm (lakh crore = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 371.6 Tm (Portuguese \(Portugal\)) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 371.6 Tm (long) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 371.6 Tm (mil milhoes = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 371.6 Tm (biliao = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 361.40000000000003 Tm (Portuguese \(Brazil\)) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 361.40000000000003 Tm (short) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 361.40000000000003 Tm (bilhao = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 361.40000000000003 Tm (trilhao = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 351.20000000000005 Tm (Spanish) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 351.20000000000005 Tm (long) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 351.20000000000005 Tm (mil millones = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 351.20000000000005 Tm (billon = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 341.00000000000006 Tm (French) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 341.00000000000006 Tm (long) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 341.00000000000006 Tm (milliard = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 341.00000000000006 Tm (billion = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 330.80000000000007 Tm (German) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 330.80000000000007 Tm (long) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 330.80000000000007 Tm (Milliarde = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 330.80000000000007 Tm (Billion = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 320.6000000000001 Tm (Japanese / Chinese / Korean) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 320.6000000000001 Tm (myriad) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 320.6000000000001 Tm (10 oku / 10 yi = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 320.6000000000001 Tm (cho / zhao / jo = 10^12) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 48 310.4000000000001 Tm (Russian, Turkish, Arabic) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 228 310.4000000000001 Tm (short) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 300 310.4000000000001 Tm (milliard/milyar = 10^9) Tj ET
+BT /F3 7.4 Tf 1 0 0 1 446 310.4000000000001 Tm (trillion = 10^12) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 48 78 Tm (Portuguese: Portugal keeps the long scale, Brazil uses the short scale - check the locale before converting.) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 48 66 Tm (Source and more worked examples: numbersystemconverter.com/knowledge-catalog/) Tj ET
+0.8 0.8 0.8 RG 0.5 w 48 46 m 564 46 l S
+BT /F1 8 Tf 1 0 0 1 48 34 Tm (numbersystemconverter.com - free number system converter with steps) Tj ET
+BT /F1 8 Tf 1 0 0 1 502 34 Tm (Page 2 of 2) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000224 00000 n 
+0000000326 00000 n 
+0000000421 00000 n 
+0000016199 00000 n 
+0000016345 00000 n 
+0000023114 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R /Info << /Title (Number System Conversion Table) /Author (NumSys) /Subject (Decimal, binary, octal and hexadecimal chart plus world numbering systems) >> >>
+startxref
+23260
+%%EOF

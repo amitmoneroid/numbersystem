@@ -1,0 +1,95 @@
+---
+// BaseTable.astro — decimal / binary / octal / hex grid for a numeric range.
+interface Props {
+  from?: number;
+  to?: number;
+  caption?: string;
+}
+const { from = 0, to = 31, caption = 'Decimal, binary, octal and hexadecimal values side by side.' } = Astro.props;
+const rows = Array.from({ length: to - from + 1 }, (_, i) => from + i);
+---
+
+<div class="base-table-wrap card shadow-level-2">
+  <div class="base-table-scroll">
+    <table class="base-table">
+      <caption>{caption}</caption>
+      <thead>
+        <tr>
+          <th scope="col">Decimal</th>
+          <th scope="col">Binary (2)</th>
+          <th scope="col">Octal (8)</th>
+          <th scope="col">Hex (16)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((n) => (
+          <tr>
+            <td class="code">{n}</td>
+            <td class="code">{n.toString(2).padStart(8, '0')}</td>
+            <td class="code">{n.toString(8).padStart(3, '0')}</td>
+            <td class="code">{n.toString(16).toUpperCase().padStart(2, '0')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .base-table-wrap {
+    background: var(--color-canvas);
+    border-radius: var(--radius-lg);
+    margin-block: var(--spacing-lg);
+    overflow: hidden;
+  }
+
+  .base-table-scroll {
+    max-height: 420px;
+    overflow: auto;
+  }
+
+  .base-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .base-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 12px;
+    color: var(--color-mute);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .base-table th {
+    position: sticky;
+    top: 0;
+    background: var(--color-canvas-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    color: var(--color-mute);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .base-table td {
+    padding: 4px var(--spacing-md);
+    border-bottom: 1px solid var(--color-hairline);
+    color: var(--color-body);
+    font-family: var(--font-mono);
+  }
+
+  .base-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .base-table tbody tr:hover td {
+    background: var(--color-canvas-soft);
+  }
+</style>

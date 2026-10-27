@@ -1,0 +1,507 @@
+---
+// BaseConverter.astro — radix converter (base 2–36) that prints the working.
+// All maths runs client-side; no data leaves the browser.
+const bases = Array.from({ length: 35 }, (_, i) => i + 2);
+const labelFor = (b: number) =>
+  b === 2 ? '2 — binary' :
+  b === 8 ? '8 — octal' :
+  b === 10 ? '10 — decimal' :
+  b === 16 ? '16 — hexadecimal' :
+  b === 20 ? '20 — vigesimal' :
+  b === 60 ? '60 — sexagesimal' :
+  `${b}`;
+---
+
+<div class="base-converter card shadow-level-3" id="base-converter">
+  <div class="bc-header">
+    <span class="eyebrow">Base converter calculator</span>
+    <h3 class="display-sm">Convert any base from 2 to 36 — with every step shown</h3>
+  </div>
+
+  <div class="bc-grid">
+    <div class="bc-field bc-value-field">
+      <label for="bcValue" class="bc-label">Value</label>
+      <input id="bcValue" class="bc-input code" type="text" value="156" inputmode="text" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="bc-field">
+      <label for="bcFrom" class="bc-label">From base</label>
+      <select id="bcFrom" class="bc-select">
+        {bases.map((b) => (
+          <option value={b} selected={b === 10}>{labelFor(b)}</option>
+        ))}
+      </select>
+    </div>
+    <div class="bc-field">
+      <label for="bcTo" class="bc-label">To base</label>
+      <select id="bcTo" class="bc-select">
+        {bases.map((b) => (
+          <option value={b} selected={b === 2}>{labelFor(b)}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <div class="bc-presets" aria-label="Example conversions">
+    <span class="bc-presets-label">Try:</span>
+    <button type="button" class="bc-chip" data-value="156" data-from="10" data-to="2">156₁₀ → binary</button>
+    <button type="button" class="bc-chip" data-value="10011100" data-from="2" data-to="10">10011100₂ → decimal</button>
+    <button type="button" class="bc-chip" data-value="255" data-from="10" data-to="16">255 → hex</button>
+    <button type="button" class="bc-chip" data-value="1A.8" data-from="16" data-to="10">1A.8₁₆ → decimal</button>
+    <button type="button" class="bc-chip" data-value="777" data-from="8" data-to="2">777₈ → binary</button>
+  </div>
+
+  <p id="bcError" class="bc-error" role="alert" hidden></p>
+
+  <div class="bc-result" id="bcResult" aria-live="polite">
+    <div class="bc-result-label">Result</div>
+    <div class="bc-result-row">
+      <output class="bc-result-value code" id="bcOutput">10011100</output>
+      <span class="bc-result-base" id="bcOutputBase">base 2</span>
+      <button type="button" class="bc-copy" id="bcCopy" aria-label="Copy result">Copy</button>
+    </div>
+    <div class="bc-result-note body-sm" id="bcNote">156 in base 10 = 10011100 in base 2</div>
+  </div>
+
+  <div class="bc-steps" id="bcSteps"></div>
+
+  <p class="bc-footnote body-sm">
+    Integers and fractions are both supported. Digits above 9 use A–F for bases 11–16 and A–Z for bases 17–36. Values are handled as JavaScript numbers, exact to 2⁵³ − 1 (about 9 quadrillion).
+  </p>
+</div>
+
+<script>
+  const valueInput = document.getElementById('bcValue') as HTMLInputElement;
+  const fromSelect = document.getElementById('bcFrom') as HTMLSelectElement;
+  const toSelect = document.getElementById('bcTo') as HTMLSelectElement;
+  const errorEl = document.getElementById('bcError') as HTMLParagraphElement;
+  const outputEl = document.getElementById('bcOutput') as HTMLOutputElement;
+  const outputBaseEl = document.getElementById('bcOutputBase') as HTMLSpanElement;
+  const noteEl = document.getElementById('bcNote') as HTMLDivElement;
+  const stepsEl = document.getElementById('bcSteps') as HTMLDivElement;
+  const copyBtn = document.getElementById('bcCopy') as HTMLButtonElement;
+
+  const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  function superscript(n: number): string {
+    const map: Record<string, string> = {
+      '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
+      '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻',
+    };
+    return String(n).split('').map((c) => map[c] ?? c).join('');
+  }
+
+  function digitValue(ch: string): number {
+    return DIGITS.indexOf(ch.toUpperCase());
+  }
+
+  function parseInBase(raw: string, base: number): { intPart: number; fractionDigits: string } | null {
+    const clean = raw.trim().toUpperCase();
+    if (clean === '') return null;
+    if (!/^[0-9A-Z]+(\.[0-9A-Z]+)?$/.test(clean)) return null;
+
+    const [intStr, fracStr = ''] = clean.split('.');
+    for (const ch of intStr + fracStr) {
+      const value = digitValue(ch);
+      if (value < 0 || value >= base) return null;
+    }
+
+    let intPart = 0;
+    for (const ch of intStr) {
+      intPart = intPart * base + digitValue(ch);
+    }
+    return { intPart, fractionDigits: fracStr };
+  }
+
+  function intToBase(value: number, base: number): string {
+    if (value === 0) return '0';
+    let n = value;
+    let out = '';
+    while (n > 0) {
+      out = DIGITS[n % base] + out;
+      n = Math.floor(n / base);
+    }
+    return out;
+  }
+
+  function fromSteps(raw: string, base: number) {
+    const clean = raw.trim().toUpperCase();
+    const [intStr, fracStr = ''] = clean.split('.');
+    const rows: string[] = [];
+    let total = 0;
+
+    for (let i = 0; i < intStr.length; i++) {
+      const ch = intStr[i];
+      const value = digitValue(ch);
+      const power = intStr.length - 1 - i;
+      const contribution = value * Math.pow(base, power);
+      total += contribution;
+      rows.push(
+        `<li><code>${ch}${value > 9 ? ` (${value})` : ''} × ${base}${superscript(power)} = ${contribution}</code></li>`
+      );
+    }
+
+    let fraction = 0;
+    for (let i = 0; i < fracStr.length; i++) {
+      const ch = fracStr[i];
+      const value = digitValue(ch);
+      const power = -(i + 1);
+      const contribution = value * Math.pow(base, power);
+      fraction += contribution;
+      rows.push(
+        `<li><code>${ch}${value > 9 ? ` (${value})` : ''} × ${base}${superscript(power)} = ${Number(contribution.toFixed(8))}</code></li>`
+      );
+    }
+
+    return { rows, total: total + fraction };
+  }
+
+  function toSteps(decimal: number, base: number) {
+    const intPart = Math.floor(decimal);
+    const fracPart = decimal - intPart;
+    const divRows: string[] = [];
+    const remainders: string[] = [];
+
+    let n = intPart;
+    if (n === 0) {
+      divRows.push('<li><code>0 ÷ ' + base + ' = 0, remainder 0</code></li>');
+      remainders.push('0');
+    }
+    while (n > 0) {
+      const q = Math.floor(n / base);
+      const r = n % base;
+      divRows.push(
+        `<li><code>${n} ÷ ${base} = ${q}, remainder <strong>${r}</strong> (${DIGITS[r]})</code></li>`
+      );
+      remainders.push(DIGITS[r]);
+      n = q;
+    }
+
+    const fracRows: string[] = [];
+    const fracDigits: string[] = [];
+    let f = fracPart;
+    for (let i = 0; i < 12 && f > 0; i++) {
+      const product = f * base;
+      const carry = Math.floor(product);
+      const next = product - carry;
+      fracRows.push(
+        `<li><code>${Number(f.toFixed(8))} × ${base} = ${Number(product.toFixed(8))} → carry <strong>${DIGITS[carry]}</strong>, remainder ${Number(next.toFixed(8))}</code></li>`
+      );
+      fracDigits.push(DIGITS[carry]);
+      f = next;
+    }
+
+    return {
+      divRows,
+      remainders,
+      fracRows,
+      fracDigits,
+      integerResult: remainders.reverse().join(''),
+    };
+  }
+
+  function render(): void {
+    const raw = valueInput.value;
+    const fromBase = parseInt(fromSelect.value, 10);
+    const toBase = parseInt(toSelect.value, 10);
+    const parsed = parseInBase(raw, fromBase);
+
+    if (!parsed) {
+      errorEl.hidden = false;
+      errorEl.textContent = `“${raw}” is not a valid base-${fromBase} number. Use digits 0–${Math.min(fromBase - 1, 9)}${fromBase > 10 ? ` and letters A–${DIGITS[fromBase - 1]}` : ''}.`;
+      outputEl.textContent = '—';
+      noteEl.textContent = 'Fix the value to see the worked solution.';
+      stepsEl.innerHTML = '';
+      return;
+    }
+
+    errorEl.hidden = true;
+
+    const from = fromSteps(raw, fromBase);
+    const decimal = from.total;
+    const to = toSteps(decimal, toBase);
+    const result = to.integerResult + (to.fracDigits.length ? '.' + to.fracDigits.join('') : '');
+
+    outputEl.textContent = result;
+    outputBaseEl.textContent = `base ${toBase}`;
+    noteEl.textContent = `${raw.trim().toUpperCase()} in base ${fromBase} = ${result} in base ${toBase} (decimal value ${Number(decimal.toFixed(8))})`;
+
+    const fromIsDecimal = fromBase === 10;
+    const toIsDecimal = toBase === 10;
+
+    const fromBlock = fromIsDecimal
+      ? (toIsDecimal
+          ? `<div class="bc-step-block">
+               <h4 class="bc-step-title">Already decimal</h4>
+               <p class="bc-step-copy">Both bases are 10, so the value is unchanged: <code>${Number(decimal.toFixed(8))}</code>.</p>
+             </div>`
+          : '')
+      : `<div class="bc-step-block">
+           <h4 class="bc-step-title">Step 1 — expand each digit by its positional weight (base ${fromBase})</h4>
+           <ol class="bc-step-list">${from.rows.join('')}</ol>
+           <p class="bc-step-sum">Sum = <strong>${Number(decimal.toFixed(8))}</strong> in decimal.</p>
+         </div>`;
+
+    const toBlock = toIsDecimal
+      ? (fromIsDecimal
+          ? ''
+          : `<div class="bc-step-block">
+               <h4 class="bc-step-title">Step 2 — the decimal value is the answer</h4>
+               <p class="bc-step-copy">Base ${toBase} is decimal, so no further division is needed.</p>
+             </div>`)
+      : `<div class="bc-step-block">
+           <h4 class="bc-step-title">Step ${fromIsDecimal ? 1 : 2} — divide repeatedly by ${toBase}</h4>
+           <ol class="bc-step-list">${to.divRows.join('')}${to.fracRows.join('')}</ol>
+           <p class="bc-step-sum">
+             Read the integer remainders bottom-to-top: <code>${to.integerResult}</code>${to.fracDigits.length ? `, then read the fraction carries top-to-bottom: <code>.${to.fracDigits.join('')}</code>` : ''}.
+           </p>
+         </div>`;
+
+    stepsEl.innerHTML = fromBlock + toBlock;
+  }
+
+  valueInput.addEventListener('input', render);
+  fromSelect.addEventListener('change', render);
+  toSelect.addEventListener('change', render);
+
+  document.querySelectorAll('.bc-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const el = chip as HTMLButtonElement;
+      valueInput.value = el.dataset.value ?? '';
+      fromSelect.value = el.dataset.from ?? '10';
+      toSelect.value = el.dataset.to ?? '2';
+      render();
+      valueInput.focus();
+    });
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(outputEl.textContent ?? '');
+      copyBtn.textContent = 'Copied';
+      window.setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+    } catch {
+      copyBtn.textContent = 'Select manually';
+    }
+  });
+
+  render();
+</script>
+
+<style>
+  .base-converter {
+    background: var(--color-canvas);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-block: var(--spacing-2xl);
+    text-align: left;
+  }
+
+  .bc-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .bc-header h3 {
+    margin: var(--spacing-xs) 0 0;
+    color: var(--color-ink);
+  }
+
+  .bc-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--spacing-sm);
+    align-items: end;
+  }
+
+  .bc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .bc-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .bc-input,
+  .bc-select {
+    height: 44px;
+    padding: 0 var(--spacing-sm);
+    font-size: 15px;
+    color: var(--color-ink);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    outline: none;
+    width: 100%;
+  }
+
+  .bc-input:focus,
+  .bc-select:focus {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 1px var(--color-ink);
+  }
+
+  .bc-input {
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  .bc-presets {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--spacing-sm);
+  }
+
+  .bc-presets-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-mute);
+  }
+
+  .bc-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+    color: var(--color-body);
+    cursor: pointer;
+  }
+
+  .bc-chip:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .bc-error {
+    margin-top: var(--spacing-sm);
+    font-size: 13px;
+    color: var(--color-error);
+  }
+
+  .bc-result {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-link-bg-soft);
+    border-radius: var(--radius-md);
+  }
+
+  .bc-result-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .bc-result-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin: 2px 0 4px;
+  }
+
+  .bc-result-value {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-link-deep);
+    overflow-wrap: anywhere;
+  }
+
+  .dark .bc-result-value {
+    color: var(--color-link);
+  }
+
+  .bc-result-base {
+    font-size: 12px;
+    color: var(--color-mute);
+  }
+
+  .bc-copy {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas);
+    color: var(--color-body);
+    cursor: pointer;
+  }
+
+  .bc-result-note {
+    color: var(--color-body);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .bc-steps {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+  }
+
+  .bc-step-block {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    background: var(--color-canvas-soft);
+  }
+
+  .bc-step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .bc-step-copy,
+  .bc-step-sum {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-body);
+    margin: 0;
+  }
+
+  .bc-step-sum {
+    margin-top: var(--spacing-xs);
+  }
+
+  .bc-step-list {
+    margin: var(--spacing-xs) 0 0;
+    padding-left: var(--spacing-lg);
+    display: grid;
+    gap: 2px;
+  }
+
+  .bc-step-list li {
+    font-size: 13px;
+    color: var(--color-body);
+  }
+
+  .bc-step-list code,
+  .bc-footnote code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink);
+  }
+
+  .bc-footnote {
+    margin: var(--spacing-md) 0 0;
+    color: var(--color-mute);
+    font-size: 12px;
+  }
+
+  @media (max-width: 720px) {
+    .bc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

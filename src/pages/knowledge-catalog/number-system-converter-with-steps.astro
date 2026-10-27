@@ -1,0 +1,173 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import BaseConverter from '../../components/BaseConverter.astro';
+import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
+import { guides } from '../../data/guides';
+
+const guide = guides.find((g) => g.slug === 'number-system-converter-with-steps')!;
+
+const toc = [
+  { id: 'what-steps-mean', label: 'What “with steps” means' },
+  { id: 'decimal-to-binary', label: 'Decimal to binary' },
+  { id: 'binary-to-decimal', label: 'Binary to decimal' },
+  { id: 'try-it', label: 'Try the converter' },
+  { id: 'across-systems', label: 'Steps across naming systems' },
+  { id: 'world-benchmark', label: 'World benchmark' },
+  { id: 'nuances', label: 'Five nuances' },
+  { id: 'checking', label: 'Check your answer' },
+];
+
+const faqs = [
+  {
+    question: 'Does a number system converter with steps handle fractions?',
+    answer:
+      'Yes. The integer part is converted by repeated division and read bottom-to-top; the fraction is converted by repeated multiplication and read top-to-bottom. For example, 0.6875 decimal becomes <strong>0.1011</strong> in binary because 0.5 + 0.125 + 0.0625 = 0.6875.',
+  },
+  {
+    question: 'Why are remainders read from the bottom up?',
+    answer:
+      'Each division strips off the <em>least</em> significant digit first. The first remainder is the ones place, the next is the base place, then the base² place — so the last remainder you produced is the most significant digit and belongs on the left.',
+  },
+  {
+    question: 'Can the same steps convert lakh to million?',
+    answer:
+      'Not the same arithmetic, but the same logic of matching a value to a named scale. 1 crore = 10<sup>7</sup> and 1 million = 10<sup>6</sup>, so 1 crore = <strong>10 million</strong>. The Indian steps are 10⁵, 10⁷, 10⁹; the International steps are 10⁶, 10⁹, 10¹².',
+  },
+  {
+    question: 'Which base do programmers use for colour codes?',
+    answer:
+      'Hexadecimal. A CSS colour such as <code>#FF8800</code> packs three bytes into six hex digits. Each hex digit maps to exactly four binary bits, so <code>FF</code> is <code>1111 1111</code> — which is why hex is compact and still readable as binary.',
+  },
+];
+---
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+  <h2 id="what-steps-mean">What a number system converter with steps actually shows</h2>
+  <p>
+    A converter that only prints an answer hides the two rules that make conversion possible. A <strong>number system converter with steps</strong> writes both of them out: positional weights when you move <em>into</em> decimal, and repeated division when you move <em>out</em> of it. Every base — binary, octal, hexadecimal, or base 36 — uses the same two rules.
+  </p>
+  <div class="answer-box">
+    <p><strong>The short version.</strong> To read a number in base <em>b</em>, multiply each digit by <em>b</em> raised to its position. To write a decimal number in base <em>b</em>, divide by <em>b</em> repeatedly and read the remainders bottom-to-top.</p>
+  </div>
+  <p>
+    The same idea explains why 1 million is 10 lakh: the value is identical, but each culture cuts the number line at different powers of ten. The arithmetic below is base conversion; the sections further down apply the same “name the scale” step to lakh, crore, million and billion.
+  </p>
+
+  <h2 id="decimal-to-binary">Worked example: decimal 156 to binary, step by step</h2>
+  <p>Divide by 2 until the quotient reaches zero, recording the remainder at each step.</p>
+  <ol>
+    <li><code>156 ÷ 2 = 78</code>, remainder <strong>0</strong></li>
+    <li><code>78 ÷ 2 = 39</code>, remainder <strong>0</strong></li>
+    <li><code>39 ÷ 2 = 19</code>, remainder <strong>1</strong></li>
+    <li><code>19 ÷ 2 = 9</code>, remainder <strong>1</strong></li>
+    <li><code>9 ÷ 2 = 4</code>, remainder <strong>1</strong></li>
+    <li><code>4 ÷ 2 = 2</code>, remainder <strong>0</strong></li>
+    <li><code>2 ÷ 2 = 1</code>, remainder <strong>0</strong></li>
+    <li><code>1 ÷ 2 = 0</code>, remainder <strong>1</strong></li>
+  </ol>
+  <p>
+    Read the remainders from the bottom to the top: <strong>10011100</strong>. Check the answer by adding the weights of the 1-bits: 128 + 16 + 8 + 4 = <strong>156</strong>.
+  </p>
+
+  <h2 id="binary-to-decimal">Worked example: binary 10011100 back to decimal</h2>
+  <p>Write the place value above each bit, then add the weights where the bit is 1.</p>
+  <table>
+    <thead>
+      <tr><th>Bit</th><th>1</th><th>0</th><th>0</th><th>1</th><th>1</th><th>1</th><th>0</th><th>0</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Weight</td><td>2⁷ = 128</td><td>2⁶ = 64</td><td>2⁵ = 32</td><td>2⁴ = 16</td><td>2³ = 8</td><td>2² = 4</td><td>2¹ = 2</td><td>2⁰ = 1</td></tr>
+      <tr><td>Add?</td><td>yes</td><td>—</td><td>—</td><td>yes</td><td>yes</td><td>yes</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p>128 + 16 + 8 + 4 = <strong>156</strong>. The two directions agree, which is the check that matters in an exam or a code review.</p>
+
+  <h2 id="try-it">Try the converter, with the steps visible</h2>
+  <p>
+    The tool below recomputes both directions for any base from 2 to 36. Change the value, the source base or the target base and the working updates immediately — positional expansion first, repeated division second.
+  </p>
+  <BaseConverter />
+
+  <h2 id="across-systems">Step-by-step across naming systems, not just bases</h2>
+  <p>
+    Naming systems are base 10, so the “steps” are about grouping and scale rather than division. Four examples show how the same value is assembled differently.
+  </p>
+
+  <h3>Portuguese: 1.5 mil milhões to crore</h3>
+  <ol>
+    <li>Portugal uses the long scale, so <code>mil milhões</code> = a thousand millions = 10⁹.</li>
+    <li><code>1.5 mil milhões</code> = 1.5 × 10⁹ = 1,500,000,000.</li>
+    <li>1 crore = 10⁷, so divide by 10⁷: <code>1,500,000,000 ÷ 10,000,000 = 150</code>.</li>
+    <li>Answer: <strong>150 crore</strong>, which is also 1.5 billion in the International system.</li>
+  </ol>
+
+  <h3>Spanish: 2.5 billones to lakh crore</h3>
+  <ol>
+    <li>Spanish <code>billón</code> is 10¹², not 10⁹.</li>
+    <li><code>2.5 billones</code> = 2.5 × 10¹² = 2,500,000,000,000.</li>
+    <li>1 lakh crore = 10⁵ × 10⁷ = 10¹².</li>
+    <li>Answer: <strong>2.5 lakh crore</strong> = 2.5 trillion.</li>
+  </ol>
+
+  <h3>Japanese: 10億 to billion</h3>
+  <ol>
+    <li>Japanese groups in fours: 万 = 10⁴, 億 = 10⁸.</li>
+    <li><code>10億</code> = 10 × 10⁸ = 10⁹.</li>
+    <li>Answer: <strong>1 billion</strong>, which is 1 arab or 100 crore.</li>
+  </ol>
+
+  <h3>Indian: 12,34,56,789 to International</h3>
+  <ol>
+    <li>The grouping is 3 digits, then pairs: 12 crore 34 lakh 56 thousand 789.</li>
+    <li>12 crore = 120,000,000; 34 lakh = 3,400,000; 56 thousand = 56,000; plus 789.</li>
+    <li>Total = 123,456,789.</li>
+    <li>Answer: <strong>123,456,789</strong> = 123.46 million.</li>
+  </ol>
+
+  <h2 id="world-benchmark">How the world’s number systems benchmark against the International scale</h2>
+  <p>
+    The table below is the reference behind every worked example above. It lists how sixteen systems name 10⁶, 10⁹ and 10¹², and states the benchmark against the English short scale.
+  </p>
+  <WorldSystemsTable />
+
+  <h2 id="nuances">Five nuances that change the answer by a factor of 1,000</h2>
+
+  <h3>Nuance 1: Portuguese is two systems, not one</h3>
+  <p>
+    Portugal keeps the long scale: <strong>1 bilião = 10¹²</strong>. Brazil uses the short scale: <strong>1 bilhão = 10⁹</strong>. A Lisbon article and a São Paulo article can use the same word shape and mean values a thousand times apart.
+  </p>
+
+  <h3>Nuance 2: Spanish “billón” is a false friend</h3>
+  <p>
+    In Spanish, <strong>un billón = 10¹²</strong>. English “one billion” is <strong>mil millones</strong>. Translated press releases routinely shrink a trillion-dollar figure to a billion by swapping the word.
+  </p>
+
+  <h3>Nuance 3: Japanese, Chinese and Korean do not use thousands</h3>
+  <p>
+    They group by four: 万 = 10⁴, 億 = 10⁸, 兆 = 10¹². There is no native word for 10⁹, so a billion is written “ten hundred-million”.
+  </p>
+
+  <h3>Nuance 4: French and German keep a milliard</h3>
+  <p>
+    English retired “milliard” and moved “billion” down to 10⁹. French <strong>milliard</strong>, German <strong>Milliarde</strong>, Dutch <strong>miljard</strong> and Italian <strong>miliardo</strong> stayed at 10⁹, so their “billion” is still 10¹².
+  </p>
+
+  <h3>Nuance 5: India adds a step at 10⁵</h3>
+  <p>
+    The Indian scale runs 10⁵ lakh, 10⁷ crore, 10⁹ arab, 10¹¹ kharab, 10¹³ neel, 10¹⁵ padma, 10¹⁷ shankh. Because the steps are hundreds, not thousands, a number such as 12,34,56,789 has four groups where International formatting has three.
+  </p>
+
+  <h2 id="checking">How to check any conversion in three moves</h2>
+  <ol>
+    <li><strong>Identify the base or the scale.</strong> Base 2, 8, 10, 16 — or lakh/crore versus million/billion.</li>
+    <li><strong>Rebuild the value.</strong> Add the positional weights (base conversion) or multiply the amount by the scale (naming conversion).</li>
+    <li><strong>Cross-check with a second method.</strong> Convert back, or compare against a known anchor such as 1 billion = 1 arab = 100 crore.</li>
+  </ol>
+  <p>
+    If you only remember one anchor, remember this pair: <strong>1 million = 10 lakh</strong> and <strong>1 billion = 1 arab = 100 crore</strong>. Every other lakh/crore conversion can be derived from them.
+  </p>
+  <p class="note">
+    Next: the <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a> guide formats these steps as a full worked answer, and the
+    <a href="/knowledge-catalog/number-system-conversion-table/">conversion table</a> lists the values in one grid.
+  </p>
+</GuideLayout>

@@ -1,0 +1,36 @@
+# NumSys — Number System Converter
+
+> Free browser-based converter for Indian (lakh, crore, arab, kharab, neel, padma, shankh)
+> and International (thousand, million, billion, trillion, quadrillion) number naming,
+> plus binary, octal, decimal, hexadecimal and base 2–36 conversion with the working shown.
+> Everything runs client-side; no conversion data is transmitted or stored.
+
+## Core tools
+
+- [Number System Converter](https://numbersystemconverter.com/): Convert between Indian and International number systems with full word expansion, plus a base converter with steps.
+- [Base Converter Calculator](https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/): Convert any base from 2 to 36, including fractions, with positional expansion and repeated division shown.
+- [Converter With Steps](https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/): Worked step-by-step solutions for decimal, binary, octal and hexadecimal conversion.
+- [Calculator With Solution](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/): Full solution format, including fractional conversion and naming-scale conversions.
+- [Conversion Table](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/): 0–255 in decimal, binary, octal and hexadecimal, powers of two, and Indian vs International scales.
+- [Conversion PDF](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/): Free two-page printable chart.
+
+## Reference
+
+- [Knowledge Catalog](https://numbersystemconverter.com/knowledge-catalog/): Everything in one place — utility, use cases, quick education, audience, FAQ and guides.
+- [About](https://numbersystemconverter.com/about/): What the site does and how it is built.
+- [Contact](https://numbersystemconverter.com/contact/): Report a conversion error or broken page.
+
+## Key facts
+
+- 1 million = 10 lakh; 1 billion = 1 arab = 100 crore; 1 trillion = 1 lakh crore.
+- Indian scale: lakh 10^5, crore 10^7, arab 10^9, kharab 10^11, neel 10^13, padma 10^15, shankh 10^17.
+- Portuguese (Portugal) uses the long scale: bilião = 10^12. Brazilian Portuguese uses the short scale: bilhão = 10^9.
+- Spanish billón = 10^12; English billion = mil millones = 10^9.
+- French milliard, German Milliarde, Dutch miljard, Italian miliardo = 10^9.
+- Japanese, Chinese and Korean group in fours: 万 = 10^4, 億 = 10^8, 兆 = 10^12.
+- 255 = 11111111 (binary) = 377 (octal) = FF (hex).
+
+## Optional
+
+- [Sitemap](https://numbersystemconverter.com/sitemap.xml)
+- [Robots policy](https://numbersystemconverter.com/robots.txt)

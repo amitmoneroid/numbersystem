@@ -2,9 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import BaseConverter from '../components/BaseConverter.astro';
+import FAQ from '../components/FAQ.astro';
+import { faqItems } from '../data/faq';
+import { guides, guideHref } from '../data/guides';
+import { nuances } from '../data/worldSystems';
 ---
 
-<Layout>
+<Layout includeAppSchema faqItems={faqItems}>
   <Navbar />
 
   <main>
@@ -17,7 +22,7 @@ import Footer from '../components/Footer.astro';
           <!-- Title inside card -->
           <div class="converter-header">
             <h1 class="converter-title">Number System Converter</h1>
-            <p class="converter-lead">Convert between Indian & International number systems</p>
+            <p class="converter-lead">Convert Indian &amp; International number systems — lakh, crore, million and billion — online, with the working shown.</p>
           </div>
 
           <!-- Row 1: Amount + From Unit -->
@@ -159,6 +164,28 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
+
+    <!-- BASE CONVERTER WITH STEPS -->
+    <section id="with-steps" class="band-canvas section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">With steps</span>
+          <h2 class="display-lg">Number system converter with steps</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 700px;">
+            Need the working, not just the answer? This number system converter with steps expands every digit by its positional weight, then shows the repeated division that produces the target base. It covers binary, octal, decimal, hexadecimal and every base up to 36 — the same grouping logic behind lakh-to-million and crore-to-billion conversions.
+          </p>
+        </div>
+
+        <BaseConverter />
+
+        <p class="body-sm" style="color: var(--color-body); text-align: center; margin-top: var(--spacing-md);">
+          Want the method written out? Read the <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps guide</a>,
+          print the <a href="/knowledge-catalog/number-system-conversion-pdf/">conversion PDF</a>, or browse the
+          <a href="/knowledge-catalog/number-system-conversion-table/">full conversion table</a>.
+        </p>
+      </div>
+    </section>
+
     <!-- ═══════════════ ABOUT THE TOOL ═══════════════ -->
     <section class="band-canvas-soft section-band">
       <div class="page-container">
@@ -196,7 +223,7 @@ import Footer from '../components/Footer.astro';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">How It Works</span>
-          <h2 class="display-lg">Two systems, same numbers, different grouping.</h2>
+          <h2 class="display-lg">How is the Indian number system different from the International system?</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 640px;">
             The International and Indian number systems represent the same values but use different grouping conventions and names for large numbers.
           </p>
@@ -210,7 +237,7 @@ import Footer from '../components/Footer.astro';
             </div>
             <h3 class="display-sm">Multiples of Thousands</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              The International system groups digits in sets of three from the right. Each new name represents a thousand times the previous: <strong>Thousand</strong> (10&sup3;), <strong>Million</strong> (10&sup6;), <strong>Billion</strong> (10&sup9;), <strong>Trillion</strong> (10&sup1;&sup2;).
+              The International system groups digits in sets of three from the right. Each new name represents a thousand times the previous: <strong>Thousand</strong> (10³), <strong>Million</strong> (10⁶), <strong>Billion</strong> (10⁹), <strong>Trillion</strong> (10¹²).
             </p>
             <div class="feature-example code">
               1,000,000,000 &rarr; One Billion
@@ -224,7 +251,7 @@ import Footer from '../components/Footer.astro';
             </div>
             <h3 class="display-sm">Multiples of Hundreds</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              The Indian system groups the first three digits from the right, then every two digits after that. Each new name represents a hundred times the previous: <strong>Lakh</strong> (10&sup5;), <strong>Crore</strong> (10&sup7;), <strong>Arab</strong> (10&sup9;), <strong>Shankh</strong> (10&sup1;&sup7;).
+              The Indian system groups the first three digits from the right, then every two digits after that. Each new name represents a hundred times the previous: <strong>Lakh</strong> (10⁵), <strong>Crore</strong> (10⁷), <strong>Arab</strong> (10⁹), <strong>Shankh</strong> (10¹⁷).
             </p>
             <div class="feature-example code">
               1,00,00,00,000 &rarr; One Arab
@@ -253,7 +280,7 @@ import Footer from '../components/Footer.astro';
       <div class="page-container">
         <div class="section-header section-header-dark">
           <span class="eyebrow" style="color: rgba(255,255,255,0.5);">Reference</span>
-          <h2 class="display-lg" style="color: #fff;">Side-by-side comparison of both systems.</h2>
+          <h2 class="display-lg" style="color: #fff;">Number system conversion table: Indian vs International</h2>
           <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 640px;">
             A complete mapping of how each scale is named, formatted, and pronounced in the International versus Indian number system.
           </p>
@@ -272,70 +299,70 @@ import Footer from '../components/Footer.astro';
             </thead>
             <tbody>
               <tr>
-                <td class="scale-name">10&sup3;</td>
+                <td class="scale-name">10³</td>
                 <td>Thousand</td>
                 <td class="num-intl">1,000</td>
                 <td>&mdash;</td>
                 <td class="num-indian">1,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup5;</td>
+                <td class="scale-name">10⁵</td>
                 <td>Hundred Thousand</td>
                 <td class="num-intl">100,000</td>
                 <td>Lakh</td>
                 <td class="num-indian">1,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup6;</td>
+                <td class="scale-name">10⁶</td>
                 <td>Million</td>
                 <td class="num-intl">1,000,000</td>
                 <td>Ten Lakh</td>
                 <td class="num-indian">10,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup7;</td>
+                <td class="scale-name">10⁷</td>
                 <td>Ten Million</td>
                 <td class="num-intl">10,000,000</td>
                 <td>Crore</td>
                 <td class="num-indian">1,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup8;</td>
+                <td class="scale-name">10⁸</td>
                 <td>Hundred Million</td>
                 <td class="num-intl">100,000,000</td>
                 <td>Ten Crore</td>
                 <td class="num-indian">10,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup9;</td>
+                <td class="scale-name">10⁹</td>
                 <td>Billion</td>
                 <td class="num-intl">1,000,000,000</td>
                 <td>Arab</td>
                 <td class="num-indian">1,00,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup1;&sup1;</td>
+                <td class="scale-name">10¹¹</td>
                 <td>Hundred Billion</td>
                 <td class="num-intl">100,000,000,000</td>
                 <td>Kharab</td>
                 <td class="num-indian">1,00,00,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup1;&sup3;</td>
+                <td class="scale-name">10¹³</td>
                 <td>Ten Trillion</td>
                 <td class="num-intl">10,000,000,000,000</td>
                 <td>Neel</td>
                 <td class="num-indian">1,00,00,00,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup1;&sup5;</td>
+                <td class="scale-name">10¹⁵</td>
                 <td>Quadrillion</td>
                 <td class="num-intl">1,000,000,000,000,000</td>
                 <td>Padma</td>
                 <td class="num-indian">1,00,00,00,00,00,00,000</td>
               </tr>
               <tr>
-                <td class="scale-name">10&sup1;&sup7;</td>
+                <td class="scale-name">10¹⁷</td>
                 <td>Hundred Quadrillion</td>
                 <td class="num-intl">100,000,000,000,000,000</td>
                 <td>Shankh</td>
@@ -411,7 +438,7 @@ import Footer from '../components/Footer.astro';
       <div class="page-container">
         <div class="section-header section-header-dark">
           <span class="eyebrow" style="color: rgba(255,255,255,0.5);">Quick Reference</span>
-          <h2 class="display-lg" style="color: #fff;">Common number conversions you'll often need.</h2>
+          <h2 class="display-lg" style="color: #fff;">Number system conversion table: common values</h2>
           <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 640px;">
             Bookmark these frequently used conversions for quick access in your daily work.
           </p>
@@ -431,7 +458,7 @@ import Footer from '../components/Footer.astro';
           <div class="conversion-item">
             <span class="conversion-left code">1 Trillion</span>
             <span class="conversion-arrow-small">&rarr;</span>
-            <span class="conversion-right code">1 Lakh Crore</span>
+            <span class="conversion-right code">1 Padma (1,000 Lakh Crore)</span>
           </div>
           <div class="conversion-item">
             <span class="conversion-left code">1 Lakh</span>
@@ -482,12 +509,107 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
+
+    <!-- NIBBLE CONVERSION TABLE -->
+    <section id="conversion-table" class="band-canvas-soft section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Quick table</span>
+          <h2 class="display-lg">Number system conversion table (0–15)</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 680px;">
+            The first sixteen values in all four computing bases. Read a row across and you have the same number in decimal, binary, octal and hexadecimal.
+          </p>
+        </div>
+
+        <div class="conversion-table-card card shadow-level-3">
+          <table class="nibble-table">
+            <caption>Numbers 0 to 15 in decimal, binary, octal and hexadecimal</caption>
+            <thead>
+              <tr>
+                <th scope="col">Decimal</th>
+                <th scope="col">Binary (2)</th>
+                <th scope="col">Octal (8)</th>
+                <th scope="col">Hexadecimal (16)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 16 }, (_, n) => (
+                <tr>
+                  <td class="code">{n}</td>
+                  <td class="code">{n.toString(2).padStart(4, '0')}</td>
+                  <td class="code">{n.toString(8)}</td>
+                  <td class="code">{n.toString(16).toUpperCase()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="body-sm" style="color: var(--color-body); text-align: center; margin-top: var(--spacing-lg);">
+          Need 0–255? Open the <a href="/knowledge-catalog/number-system-conversion-table/">complete number system conversion table</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- WORLD NUMBER SYSTEMS -->
+    <section id="world-systems" class="band-canvas section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Around the world</span>
+          <h2 class="display-lg">How do other countries count big numbers?</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 720px;">
+            The International system is not the only way to name a billion. Portuguese, Spanish, French and German all use a long scale where “billion” starts at 10¹², while Japanese, Chinese and Korean group digits in fours. Here is how those systems benchmark against the International scale.
+          </p>
+        </div>
+
+        <div class="nuance-grid">
+          {nuances.slice(0, 4).map((item) => (
+            <article class="nuance-card card shadow-level-2">
+              <span class="nuance-flag" aria-hidden="true">{item.code}</span>
+              <h3 class="display-sm">{item.title}</h3>
+              <p class="body-sm">{item.body}</p>
+              <p class="nuance-example code">{item.example}</p>
+            </article>
+          ))}
+        </div>
+
+        <p class="body-sm" style="color: var(--color-body); text-align: center; margin-top: var(--spacing-xl);">
+          Compare all 16 systems in the <a href="/knowledge-catalog/number-system-conversion-table/">number system conversion table</a>,
+          or see the methods in the <a href="/knowledge-catalog/base-converter-calculator/">base converter calculator</a> guide.
+        </p>
+      </div>
+    </section>
+
+    <!-- GUIDES DIRECTORY -->
+    <section id="guides" class="band-canvas-soft section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Knowledge Catalog</span>
+          <h2 class="display-lg">Number system guides, in depth</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 680px;">
+            Six focused guides covering the converter, the calculator, the tables, the PDF and the numbering systems used around the world.
+          </p>
+        </div>
+
+        <div class="guide-grid">
+          {guides.map((guide) => (
+            <a class="guide-card card shadow-level-2" href={guideHref(guide.slug)}>
+              <span class="guide-card-label">{guide.shortLabel}</span>
+              <span class="guide-card-title">{guide.h1}</span>
+              <span class="guide-card-summary">{guide.summary}</span>
+              <span class="guide-card-more">Read guide →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ HISTORY & EDUCATION ═══════════════ -->
     <section class="band-canvas section-band">
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">Learn More</span>
-          <h2 class="display-lg">History and evolution of number naming systems.</h2>
+          <h2 class="display-lg">Where do lakh, crore, million and billion come from?</h2>
         </div>
 
         <div class="educational-content">
@@ -501,14 +623,14 @@ import Footer from '../components/Footer.astro';
           <div class="edu-block">
             <h3 class="display-sm">International System: The Short Scale</h3>
             <p class="body-md" style="color: var(--color-body);">
-              The International numbering system follows the "short scale" where each new named number is 1,000 times the previous. This system was standardized in 1948 by the General Conference on Weights and Measures and is used in most English-speaking countries, scientific publications, and international business. It evolved from Roman numerals through Arabic influences to the modern base-10 decimal system we use today.
+              The International numbering system follows the "short scale" where each new named number is 1,000 times the previous. This system was standardised by the <a href="https://www.bipm.org/en/committees/cg" target="_blank" rel="noopener noreferrer">General Conference on Weights and Measures (CGPM)</a> and is used in most English-speaking countries, scientific publications, and international business. It evolved from Roman numerals through Arabic influences to the modern base-10 decimal system we use today.
             </p>
           </div>
 
           <div class="edu-block">
             <h3 class="display-sm">Why Both Systems Matter Today</h3>
             <p class="body-md" style="color: var(--color-body);">
-              India's economy is the fifth largest in the world, and with over 1.4 billion people, understanding Indian number conventions is essential for global business. Meanwhile, Indian students and professionals increasingly work with international data sources. Our converter serves as a bridge, ensuring accurate communication whether you're reading a Reuters financial report in Billions or an Indian newspaper article in Crores. This dual fluency is becoming a critical skill in today's interconnected world.
+              India is one of the world's largest economies, and with over 1.4 billion people, understanding Indian number conventions is essential for global business. Meanwhile, Indian students and professionals increasingly work with international data sources. Our converter serves as a bridge, ensuring accurate communication whether you're reading a Reuters financial report in Billions or an Indian newspaper article in Crores. This dual fluency is becoming a critical skill in today's interconnected world.
             </p>
           </div>
           <div class="edu-block">
@@ -522,6 +644,7 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
     </section>
+    <FAQ />
   </main>
 
   <Footer />
@@ -1693,6 +1816,162 @@ import Footer from '../components/Footer.astro';
 
     .reference-table {
       min-width: 640px;
+    }
+  }
+  /* NEW: TABLE, NUANCES, GUIDES */
+  .conversion-table-card {
+    max-width: 620px;
+    margin-inline: auto;
+    background: var(--color-canvas);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+  }
+
+  .nibble-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .nibble-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-mute);
+    font-size: 12px;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .nibble-table th {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    color: var(--color-mute);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-bottom: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+  }
+
+  .nibble-table td {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-bottom: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+  }
+
+  .nibble-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .nibble-table tbody tr:hover td {
+    background: var(--color-canvas-soft);
+  }
+
+  .nuance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .nuance-card {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .nuance-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--color-mute);
+    line-height: 1;
+  }
+
+  .nuance-card h3 {
+    color: var(--color-ink);
+    font-size: 17px;
+    line-height: 24px;
+    margin: 0;
+  }
+
+  .nuance-card p {
+    color: var(--color-body);
+    margin: 0;
+  }
+
+  .nuance-example {
+    margin-top: auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    color: var(--color-ink);
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .guide-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--spacing-lg);
+    background: var(--color-canvas);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+    color: inherit;
+  }
+
+  .guide-card-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-mute);
+  }
+
+  .guide-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .guide-card-summary {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-body);
+  }
+
+  .guide-card-more {
+    margin-top: var(--spacing-sm);
+    font-size: 13px;
+    color: var(--color-link);
+  }
+
+  @media (max-width: 600px) {
+    .conversion-table-card {
+      margin-inline: calc(-1 * var(--spacing-xs));
     }
   }
 </style>

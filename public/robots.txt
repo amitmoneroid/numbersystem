@@ -2,6 +2,23 @@
 # https://numbersystemconverter.com/
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
+Allow: /
+
+# Search and answer-engine crawlers: explicitly permitted so the guides can be cited.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 # Sitemap

@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler pages deploy dist",
-    "astro": "astro"
+    "astro": "astro",
+    "generate:assets": "node scripts/generate-pdf.mjs && node scripts/generate-og.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.1",

@@ -6,12 +6,26 @@ https://numbersystemconverter.com/about https://numbersystemconverter.com/about/
 https://numbersystemconverter.com/contact https://numbersystemconverter.com/contact/ 301!
 https://numbersystemconverter.com/privacy-policy https://numbersystemconverter.com/privacy-policy/ 301!
 https://numbersystemconverter.com/terms https://numbersystemconverter.com/terms/ 301!
+https://numbersystemconverter.com/knowledge-catalog https://numbersystemconverter.com/knowledge-catalog/ 301!
+https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/ 301!
+https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/ 301!
+https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/ 301!
+https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/ 301!
+https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/ 301!
+https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/ 301!
 
 # Also handle www versions of non-trailing-slash paths (specific before wildcard)
 www.numbersystemconverter.com/about https://numbersystemconverter.com/about/ 301!
 www.numbersystemconverter.com/contact https://numbersystemconverter.com/contact/ 301!
 www.numbersystemconverter.com/privacy-policy https://numbersystemconverter.com/privacy-policy/ 301!
 www.numbersystemconverter.com/terms https://numbersystemconverter.com/terms/ 301!
+www.numbersystemconverter.com/knowledge-catalog https://numbersystemconverter.com/knowledge-catalog/ 301!
+www.numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/ 301!
+www.numbersystemconverter.com/knowledge-catalog/number-system-converter-online https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/ 301!
+www.numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/ 301!
+www.numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/ 301!
+www.numbersystemconverter.com/knowledge-catalog/base-converter-calculator https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/ 301!
+www.numbersystemconverter.com/knowledge-catalog/number-system-conversion-table https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/ 301!
 
 # Redirect www to non-www (HTTPS) - using domain pattern
 www.numbersystemconverter.com/* https://numbersystemconverter.com/:splat 301!

@@ -1,0 +1,170 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import BaseConverter from '../../components/BaseConverter.astro';
+import BaseTable from '../../components/BaseTable.astro';
+import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
+import { guides } from '../../data/guides';
+
+const guide = guides.find((g) => g.slug === 'base-converter-calculator')!;
+
+const toc = [
+  { id: 'what-base-means', label: 'What a base is' },
+  { id: 'tool', label: 'Use the base converter' },
+  { id: 'grid', label: '0–15 grid' },
+  { id: 'methods', label: 'The two methods' },
+  { id: 'world-bases', label: 'Bases the world used' },
+  { id: 'world-benchmark', label: 'World benchmark' },
+  { id: 'naming', label: 'Bases vs naming systems' },
+];
+
+const faqs = [
+  {
+    question: 'What is the highest base a converter can handle?',
+    answer:
+      'Base 36 is the practical ceiling because it uses the ten digits plus twenty-six letters. Higher bases need extra symbols, as base 60 did in Babylon. This converter supports every base from 2 to 36.',
+  },
+  {
+    question: 'How do I convert binary to hexadecimal without a calculator?',
+    answer:
+      'Group the bits in fours from the right and translate each group: <code>1001 1100</code> → <code>9C</code>. Four bits is exactly one hex digit, which is why hex is used as shorthand for binary.',
+  },
+  {
+    question: 'Why is base 60 still used for time and angles?',
+    answer:
+      'The Babylonians used a sexagesimal system, and 60 has many divisors (2, 3, 4, 5, 6, 10, 12, 15, 20, 30), which makes fractions easy. That inheritance survives in 60 seconds, 60 minutes and 360 degrees.',
+  },
+  {
+    question: 'Is “base” the same as “number system”?',
+    answer:
+      'Not quite. A base is a radix — how many digits exist. A number system can also mean the naming convention for large values, such as lakh/crore versus million/billion. Both of those naming systems are base 10.',
+  },
+];
+---
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+  <h2 id="what-base-means">What a base converter actually calculates</h2>
+  <p>
+    A <strong>base converter calculator</strong> moves a value from one radix to another. The radix is simply how many distinct digits the system has: base 2 has two (0–1), base 8 has eight (0–7), base 10 has ten (0–9), base 16 has sixteen (0–9 plus A–F). Above base 10 the alphabet continues, so base 36 runs 0–9 then A–Z.
+  </p>
+  <div class="answer-box">
+    <p><strong>One rule explains every conversion:</strong> the value of a digit is <em>digit × base<sup>position</sup></em>. Conversion is just rewriting the same total in a different set of place values.</p>
+  </div>
+  <p>
+    That is why <code>255₁₀ = 11111111₂ = 377₈ = FF₁₆</code>. Four different strings, one quantity. The calculator below does the rewriting and shows the working.
+  </p>
+
+  <h2 id="tool">Use the base converter calculator</h2>
+  <p>
+    Pick a source base and a target base between 2 and 36, then type a value. Fractions are supported with a decimal point. The step panel shows positional expansion into decimal, then repeated division into the target base.
+  </p>
+  <BaseConverter />
+
+  <h2 id="grid">The 0–15 grid everyone should know</h2>
+  <p>
+    Sixteen values cover every four-bit pattern. Learn this block and binary-to-hex becomes a lookup rather than a calculation.
+  </p>
+  <BaseTable to={15} caption="Decimal, binary, octal and hexadecimal from 0 to 15 — one hex digit equals four binary bits." />
+
+  <h3>Reading the grid</h3>
+  <ul>
+    <li><strong>Binary</strong> is padded to four bits, so <code>1010</code> is ten, not one thousand and ten.</li>
+    <li><strong>Octal</strong> is padded to three digits, matching the old three-bit grouping.</li>
+    <li><strong>Hex</strong> uses single letters above nine: A = 10, B = 11, C = 12, D = 13, E = 14, F = 15.</li>
+  </ul>
+
+  <h2 id="methods">The two methods, side by side</h2>
+
+  <h3>Any base → decimal: positional expansion</h3>
+  <ol>
+    <li>Number the positions from 0 at the right of the integer part.</li>
+    <li>Multiply each digit by the base raised to its position.</li>
+    <li>Add the products.</li>
+  </ol>
+  <p>
+    <code>2F₁₆ = 2 × 16¹ + 15 × 16⁰ = 32 + 15 = 47</code>. The same method on <code>57₈</code> gives <code>5 × 8 + 7 = 47</code> — a useful cross-check when two bases should agree.
+  </p>
+
+  <h3>Decimal → any base: repeated division</h3>
+  <ol>
+    <li>Divide by the target base and record the remainder.</li>
+    <li>Repeat with the quotient until it reaches zero.</li>
+    <li>Read the remainders bottom-to-top.</li>
+  </ol>
+  <p>
+    <code>47 ÷ 16 = 2</code> remainder 15 (F); <code>2 ÷ 16 = 0</code> remainder 2. Read bottom-to-top: <code>2F</code>. In binary the same value is <code>101111</code>, and in octal it is <code>57</code>.
+  </p>
+
+  <h3>Binary ⇄ hex shortcut</h3>
+  <p>
+    Because 16 = 2⁴, every hex digit maps to exactly four bits. Split <code>101111₂</code> as <code>10 1111</code>, pad to <code>0010 1111</code>, and translate: <code>2F</code>. Going the other way, expand each hex digit to four bits and drop the leading zeros.
+  </p>
+
+  <h2 id="world-bases">Base systems the world actually used</h2>
+  <p>
+    Base 10 won for everyday counting, but it was never the only option. Several non-decimal systems left marks on modern life.
+  </p>
+  <table>
+    <thead>
+      <tr><th>System</th><th>Base</th><th>Where and when</th><th>Legacy today</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Babylonian</td><td>60</td><td>Mesopotamia, c. 1800 BCE</td><td>60 seconds, 60 minutes, 360°</td></tr>
+      <tr><td>Mayan</td><td>20</td><td>Mesoamerica, c. 300 BCE</td><td>An early true zero symbol</td></tr>
+      <tr><td>Roman</td><td>non-positional</td><td>Europe, 1st millennium</td><td>Clock faces, chapter numbers</td></tr>
+      <tr><td>Binary</td><td>2</td><td>Formalised by Leibniz; adopted in computing</td><td>Every digital circuit</td></tr>
+      <tr><td>Octal</td><td>8</td><td>Early computing</td><td>Unix file permissions (<code>chmod 755</code>)</td></tr>
+      <tr><td>Hexadecimal</td><td>16</td><td>Computing</td><td>Colour codes, memory addresses, UTF-8 bytes</td></tr>
+      <tr><td>Duodecimal</td><td>12</td><td>Various, including trade</td><td>12 inches in a foot, 12 months</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Traces of base 20 survive in French: <em>quatre-vingts</em> is literally “four twenties”. Base 60 survives every time you read a clock. Base 2 survives every time you press a key.
+  </p>
+
+  <h2 id="world-benchmark">How numbering systems benchmark against the International scale</h2>
+  <p>
+    Radix and naming are two different axes, and the world varies on both. The International short scale names 10⁹ as a billion and 10¹² as a trillion. Several major languages do not: Portuguese (Portugal), Spanish, French, German, Italian and Dutch keep the long scale, where “billion” starts at 10¹². Japanese, Chinese and Korean do not use thousands at all — they group by four.
+  </p>
+  <WorldSystemsTable caption="Sixteen systems benchmarked against the International short scale: names for 10⁶, 10⁹ and 10¹²." />
+
+  <h3>Nuance 1: Portuguese is a split language</h3>
+  <p>
+    Portugal writes 1 billion as <em>mil milhões</em> and reserves <em>bilião</em> for 10¹². Brazil uses <em>bilhão</em> for 10⁹ and <em>trilhão</em> for 10¹². The base does not change; the label does, and it changes by a factor of 1,000.
+  </p>
+
+  <h3>Nuance 2: Spanish “billón” is not a billion</h3>
+  <p>
+    Spanish has no everyday word for 10⁹ — speakers say <em>mil millones</em>. <em>Un billón</em> is 10¹², so an English “billion” translated as “billón” overstates the value a thousand times.
+  </p>
+
+  <h3>Nuance 3: Japanese, Chinese and Korean group by four</h3>
+  <p>
+    万 = 10⁴, 億 = 10⁸, 兆 = 10¹². A billion is “ten hundred-million” (10億) because there is no native 10⁹ unit — the grouping boundary never lines up with the English one.
+  </p>
+
+  <h3>Nuance 4: India inserts a step at 10⁵</h3>
+  <p>
+    The Indian scale names 10⁵ (lakh), 10⁷ (crore), 10⁹ (arab), 10¹¹ (kharab), 10¹³ (neel), 10¹⁵ (padma) and 10¹⁷ (shankh). Because the steps after 1,000 are hundreds, the comma rhythm is 3-then-2, not 3-3-3.
+  </p>
+  <p class="note">
+    Practical rule: when a document crosses a language boundary, convert to a plain number first, then re-name it in the target language. Never translate the word “billion” directly.
+  </p>
+
+  <h2 id="naming">Bases are not the same as lakh and crore</h2>
+  <p>
+    The Indian and International naming systems both use base 10 — the digits never change. What changes is where the commas go and which name attaches to each power of ten. A base converter will not help with that; a naming converter will.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Value</th><th>Base conversion</th><th>Naming conversion</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1,000,000,000</td><td><code>111011100110101100101000000000₂</code></td><td>1 billion = 1 arab = 100 crore</td></tr>
+      <tr><td>1,000,000</td><td><code>11110100001001000000₂</code></td><td>1 million = 10 lakh</td></tr>
+      <tr><td>100,000</td><td><code>11000011010100000₂</code></td><td>1 lakh = 100 thousand</td></tr>
+    </tbody>
+  </table>
+  <p>
+    If the task mentions lakh, crore, million or billion, use the <a href="/#converter">Indian ⇄ International converter</a>. If it mentions binary, octal, hex or radix, stay on this page. The <a href="/knowledge-catalog/number-system-conversion-table/">conversion table guide</a> covers both in one place.
+  </p>
+</GuideLayout>

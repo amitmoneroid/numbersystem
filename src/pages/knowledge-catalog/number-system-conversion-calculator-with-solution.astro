@@ -1,0 +1,172 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import BaseConverter from '../../components/BaseConverter.astro';
+import BaseTable from '../../components/BaseTable.astro';
+import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
+import { guides } from '../../data/guides';
+
+const guide = guides.find((g) => g.slug === 'number-system-conversion-calculator-with-solution')!;
+
+const toc = [
+  { id: 'what-solution-means', label: 'What a solution includes' },
+  { id: 'method-one', label: 'Method 1: positional expansion' },
+  { id: 'method-two', label: 'Method 2: repeated division' },
+  { id: 'fractions', label: 'Fractions' },
+  { id: 'tool', label: 'Calculator with solution' },
+  { id: 'naming-solution', label: 'Solutions for lakh and crore' },
+  { id: 'world', label: 'World benchmark' },
+];
+
+const faqs = [
+  {
+    question: 'What is the difference between a calculator and a calculator with solution?',
+    answer:
+      'A calculator returns the result only. A <strong>calculator with solution</strong> also shows the method: the positional weights that produce the decimal value, and the division chain that produces the target base. That makes the answer checkable and teachable.',
+  },
+  {
+    question: 'How do you convert 255 to hexadecimal with a solution?',
+    answer:
+      'Divide repeatedly by 16: 255 ÷ 16 = 15 remainder 15 (F); 15 ÷ 16 = 0 remainder 15 (F). Read bottom-to-top: <strong>FF</strong>. In binary the same value is 11111111, because each hex digit maps to four bits.',
+  },
+  {
+    question: 'Why does 0.1 decimal not convert exactly to binary?',
+    answer:
+      '0.1 has no finite binary expansion — it becomes 0.0001100110011… repeating. Any calculator that prints a fixed number of fraction digits is rounding, not failing. The step list should show the repetition so the rounding is visible.',
+  },
+  {
+    question: 'Can a solution show the lakh/crore conversion too?',
+    answer:
+      'Yes, but the steps are multiplicative rather than divisional. For example, 2.5 billones (Spanish, 10¹²) = 2.5 × 10¹² = 2,500,000,000,000; divide by 10¹² for lakh crore → <strong>2.5 lakh crore</strong>.',
+  },
+];
+---
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+  <h2 id="what-solution-means">What a number system conversion calculator with solution should print</h2>
+  <p>
+    “Show your working” is a classroom rule that turns out to be good engineering practice. A <strong>number system conversion calculator with solution</strong> should produce three things: the result, the method that produced it, and enough intermediate values that a second person can audit it without redoing the whole calculation.
+  </p>
+  <div class="answer-box">
+    <p><strong>The minimum viable solution:</strong> the source base, the decimal value, every division or multiplication with its carry or remainder, and the final digit string with the direction of reading stated.</p>
+  </div>
+  <p>
+    The two methods below are the standard ones. Learn both and you can convert in either direction without a tool — and you can spot a wrong answer from a tool in a few seconds.
+  </p>
+
+  <h2 id="method-one">Method 1: positional expansion (any base → decimal)</h2>
+  <p>
+    Each digit is multiplied by the base raised to its position, counting from zero at the right of the integer part. Negative positions apply to the fraction.
+  </p>
+
+  <h3>Worked solution: 1A.8₁₆ → decimal</h3>
+  <ol>
+    <li>Digit <code>1</code> at position 1: <code>1 × 16¹ = 16</code></li>
+    <li>Digit <code>A</code> (10) at position 0: <code>10 × 16⁰ = 10</code></li>
+    <li>Digit <code>8</code> at position −1: <code>8 × 16⁻¹ = 0.5</code></li>
+    <li>Sum: <code>16 + 10 + 0.5 = 26.5</code></li>
+  </ol>
+  <p>Answer: <strong>1A.8₁₆ = 26.5₁₀</strong>. The same expansion works for octal (<code>777₈</code>), binary (<code>10011100₂</code>) and base 36.</p>
+
+  <h2 id="method-two">Method 2: repeated division (decimal → any base)</h2>
+  <p>
+    Divide the integer part by the target base, record the remainder, and continue with the quotient until it reaches zero. Read the remainders bottom-to-top.
+  </p>
+
+  <h3>Worked solution: 255₁₀ → hexadecimal</h3>
+  <ol>
+    <li><code>255 ÷ 16 = 15</code>, remainder <strong>15 → F</strong></li>
+    <li><code>15 ÷ 16 = 0</code>, remainder <strong>15 → F</strong></li>
+  </ol>
+  <p>Read bottom-to-top: <strong>FF</strong>. Cross-check with binary: <code>1111 1111</code>, and with octal: <code>377₈</code>.</p>
+
+  <h3>Worked solution: 156₁₀ → binary</h3>
+  <ol>
+    <li><code>156 ÷ 2 = 78</code>, remainder 0</li>
+    <li><code>78 ÷ 2 = 39</code>, remainder 0</li>
+    <li><code>39 ÷ 2 = 19</code>, remainder 1</li>
+    <li><code>19 ÷ 2 = 9</code>, remainder 1</li>
+    <li><code>9 ÷ 2 = 4</code>, remainder 1</li>
+    <li><code>4 ÷ 2 = 2</code>, remainder 0</li>
+    <li><code>2 ÷ 2 = 1</code>, remainder 0</li>
+    <li><code>1 ÷ 2 = 0</code>, remainder 1</li>
+  </ol>
+  <p>Answer: <strong>10011100₂</strong> = 128 + 16 + 8 + 4 = 156. Both directions agree.</p>
+
+  <h2 id="fractions">Fractions: the part most calculators hide</h2>
+  <p>
+    For the fractional part, multiply by the target base and take the integer carry, then repeat with what remains. Read the carries top-to-bottom.
+  </p>
+  <ol>
+    <li><code>0.6875 × 2 = 1.375</code> → carry <strong>1</strong>, remainder 0.375</li>
+    <li><code>0.375 × 2 = 0.75</code> → carry <strong>0</strong>, remainder 0.75</li>
+    <li><code>0.75 × 2 = 1.5</code> → carry <strong>1</strong>, remainder 0.5</li>
+    <li><code>0.5 × 2 = 1.0</code> → carry <strong>1</strong>, remainder 0</li>
+  </ol>
+  <p>Answer: <strong>0.6875₁₀ = 0.1011₂</strong>. When the remainder never reaches zero — as with 0.1 — the solution should say so and show the repeating block rather than pretending the expansion terminated.</p>
+
+  <h2 id="tool">Use the calculator with solution</h2>
+  <p>
+    The tool below prints the expansion and the division chain for any base pair from 2 to 36, including fractions. The result panel shows the answer; the step panels show the audit trail.
+  </p>
+  <BaseConverter />
+
+  <h2 id="naming-solution">Solutions for lakh, crore, million and billion</h2>
+  <p>
+    Naming conversions do not use division by a base, but they do have a reproducible solution format: identify the scale exponent, multiply to a plain value, then divide by the target scale exponent.
+  </p>
+
+  <h3>Worked solution: 2.5 billones (Spanish) → lakh crore</h3>
+  <ol>
+    <li>Spanish <code>billón</code> = 10¹², so <code>2.5 × 10¹² = 2,500,000,000,000</code>.</li>
+    <li>1 lakh crore = 10⁵ × 10⁷ = 10¹².</li>
+    <li><code>2,500,000,000,000 ÷ 10¹² = 2.5</code>.</li>
+    <li>Answer: <strong>2.5 lakh crore</strong>, which is 2.5 trillion.</li>
+  </ol>
+
+  <h3>Worked solution: 1.5 mil milhões (Portuguese) → crore</h3>
+  <ol>
+    <li><code>mil milhões</code> = 1,000 × 10⁶ = 10⁹.</li>
+    <li><code>1.5 × 10⁹ = 1,500,000,000</code>.</li>
+    <li>1 crore = 10⁷; <code>1,500,000,000 ÷ 10,000,000 = 150</code>.</li>
+    <li>Answer: <strong>150 crore</strong> (1.5 billion).</li>
+  </ol>
+
+  <h3>Worked solution: 5 crore → million</h3>
+  <ol>
+    <li>1 crore = 10⁷; <code>5 × 10⁷ = 50,000,000</code>.</li>
+    <li>1 million = 10⁶; <code>50,000,000 ÷ 1,000,000 = 50</code>.</li>
+    <li>Answer: <strong>50 million</strong>.</li>
+  </ol>
+
+  <h2 id="world">The benchmark table behind every solution</h2>
+  <p>
+    Use this table when a solution crosses a language boundary. It is the same reference used by the step-by-step and table guides.
+  </p>
+  <WorldSystemsTable caption="Named scales for 10⁶, 10⁹ and 10¹² across sixteen systems, with the benchmark against the International short scale." />
+
+  <h3>Reference grid, 0–15</h3>
+  <BaseTable to={15} caption="Decimal, binary, octal and hexadecimal for 0–15 — the working set behind most solutions." />
+
+  <h2>Four nuances a good solution has to state</h2>
+
+  <h3>Nuance 1: name the scale, not just the number</h3>
+  <p>
+    “1.5” is not a complete answer. 1.5 billion, 1.5 mil milhões and 1.5 arab are the same quantity; 1.5 bilião (Portugal) is a thousand times larger. A solution should always print the source scale and its exponent before doing arithmetic.
+  </p>
+
+  <h3>Nuance 2: the same word can differ by 1,000×</h3>
+  <p>
+    Spanish <em>billón</em>, French <em>billion</em> and European Portuguese <em>bilião</em> all mean 10¹², while English “billion” and Brazilian <em>bilhão</em> mean 10⁹. Write the exponent (10⁹ or 10¹²) beside the word and the ambiguity disappears.
+  </p>
+
+  <h3>Nuance 3: grouping changes the comma count</h3>
+  <p>
+    International <code>12,345,678</code> is Indian <code>1,23,45,678</code>. Same digits, different comma positions, and the Indian form reads as 1 crore 23 lakh 45 thousand 678. A solution that only reformats commas without naming the groups is incomplete.
+  </p>
+
+  <h3>Nuance 4: some fractions never terminate</h3>
+  <p>
+    0.1 in decimal is 0.000110011… in binary. Any solution that prints a finite string is rounding; the honest format is to show the repeating block and state how many digits were kept. The same applies to 0.2, 0.3 and any fraction whose denominator has a prime factor other than the target base’s.
+  </p>
+
+</GuideLayout>

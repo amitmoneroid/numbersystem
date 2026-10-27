@@ -1,0 +1,217 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import BaseTable from '../../components/BaseTable.astro';
+import { guides } from '../../data/guides';
+import { worldSystems } from '../../data/worldSystems';
+
+const guide = guides.find((g) => g.slug === 'number-system-conversion-pdf')!;
+const pdfPath = '/number-system-conversion-table.pdf';
+
+const toc = [
+  { id: 'download', label: 'Download the PDF' },
+  { id: 'inside', label: 'What is inside' },
+  { id: 'charts', label: 'Charts from the PDF' },
+  { id: 'powers', label: 'Powers of two' },
+  { id: 'world-pdf', label: 'World numbering sheet' },
+  { id: 'classroom', label: 'Classroom use' },
+];
+
+const faqs = [
+  {
+    question: 'Is the number system conversion PDF free to download and print?',
+    answer:
+      'Yes. The two-page PDF is free, needs no email address, and is formatted for A4 and US Letter printing. It can be copied for classroom use.',
+  },
+  {
+    question: 'What does the PDF contain?',
+    answer:
+      'Page 1 has decimal, binary, octal and hexadecimal values from 0 to 63 plus a powers-of-two reference. Page 2 has the two conversion methods with worked examples, the Indian versus International scale table, and a “where billion changes meaning” sheet for ten languages.',
+  },
+  {
+    question: 'Does the PDF include lakh and crore conversions?',
+    answer:
+      'Yes. The scale table maps 10³, 10⁵, 10⁶, 10⁷, 10⁹, 10¹¹, 10¹² and 10¹⁵ across both systems, including the anchor conversions 1 million = 10 lakh, 1 billion = 1 arab = 100 crore, and 1 trillion = 1 lakh crore.',
+  },
+  {
+    question: 'Is the PDF accessible to screen readers?',
+    answer:
+      'The PDF is a flat, text-based print sheet, which many screen readers handle poorly. The same tables are published as HTML on this page and on the conversion table page, which is the recommended version for assistive technology.',
+  },
+];
+
+const powers = [
+  ['2⁰', '1'], ['2¹', '2'], ['2²', '4'], ['2³', '8'], ['2⁴', '16'], ['2⁵', '32'],
+  ['2⁶', '64'], ['2⁷', '128'], ['2⁸', '256'], ['2¹⁰', '1,024'], ['2¹²', '4,096'],
+  ['2¹⁶', '65,536'], ['2²⁰', '1,048,576'], ['2²⁴', '16,777,216'], ['2³⁰', '1,073,741,824'], ['2³²', '4,294,967,296'],
+];
+---
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    name: 'Number System Conversion Table PDF',
+    description: 'Two-page printable chart: decimal, binary, octal and hexadecimal 0–63, powers of two, Indian and International scales, and world numbering benchmarks.',
+    url: `https://numbersystemconverter.com${pdfPath}`,
+    encodingFormat: 'application/pdf',
+    isAccessibleForFree: true,
+    datePublished: guide.updated,
+    dateModified: guide.updated,
+    publisher: { '@id': 'https://numbersystemconverter.com/#organization' },
+  })} />
+</Fragment>
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+  <h2 id="download">Download the number system conversion PDF</h2>
+  <p>
+    The chart below is the same content as the printable <strong>number system conversion PDF</strong> — two pages, no login, no email capture. Print it once and keep it beside the keyboard; it covers the values most conversions actually use, plus the scaling rules behind lakh and crore.
+  </p>
+
+  <div class="answer-box download-box">
+    <div>
+      <strong>Number System Conversion Table (PDF, 2 pages)</strong>
+      <p>0–63 in four bases · powers of two · Indian vs International scales · world numbering benchmarks</p>
+    </div>
+    <a class="download-btn" href={pdfPath} download>Download PDF</a>
+  </div>
+
+  <p class="note">
+    Print settings that work: A4 or US Letter, portrait, 100% scale, no “fit to page”. The charts are drawn in Courier so columns stay aligned at any printer resolution.
+  </p>
+
+  <h2 id="inside">What is inside the PDF</h2>
+  <h3>Page 1 — the conversion chart</h3>
+  <ul>
+    <li>Decimal, binary, octal and hexadecimal for <strong>0 to 63</strong>, in two side-by-side blocks.</li>
+    <li>Leading zeros preserved, so each binary row is six bits and each hex row is two digits.</li>
+    <li>A powers-of-two reference from 2⁰ to 2⁴⁰.</li>
+    <li>A one-line reminder that hex digits A–F represent 10–15.</li>
+  </ul>
+
+  <h3>Page 2 — methods and world scales</h3>
+  <ul>
+    <li>Method 1: repeated division, with the 156 → 10011100 walkthrough.</li>
+    <li>Method 2: positional weights, with the 1A.8₁₆ → 26.5 walkthrough.</li>
+    <li>The Indian ⇄ International scale table from 10³ to 10¹⁵.</li>
+    <li>A “where billion changes meaning” sheet covering Portuguese (both variants), Spanish, French, German, Japanese, Chinese, Korean, Russian, Turkish and Arabic.</li>
+  </ul>
+
+  <h2 id="charts">Charts from the PDF, as accessible tables</h2>
+  <p>
+    The HTML version below is the accessible equivalent of page 1. It is also easier to copy from, because each cell is selectable text rather than a printed glyph.
+  </p>
+  <BaseTable to={15} caption="Values 0–15 in decimal, binary, octal and hexadecimal. The PDF extends the same grid to 63." />
+
+  <h3>Why the chart stops at 63</h3>
+  <p>
+    Sixty-four values cover every six-bit pattern, every octal pair and every two-digit hex value — the range where hand conversions are most common. For the full 0–255 byte range, use the <a href="/knowledge-catalog/number-system-conversion-table/">number system conversion table</a> page, which publishes the complete grid.
+  </p>
+
+  <h2 id="powers">Powers of two reference</h2>
+  <table>
+    <thead>
+      <tr><th>Power</th><th>Value</th><th>Power</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+      {powers.map((row, i) => (
+        i % 2 === 0 && (
+          <tr>
+            <td><code>{row[0]}</code></td>
+            <td>{row[1]}</td>
+            <td><code>{powers[i + 1]?.[0] ?? ''}</code></td>
+            <td>{powers[i + 1]?.[1] ?? ''}</td>
+          </tr>
+        )
+      ))}
+    </tbody>
+  </table>
+  <p>
+    Two anchors are worth memorising: <strong>2¹⁰ = 1,024</strong> (the reason a kilobyte is 1,024 bytes, not 1,000) and <strong>2³² = 4,294,967,296</strong> (the limit of a 32-bit unsigned integer).
+  </p>
+
+  <h2 id="world-pdf">World numbering sheet</h2>
+  <p>
+    The second page of the PDF includes a condensed version of this comparison. The full table, with regions and scale types, is on the <a href="/knowledge-catalog/number-system-conversion-table/">conversion table</a> page.
+  </p>
+  <table>
+    <thead>
+      <tr><th>System</th><th>10⁹</th><th>10¹²</th></tr>
+    </thead>
+    <tbody>
+      {worldSystems.slice(0, 10).map((system) => (
+        <tr>
+          <td><strong>{system.name}</strong></td>
+          <td>{system.tenToNine}</td>
+          <td>{system.tenToTwelve}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    The practical takeaway: an English “billion” is 10⁹, but a Portuguese <em>bilião</em>, a Spanish <em>billón</em> and a French <em>billion</em> are all 10¹². Printing the sheet and pinning it above a desk prevents the most expensive translation error in financial reporting.
+  </p>
+
+  <h3>Nuance 1: Portuguese depends on the country</h3>
+  <p>
+    Portugal keeps the long scale — <em>mil milhões</em> for 10⁹ and <em>bilião</em> for 10¹². Brazil uses the short scale — <em>bilhão</em> for 10⁹ and <em>trilhão</em> for 10¹². The PDF lists both rows separately for exactly this reason.
+  </p>
+
+  <h3>Nuance 2: Spanish “billón” is a trillion</h3>
+  <p>
+    Spanish has no everyday word for 10⁹; it says <em>mil millones</em>. <em>Un billón</em> is 1,000 times larger than an English billion. If a translated document says “un billón de dólares”, the figure is a trillion, not a billion.
+  </p>
+
+  <h3>Nuance 3: Japanese, Chinese and Korean count in fours</h3>
+  <p>
+    万 = 10⁴, 億 = 10⁸, 兆 = 10¹². A billion is 10億, literally “ten hundred-million”. This is why Japanese financial tables often break numbers at four digits while the English translation next to them breaks at three.
+  </p>
+
+  <h3>Nuance 4: India adds a step at one lakh</h3>
+  <p>
+    The Indian scale inserts a name at 10⁵ (lakh) where International jumps from thousand (10³) to million (10⁶). That extra step is why 1 million equals 10 lakh rather than 1,000 lakh, and why 1 billion equals 100 crore rather than 1,000 crore.
+  </p>
+
+  <h2 id="classroom">Using the PDF in a classroom or study plan</h2>
+  <ol>
+    <li><strong>Start with the 0–15 grid.</strong> Ask students to cover the hex column and predict each value before revealing it.</li>
+    <li><strong>Do one conversion both ways.</strong> 156 → binary, then binary → 156. If the two answers agree, the method is understood.</li>
+    <li><strong>Introduce fractions on one example only.</strong> 0.6875 → 0.1011 is short enough to finish by hand.</li>
+    <li><strong>Switch systems, not bases.</strong> Convert 1 billion to arab and crore, then to Portuguese and Japanese, and discuss why the digits do not change but the words do.</li>
+    <li><strong>Use the PDF as a reference, not a worksheet.</strong> The step panels in the <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a> guide are the worked practice.</li>
+  </ol>
+</GuideLayout>
+
+<style>
+  .download-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .download-box p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--color-body);
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: var(--color-canvas);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .download-btn:hover {
+    color: var(--color-canvas);
+    opacity: 0.85;
+  }
+</style>
