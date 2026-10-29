@@ -1,0 +1,121 @@
+# NumSys — Number System Converter (full reference)
+
+Source: https://numbersystemconverter.com/
+Last reviewed: 2026-10-27
+
+## What the tool does
+
+NumSys is a free, client-side number system converter. It handles two related jobs:
+
+1. Radix conversion between base 2 and base 36, including binary, octal, decimal and hexadecimal, with every positional weight and division shown.
+2. Indian ⇄ International naming conversion for lakh, crore, arab, kharab, neel, padma, shankh, thousand, million, billion, trillion and quadrillion, with full word expansion.
+
+No conversion value is sent to a server. The site is static HTML, CSS and JavaScript.
+
+## Number system converter with steps
+
+A number system converter with steps prints the method, not only the answer. Two rules cover every base:
+
+- Into decimal: multiply each digit by the base raised to its position, then add the products.
+- Out of decimal: divide the integer part by the target base repeatedly, record each remainder, and read the remainders bottom-to-top.
+
+Worked example, 156₁₀ → binary:
+
+156 ÷ 2 = 78 r0
+78 ÷ 2 = 39 r0
+39 ÷ 2 = 19 r1
+19 ÷ 2 = 9 r1
+9 ÷ 2 = 4 r1
+4 ÷ 2 = 2 r0
+2 ÷ 2 = 1 r0
+1 ÷ 2 = 0 r1
+
+Reading upward gives 10011100. Check: 128 + 16 + 8 + 4 = 156.
+
+Reverse check, 10011100₂ → decimal: 1×2⁷ + 0×2⁶ + 0×2⁵ + 1×2⁴ + 1×2³ + 1×2² + 0×2¹ + 0×2⁰ = 128 + 16 + 8 + 4 = 156.
+
+URL: https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/
+
+## Number system converter online
+
+An online converter should answer as you type, run in the browser, and keep working after the page has loaded. This converter supports base 2–36, fractions, copyable results and shareable links of the form ?v=156&from=10&to=2.
+
+Naming versus radix: base conversion changes the radix (binary, octal, decimal, hex). Naming conversion keeps base 10 and changes the label and comma grouping (lakh/crore versus million/billion).
+
+URL: https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/
+
+## Number system conversion calculator with solution
+
+A calculator with solution prints:
+
+- the source base and the decimal value;
+- every division with its remainder, or every multiplication with its carry for fractions;
+- the final digit string;
+- the direction to read it (integer remainders bottom-to-top, fraction carries top-to-bottom).
+
+Worked examples:
+
+- 200₁₀ = 11001000₂ (128 + 64 + 8 = 200).
+- 173₁₀ = AD₁₆ (10 × 16 + 13 = 173; binary 10101101; octal 255).
+- 1A.8₁₆ = 26.5₁₀ (16 + 10 + 0.5).
+- 0.6875₁₀ = 0.1011₂ (0.5 + 0.125 + 0.0625).
+
+URL: https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/
+
+## Number system conversion PDF
+
+A free two-page printable PDF (23 KB):
+
+- Page 1: decimal, 6-bit binary, 3-digit octal and 2-digit hexadecimal for 0–63; powers of two from 2⁰ to 2⁴⁰.
+- Page 2: repeated-division and positional-weight methods with worked examples; the Indian ⇄ International scale table from 10³ to 10¹⁵; a “where billion changes meaning” sheet for ten languages.
+
+Direct file: https://numbersystemconverter.com/number-system-conversion-table.pdf
+
+URL: https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/
+
+## Base converter calculator
+
+A base converter calculator rewrites the same value in a different radix:
+
+- Base 2 (binary): digits 0–1.
+- Base 8 (octal): digits 0–7.
+- Base 10 (decimal): digits 0–9.
+- Base 16 (hexadecimal): digits 0–9 and A–F.
+- Base 36: digits 0–9 and A–Z.
+
+Examples: 255₁₀ = 11111111₂ = 377₈ = FF₁₆. 2F₁₆ = 47₁₀. 57₈ = 47₁₀.
+
+The calculator is exact to 2⁵³ − 1 (about 9 quadrillion) and shows fractions to twelve digits.
+
+URL: https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/
+
+## Number system conversion table
+
+0–255 in four bases, with binary padded to eight bits, octal to three digits and hex to two digits. Key rows:
+
+- 10 = 1010₂ = 12₈ = A₁₆
+- 15 = 1111₂ = 17₈ = F₁₆
+- 128 = 10000000₂ = 200₈ = 80₁₆
+- 255 = 11111111₂ = 377₈ = FF₁₆
+
+Indian ⇄ International anchors:
+
+- 1 million = 10 lakh
+- 1 billion = 1 arab = 100 crore
+- 1 trillion = 1 lakh crore
+
+URL: https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/
+
+## World numbering benchmarks
+
+- English short scale: billion 10⁹, trillion 10¹².
+- Portugal long scale: mil milhões 10⁹, bilião 10¹².
+- Brazil short scale: bilhão 10⁹, trilhão 10¹².
+- Spanish: mil millones 10⁹, billón 10¹².
+- French milliard / German Milliarde / Dutch miljard / Italian miliardo: 10⁹.
+- Japanese, Chinese, Korean group in fours: 万 10⁴, 億 10⁸, 兆 10¹².
+
+## Contact and corrections
+
+Report a conversion error: https://numbersystemconverter.com/contact/
+Editorial method: https://numbersystemconverter.com/about/#method

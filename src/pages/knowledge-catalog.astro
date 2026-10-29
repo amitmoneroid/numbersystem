@@ -38,7 +38,6 @@ const sections = [
   { id: 'target-audience', label: 'Audience' },
   { id: 'tech-stack', label: 'Tech stack' },
   { id: 'catalog-faq', label: 'FAQ' },
-  { id: 'coming-soon', label: 'Roadmap' },
 ];
 ---
 
@@ -294,39 +293,6 @@ const sections = [
           </div>
         </div>
         <FAQ items={catalogFaqs} heading="World numbering questions, answered" intro="Short answers to the cross-language questions this catalog receives most often." />
-      </section>
-
-      <!-- Roadmap -->
-      <section id="coming-soon" class="catalog-card card shadow-level-2">
-        <div class="card-head">
-          <span class="card-index code">07</span>
-          <div>
-            <h2 class="card-title">Roadmap</h2>
-            <p class="card-lead">What is being built next, in order.</p>
-          </div>
-        </div>
-        <div class="roadmap-grid">
-          <div class="roadmap-item">
-            <span class="roadmap-badge">Q1 2027</span>
-            <h3>Multi-language support</h3>
-            <p>Hindi first, then other Indian languages, with locale-aware digit grouping.</p>
-          </div>
-          <div class="roadmap-item">
-            <span class="roadmap-badge">Q2 2027</span>
-            <h3>API access</h3>
-            <p>A documented conversion endpoint for finance and education apps.</p>
-          </div>
-          <div class="roadmap-item">
-            <span class="roadmap-badge">Q3 2027</span>
-            <h3>Mobile apps</h3>
-            <p>Offline-first iOS and Android builds of both converters.</p>
-          </div>
-          <div class="roadmap-item">
-            <span class="roadmap-badge">Q4 2027</span>
-            <h3>Historical data viewer</h3>
-            <p>Interactive timelines of numeral systems from Babylonian base-60 to modern hexadecimal.</p>
-          </div>
-        </div>
       </section>
 
       <div class="catalog-cta">

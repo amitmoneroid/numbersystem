@@ -10,6 +10,26 @@ export interface FaqItem {
 
 export const faqItems: FaqItem[] = [
   {
+    question: 'What is a number system converter with steps?',
+    answer:
+      'It is a converter that shows the working, not just the answer: the positional weights that turn the source number into decimal, then the repeated division that produces the target base. For example, 156₁₀ → 10011100₂ takes eight divisions, and every remainder is printed.',
+  },
+  {
+    question: 'How do you convert 156 to binary step by step?',
+    answer:
+      'Divide by 2 and record each remainder: 156 ÷ 2 = 78 r0, 78 ÷ 2 = 39 r0, 39 ÷ 2 = 19 r1, 19 ÷ 2 = 9 r1, 9 ÷ 2 = 4 r1, 4 ÷ 2 = 2 r0, 2 ÷ 2 = 1 r0, 1 ÷ 2 = 0 r1. Read bottom-to-top: <strong>10011100₂</strong>. Check: 128 + 16 + 8 + 4 = 156.',
+  },
+  {
+    question: 'What is a base converter calculator?',
+    answer:
+      'A base converter calculator rewrites a value in another radix — binary (2), octal (8), decimal (10) or hexadecimal (16), up to base 36. It expands the source digits into decimal, then divides repeatedly by the target base. This one also supports fractions and shareable links.',
+  },
+  {
+    question: 'Is there a number system conversion table PDF?',
+    answer:
+      'Yes — a free two-page PDF with 0–63 in four bases, powers of two, the lakh/crore scale table and world numbering benchmarks. <a href="/knowledge-catalog/number-system-conversion-pdf/">Download the number system conversion PDF</a>.',
+  },
+  {
     question: 'How do you convert a number into the International system?',
     answer:
       'Group the digits in sets of <strong>three from the right</strong>, then read each group with the International names: Thousand (10³), Million (10⁶), Billion (10⁹) and Trillion (10¹²). <br><br>Example: 78921092 becomes <strong>78,921,092</strong> → Seventy-Eight Million Nine Hundred Twenty-One Thousand Ninety-Two.',
@@ -67,7 +87,7 @@ export const faqItems: FaqItem[] = [
   {
     question: 'Is 100 lakh equal to 1 billion?',
     answer:
-      '<strong>No.</strong> 100 lakh = 1 crore = 10 million. 1 billion = 100 crore = 1 arab, which is 10,000 lakh. 100 lakh is ten times smaller than 1 billion.',
+      '<strong>No.</strong> 100 lakh = 1 crore = 10 million. 1 billion = 100 crore = 1 arab, which is 10,000 lakh. 100 lakh is a hundred times smaller than 1 billion.',
   },
   {
     question: 'How many zeros are in 20 trillion?',

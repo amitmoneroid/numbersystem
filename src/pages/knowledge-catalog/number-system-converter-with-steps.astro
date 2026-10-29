@@ -41,6 +41,23 @@ const faqs = [
 ];
 ---
 
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Convert 156 from decimal to binary step by step',
+    description: 'Divide by 2 until the quotient reaches zero, record each remainder, then read the remainders bottom-to-top.',
+    totalTime: 'PT2M',
+    tool: [{ '@type': 'HowToTool', name: 'NumSys base converter' }],
+    step: [
+      { '@type': 'HowToStep', name: 'Divide by 2', text: '156 ÷ 2 = 78, remainder 0.' },
+      { '@type': 'HowToStep', name: 'Repeat with the quotient', text: 'Continue dividing until the quotient is 0: 78 r0, 39 r1, 19 r1, 9 r1, 4 r0, 2 r0, 1 r1.' },
+      { '@type': 'HowToStep', name: 'Read bottom-to-top', text: 'The remainders from the last division to the first are 10011100.' },
+      { '@type': 'HowToStep', name: 'Check', text: 'Add the weights of the 1-bits: 128 + 16 + 8 + 4 = 156.' },
+    ],
+  })} />
+</Fragment>
+
 <GuideLayout guide={guide} toc={toc} faqs={faqs}>
   <h2 id="what-steps-mean">What a number system converter with steps actually shows</h2>
   <p>
@@ -167,7 +184,8 @@ const faqs = [
     If you only remember one anchor, remember this pair: <strong>1 million = 10 lakh</strong> and <strong>1 billion = 1 arab = 100 crore</strong>. Every other lakh/crore conversion can be derived from them.
   </p>
   <p class="note">
-    Next: the <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a> guide formats these steps as a full worked answer, and the
+    Next: the <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a> guide formats these steps as a full worked answer, the
+    <a href="/knowledge-catalog/base-converter-calculator/">base converter calculator</a> covers base 2–36 in depth, and the
     <a href="/knowledge-catalog/number-system-conversion-table/">conversion table</a> lists the values in one grid.
   </p>
 </GuideLayout>

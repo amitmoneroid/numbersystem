@@ -1,51 +1,50 @@
-<<<<<<< HEAD
-# numbersystem
-A Number system Converter website in Astro JS, html &amp; Css with full on Page SEO.
-=======
-# Astro Starter Kit: Basics
+# NumSys — Number System Converter
 
-```sh
-npm create astro@latest -- --template basics
-```
+A static Astro site for number system conversion:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- base 2–36 conversion (binary, octal, decimal, hex) with positional expansion and repeated division shown;
+- Indian ⇄ International naming conversion (lakh, crore, arab ⇄ million, billion, trillion);
+- six keyword guides under `/knowledge-catalog/`, a 0–255 conversion table, and a printable two-page PDF.
 
-## 🚀 Project Structure
+Live: https://numbersystemconverter.com/
 
-Inside of your Astro project, you'll see the following folders and files:
+## Commands
+
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Start the dev server at `localhost:4321`    |
+| `npm run build`   | Build the production site to `./dist/`      |
+| `npm run preview` | Preview the build locally                   |
+| `npm run deploy`  | Build and deploy `dist/` with Wrangler      |
+
+## Structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── components/        BaseConverter, BaseTable, FAQ, Navbar, Footer
+├── data/              FAQ, guide metadata and world numbering data
+├── layouts/           Layout.astro (SEO/GEO graph) and GuideLayout.astro
+├── pages/
+│   ├── index.astro    Base-first converter hero + naming tab
+│   └── knowledge-catalog/
+│       ├── number-system-converter-with-steps.astro
+│       ├── number-system-converter-online.astro
+│       ├── number-system-conversion-calculator-with-solution.astro
+│       ├── number-system-conversion-pdf.astro
+│       ├── base-converter-calculator.astro
+│       └── number-system-conversion-table.astro
+└── styles/global.css
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Public assets include `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`,
+`number-system-conversion-table.pdf`, `_headers`, `_routes.json` and `_redirects`.
+`functions/_middleware.js` handles the `www` -> apex redirect, which `_redirects`
+cannot express because it cannot match on hostname.
 
-## 🧞 Commands
+## SEO notes
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
->>>>>>> 8aee10f ("Initial commit from Astro")
+- Every guide has a direct answer under the H1, an `Article` node with publication/review dates, breadcrumbs and FAQ schema.
+- The steps and calculator guides add `HowTo` schema; the PDF page adds `DigitalDocument`.
+- Guide dates are stored in `src/data/guides.ts` (`published`, `updated`); update the sitemap when they change.
+- Canonicals use the apex domain with trailing slashes; `functions/_middleware.js` and `_redirects` consolidate `www` and slash-less URLs.

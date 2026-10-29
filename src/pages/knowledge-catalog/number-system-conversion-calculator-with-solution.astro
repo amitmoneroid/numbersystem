@@ -2,7 +2,6 @@
 import GuideLayout from '../../layouts/GuideLayout.astro';
 import BaseConverter from '../../components/BaseConverter.astro';
 import BaseTable from '../../components/BaseTable.astro';
-import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
 import { guides } from '../../data/guides';
 
 const guide = guides.find((g) => g.slug === 'number-system-conversion-calculator-with-solution')!;
@@ -14,14 +13,14 @@ const toc = [
   { id: 'fractions', label: 'Fractions' },
   { id: 'tool', label: 'Calculator with solution' },
   { id: 'naming-solution', label: 'Solutions for lakh and crore' },
-  { id: 'world', label: 'World benchmark' },
+  { id: 'world', label: 'Reference grid' },
 ];
 
 const faqs = [
   {
-    question: 'What is the difference between a calculator and a calculator with solution?',
+    question: 'What is a number system conversion calculator with solution?',
     answer:
-      'A calculator returns the result only. A <strong>calculator with solution</strong> also shows the method: the positional weights that produce the decimal value, and the division chain that produces the target base. That makes the answer checkable and teachable.',
+      'A calculator with solution returns the result <em>and</em> the method: the positional weights that produce the decimal value, and the division chain that produces the target base. That makes the answer checkable and teachable, which is why it is the format exams and code reviews expect.',
   },
   {
     question: 'How do you convert 255 to hexadecimal with a solution?',
@@ -41,7 +40,25 @@ const faqs = [
 ];
 ---
 
-<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Convert a decimal number to another base with the full solution',
+    description: 'Divide the integer part by the target base, record every remainder, then read the remainders bottom-to-top.',
+    totalTime: 'PT3M',
+    tool: [{ '@type': 'HowToTool', name: 'NumSys base converter calculator' }],
+    step: [
+      { '@type': 'HowToStep', name: 'Divide', text: 'Divide the integer part by the target base.' },
+      { '@type': 'HowToStep', name: 'Record the remainder', text: 'Write down the remainder as the next least-significant digit.' },
+      { '@type': 'HowToStep', name: 'Repeat', text: 'Continue with the quotient until it reaches zero.' },
+      { '@type': 'HowToStep', name: 'Read upward', text: 'Read the remainders bottom-to-top to get the answer.' },
+      { '@type': 'HowToStep', name: 'Check', text: 'Convert the result back to decimal using positional weights and confirm the original value.' },
+    ],
+  })} />
+</Fragment>
+
+<GuideLayout guide={guide} toc={toc} faqs={faqs} toolHref="#base-converter" toolLabel="Open the calculator">
   <h2 id="what-solution-means">What a number system conversion calculator with solution should print</h2>
   <p>
     “Show your working” is a classroom rule that turns out to be good engineering practice. A <strong>number system conversion calculator with solution</strong> should produce three things: the result, the method that produced it, and enough intermediate values that a second person can audit it without redoing the whole calculation.
@@ -69,28 +86,28 @@ const faqs = [
 
   <h2 id="method-two">Method 2: repeated division (decimal → any base)</h2>
   <p>
-    Divide the integer part by the target base, record the remainder, and continue with the quotient until it reaches zero. Read the remainders bottom-to-top.
+    Divide the integer part by the target base, record the remainder, and continue with the quotient until it reaches zero. Read the remainders bottom-to-top. For radix breadth beyond the four common bases, see the <a href="/knowledge-catalog/base-converter-calculator/">base converter calculator</a>.
   </p>
 
-  <h3>Worked solution: 255₁₀ → hexadecimal</h3>
+  <h3>Worked solution: 173₁₀ → hexadecimal</h3>
   <ol>
-    <li><code>255 ÷ 16 = 15</code>, remainder <strong>15 → F</strong></li>
-    <li><code>15 ÷ 16 = 0</code>, remainder <strong>15 → F</strong></li>
+    <li><code>173 ÷ 16 = 10</code>, remainder <strong>13 → D</strong></li>
+    <li><code>10 ÷ 16 = 0</code>, remainder <strong>10 → A</strong></li>
   </ol>
-  <p>Read bottom-to-top: <strong>FF</strong>. Cross-check with binary: <code>1111 1111</code>, and with octal: <code>377₈</code>.</p>
+  <p>Read bottom-to-top: <strong>AD</strong>. Cross-check with binary: <code>1010 1101</code>, and with octal: <code>255₈</code>.</p>
 
-  <h3>Worked solution: 156₁₀ → binary</h3>
+  <h3>Worked solution: 200₁₀ → binary</h3>
   <ol>
-    <li><code>156 ÷ 2 = 78</code>, remainder 0</li>
-    <li><code>78 ÷ 2 = 39</code>, remainder 0</li>
-    <li><code>39 ÷ 2 = 19</code>, remainder 1</li>
-    <li><code>19 ÷ 2 = 9</code>, remainder 1</li>
-    <li><code>9 ÷ 2 = 4</code>, remainder 1</li>
-    <li><code>4 ÷ 2 = 2</code>, remainder 0</li>
-    <li><code>2 ÷ 2 = 1</code>, remainder 0</li>
+    <li><code>200 ÷ 2 = 100</code>, remainder 0</li>
+    <li><code>100 ÷ 2 = 50</code>, remainder 0</li>
+    <li><code>50 ÷ 2 = 25</code>, remainder 0</li>
+    <li><code>25 ÷ 2 = 12</code>, remainder 1</li>
+    <li><code>12 ÷ 2 = 6</code>, remainder 0</li>
+    <li><code>6 ÷ 2 = 3</code>, remainder 0</li>
+    <li><code>3 ÷ 2 = 1</code>, remainder 1</li>
     <li><code>1 ÷ 2 = 0</code>, remainder 1</li>
   </ol>
-  <p>Answer: <strong>10011100₂</strong> = 128 + 16 + 8 + 4 = 156. Both directions agree.</p>
+  <p>Read bottom-to-top: <strong>11001000₂</strong> = 128 + 64 + 8 = 200. The forward and reverse directions agree.</p>
 
   <h2 id="fractions">Fractions: the part most calculators hide</h2>
   <p>
@@ -138,33 +155,14 @@ const faqs = [
     <li>Answer: <strong>50 million</strong>.</li>
   </ol>
 
-  <h2 id="world">The benchmark table behind every solution</h2>
+  <h2 id="world">The reference grid behind every solution</h2>
   <p>
-    Use this table when a solution crosses a language boundary. It is the same reference used by the step-by-step and table guides.
+    Base conversion does not depend on language. Radix and naming are separate axes: if a solution crosses a language boundary, check the 10⁹/10¹² split in the
+    <a href="/knowledge-catalog/number-system-conversion-table/#world-table">world numbering table</a>, then come back to the base arithmetic. The 0–15 grid is the working set for most classroom solutions.
   </p>
-  <WorldSystemsTable caption="Named scales for 10⁶, 10⁹ and 10¹² across sixteen systems, with the benchmark against the International short scale." />
-
-  <h3>Reference grid, 0–15</h3>
   <BaseTable to={15} caption="Decimal, binary, octal and hexadecimal for 0–15 — the working set behind most solutions." />
 
-  <h2>Four nuances a good solution has to state</h2>
-
-  <h3>Nuance 1: name the scale, not just the number</h3>
-  <p>
-    “1.5” is not a complete answer. 1.5 billion, 1.5 mil milhões and 1.5 arab are the same quantity; 1.5 bilião (Portugal) is a thousand times larger. A solution should always print the source scale and its exponent before doing arithmetic.
-  </p>
-
-  <h3>Nuance 2: the same word can differ by 1,000×</h3>
-  <p>
-    Spanish <em>billón</em>, French <em>billion</em> and European Portuguese <em>bilião</em> all mean 10¹², while English “billion” and Brazilian <em>bilhão</em> mean 10⁹. Write the exponent (10⁹ or 10¹²) beside the word and the ambiguity disappears.
-  </p>
-
-  <h3>Nuance 3: grouping changes the comma count</h3>
-  <p>
-    International <code>12,345,678</code> is Indian <code>1,23,45,678</code>. Same digits, different comma positions, and the Indian form reads as 1 crore 23 lakh 45 thousand 678. A solution that only reformats commas without naming the groups is incomplete.
-  </p>
-
-  <h3>Nuance 4: some fractions never terminate</h3>
+  <h3>Fractions: state the rounding rule</h3>
   <p>
     0.1 in decimal is 0.000110011… in binary. Any solution that prints a finite string is rounding; the honest format is to show the repeating block and state how many digits were kept. The same applies to 0.2, 0.3 and any fraction whose denominator has a prime factor other than the target base’s.
   </p>

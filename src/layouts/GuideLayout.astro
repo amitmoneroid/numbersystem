@@ -16,17 +16,56 @@ interface Props {
   guide: Guide;
   toc?: TocItem[];
   faqs?: { question: string; answer: string }[];
+  /** 45–60 word direct answer shown under the H1. Falls back to guide.answer. */
+  answer?: string;
+  /** In-page anchor (or URL) for the primary CTA. */
+  toolHref?: string;
+  /** Label for the primary CTA. */
+  toolLabel?: string;
 }
 
-const { guide, toc = [], faqs = [] } = Astro.props;
+const {
+  guide,
+  toc = [],
+  faqs = [],
+  answer = guide.answer,
+  toolHref = '#base-converter',
+  toolLabel = 'Open the converter',
+} = Astro.props;
 
 const canonical = `https://numbersystemconverter.com${guideHref(guide.slug)}`;
 const crumbs = [
   { name: 'Home', url: 'https://numbersystemconverter.com/' },
   { name: 'Knowledge Catalog', url: 'https://numbersystemconverter.com/knowledge-catalog/' },
-  { name: guide.shortLabel, url: canonical },
+  { name: guide.h1, url: canonical },
 ];
 const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${canonical}#article`,
+  headline: guide.metaTitle,
+  description: guide.description,
+  url: canonical,
+  mainEntityOfPage: { '@id': `${canonical}#webpage` },
+  datePublished: guide.published,
+  dateModified: guide.updated,
+  inLanguage: 'en',
+  author: {
+    '@type': 'Organization',
+    name: 'NumSys Editorial Team',
+    url: 'https://numbersystemconverter.com/about/#author',
+  },
+  publisher: { '@id': 'https://numbersystemconverter.com/#organization' },
+  isPartOf: { '@id': 'https://numbersystemconverter.com/#website' },
+  about: {
+    '@type': 'DefinedTerm',
+    name: 'number system and radix conversion',
+    inDefinedTermSet: 'https://numbersystemconverter.com/knowledge-catalog/',
+  },
+  image: 'https://numbersystemconverter.com/og-image.png',
+};
 ---
 
 <Layout
@@ -37,10 +76,13 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
   keywords={`${guide.h1.toLowerCase()}, number system converter, base converter, conversion table, indian number system, international number system`}
   breadcrumbs={crumbs}
   faqItems={faqs}
-  datePublished={guide.updated}
+  datePublished={guide.published}
   dateModified={guide.updated}
 >
-  <slot name="head" slot="head" />
+  <Fragment slot="head">
+    <slot name="head" />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
   <Navbar />
 
   <main>
@@ -50,7 +92,7 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
         <span aria-hidden="true">/</span>
         <a href="/knowledge-catalog/">Knowledge Catalog</a>
         <span aria-hidden="true">/</span>
-        <span aria-current="page">{guide.shortLabel}</span>
+        <span aria-current="page">{guide.h1}</span>
       </div>
     </nav>
 
@@ -60,21 +102,27 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
           <span class="eyebrow">Knowledge Catalog · Guide</span>
           <h1 class="guide-title">{guide.h1}</h1>
           <p class="guide-lead">{guide.description}</p>
+          <div class="guide-answer">
+            <span class="guide-answer-label">Short answer</span>
+            <p>{answer}</p>
+          </div>
           <div class="guide-meta">
-            <span class="meta-item">By the NumSys editorial team</span>
+            <span class="meta-item">By <a href="/about/#author">the NumSys Editorial Team</a></span>
             <span class="meta-dot" aria-hidden="true"></span>
-            <span class="meta-item">Updated <time datetime={guide.updated}>27 October 2026</time></span>
+            <span class="meta-item">Published <time datetime={guide.published}>{new Date(guide.published + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></span>
+            <span class="meta-dot" aria-hidden="true"></span>
+            <span class="meta-item">Updated <time datetime={guide.updated}>{new Date(guide.updated + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></span>
             <span class="meta-dot" aria-hidden="true"></span>
             <span class="meta-item">{guide.readingMinutes} min read</span>
             <span class="meta-dot" aria-hidden="true"></span>
-            <span class="meta-item">Reviewed against the 10³ / 10⁶ / 10⁹ scale table</span>
+            <span class="meta-item">Examples recomputed before publication</span>
           </div>
         </div>
 
         <aside class="guide-cta card shadow-level-2">
           <span class="eyebrow">Try it</span>
           <p class="cta-copy">Run the conversion while you read — the tool shows both the answer and the working.</p>
-          <a class="cta-btn" href="/#converter">Open the converter</a>
+          <a class="cta-btn" href={toolHref}>{toolLabel}</a>
           <a class="cta-link" href="/knowledge-catalog/">Browse all guides →</a>
         </aside>
       </div>
@@ -94,6 +142,16 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
 
       <article class="guide-body" id="article">
         <slot />
+
+        <aside class="guide-sources" aria-label="How this page was checked">
+          <strong>How this page was checked.</strong>
+          Every example was recomputed against the on-page converter before publication.
+          Scale conventions follow
+          <a href="https://www.iso.org/standard/76921.html" target="_blank" rel="noopener noreferrer">ISO 80000-1</a>;
+          binary fraction limits follow
+          <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener noreferrer">IEEE 754</a>.
+          Found an error? <a href="/contact/">Report it here</a> and we will correct the page.
+        </aside>
       </article>
     </div>
 
@@ -196,6 +254,38 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
     color: var(--color-body);
     max-width: 62ch;
     margin: 0;
+  }
+
+  .guide-answer {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-link-bg-soft);
+    border-left: 3px solid var(--color-link);
+    border-radius: var(--radius-sm);
+    max-width: 68ch;
+  }
+
+  .guide-answer-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-mute);
+    margin-bottom: 2px;
+  }
+
+  .guide-answer p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-ink);
+  }
+
+  .guide-meta a {
+    color: var(--color-body);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .guide-meta {
@@ -420,6 +510,19 @@ const related = guides.filter((g) => g.slug !== guide.slug).slice(0, 3);
     margin-block: var(--spacing-lg);
     color: var(--color-body);
     font-size: 15px;
+  }
+
+  .guide-sources {
+    margin-top: var(--spacing-3xl);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-hairline);
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--color-mute);
+  }
+
+  .guide-sources strong {
+    color: var(--color-ink);
   }
 
   .guide-faq {

@@ -54,26 +54,30 @@ const powers = [
     description: 'Two-page printable chart: decimal, binary, octal and hexadecimal 0–63, powers of two, Indian and International scales, and world numbering benchmarks.',
     url: `https://numbersystemconverter.com${pdfPath}`,
     encodingFormat: 'application/pdf',
+    fileFormat: 'application/pdf',
+    contentSize: '23 KB',
+    numberOfPages: 2,
     isAccessibleForFree: true,
-    datePublished: guide.updated,
+    datePublished: guide.published,
     dateModified: guide.updated,
     publisher: { '@id': 'https://numbersystemconverter.com/#organization' },
   })} />
 </Fragment>
 
-<GuideLayout guide={guide} toc={toc} faqs={faqs}>
+<GuideLayout guide={guide} toc={toc} faqs={faqs} toolHref={pdfPath} toolLabel="Download the PDF (23 KB)">
   <h2 id="download">Download the number system conversion PDF</h2>
-  <p>
-    The chart below is the same content as the printable <strong>number system conversion PDF</strong> — two pages, no login, no email capture. Print it once and keep it beside the keyboard; it covers the values most conversions actually use, plus the scaling rules behind lakh and crore.
-  </p>
 
   <div class="answer-box download-box">
     <div>
-      <strong>Number System Conversion Table (PDF, 2 pages)</strong>
+      <strong>Number System Conversion Table (PDF · 2 pages · 23 KB)</strong>
       <p>0–63 in four bases · powers of two · Indian vs International scales · world numbering benchmarks</p>
     </div>
-    <a class="download-btn" href={pdfPath} download>Download PDF</a>
+    <a class="download-btn" href={pdfPath} download>Download the 2-page PDF</a>
   </div>
+
+  <p>
+    The chart below is the same content as the printable <strong>number system conversion PDF</strong> — two pages, no login, no email capture. Print it once and keep it beside the keyboard; it covers the values most conversions actually use, plus the scaling rules behind lakh and crore.
+  </p>
 
   <p class="note">
     Print settings that work: A4 or US Letter, portrait, 100% scale, no “fit to page”. The charts are drawn in Courier so columns stay aligned at any printer resolution.
@@ -98,9 +102,9 @@ const powers = [
 
   <h2 id="charts">Charts from the PDF, as accessible tables</h2>
   <p>
-    The HTML version below is the accessible equivalent of page 1. It is also easier to copy from, because each cell is selectable text rather than a printed glyph.
+    The table below is the accessible HTML equivalent of page 1 — the full 0–63 range, padded exactly as printed. It is also easier to copy from, because each cell is selectable text rather than a printed glyph.
   </p>
-  <BaseTable to={15} caption="Values 0–15 in decimal, binary, octal and hexadecimal. The PDF extends the same grid to 63." />
+  <BaseTable to={63} caption="Values 0–63 in decimal, 6-bit binary, 3-digit octal and 2-digit hexadecimal — the same grid printed on page 1 of the PDF." />
 
   <h3>Why the chart stops at 63</h3>
   <p>

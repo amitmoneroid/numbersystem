@@ -7,10 +7,10 @@ import { guides } from '../../data/guides';
 const guide = guides.find((g) => g.slug === 'number-system-conversion-table')!;
 
 const toc = [
-  { id: 'how-to-read', label: 'How to read the table' },
   { id: 'full-grid', label: '0–255 grid' },
-  { id: 'powers', label: 'Powers of two' },
   { id: 'scale-table', label: 'Indian vs International' },
+  { id: 'how-to-read', label: 'How to read the table' },
+  { id: 'powers', label: 'Powers of two' },
   { id: 'world-table', label: 'World systems' },
   { id: 'patterns', label: 'Patterns to memorise' },
 ];
@@ -24,7 +24,7 @@ const faqs = [
   {
     question: 'How many lakh is 1 billion?',
     answer:
-      '1 billion = <strong>10,000 lakh</strong> = 100 crore = 1 arab. A common error is to say 100 lakh, but 100 lakh is only 1 crore — ten times smaller than a billion.',
+      '1 billion = <strong>10,000 lakh</strong> = 100 crore = 1 arab. A common error is to say 100 lakh, but 100 lakh is only 1 crore — a hundred times smaller than a billion.',
   },
   {
     question: 'What comes after crore in the Indian system?',
@@ -62,46 +62,16 @@ const powers = [
 ];
 ---
 
-<GuideLayout guide={guide} toc={toc} faqs={faqs}>
-  <h2 id="how-to-read">How to read a number system conversion table</h2>
-  <p>
-    A <strong>number system conversion table</strong> is a lookup, not a lesson: each row holds one value written in several bases. Read across to translate, read down to see how a base rolls over. The grid below covers decimal, binary, octal and hexadecimal from 0 to 255 — the full range of a byte.
-  </p>
-  <div class="answer-box">
-    <p><strong>Two rows worth memorising:</strong> 15 = <code>1111₂</code> = <code>17₈</code> = <code>F₁₆</code>, and 255 = <code>11111111₂</code> = <code>377₈</code> = <code>FF₁₆</code>.</p>
-  </div>
-
+<GuideLayout guide={guide} toc={toc} faqs={faqs} toolHref="#full-grid" toolLabel="Jump to the 0–255 table">
   <h2 id="full-grid">Number system conversion table, 0–255</h2>
   <p>
-    Binary is shown as eight bits and hexadecimal as two digits, which is how they appear in code, colour values and memory dumps. Scroll the panel to reach the higher values.
+    The full byte range in one place. Binary is shown as eight bits and hexadecimal as two digits, which is how they appear in code, colour values and memory dumps. Scroll the panel to reach the higher values.
   </p>
   <BaseTable to={255} caption="Values 0–255 in decimal, binary (8-bit), octal (3-digit) and hexadecimal (2-digit)." />
 
-  <h2 id="powers">Powers of two</h2>
-  <p>
-    Binary boundaries are powers of two, so the table makes more sense with them alongside. The two most useful are 2¹⁰ = 1,024 and 2³² = 4,294,967,296.
-  </p>
-  <table>
-    <thead>
-      <tr><th>Power</th><th>Value</th><th>Power</th><th>Value</th></tr>
-    </thead>
-    <tbody>
-      {powers.map((row, i) => (
-        i % 2 === 0 && (
-          <tr>
-            <td><code>{row[0]}</code></td>
-            <td>{row[1]}</td>
-            <td><code>{powers[i + 1]?.[0] ?? ''}</code></td>
-            <td>{powers[i + 1]?.[1] ?? ''}</td>
-          </tr>
-        )
-      ))}
-    </tbody>
-  </table>
-
   <h2 id="scale-table">Indian vs International number system table</h2>
   <p>
-    This is the table most people actually need when they search for a number system conversion table: the same power of ten, named in both systems, with the comma grouping shown.
+    This is the table most people actually need when they search for a number system conversion table: the same power of ten, named in both systems, with the comma grouping shown. The short anchors: <strong>1 million = 10 lakh; 1 billion = 1 arab = 100 crore; 1 trillion = 1 lakh crore.</strong>
   </p>
   <table>
     <thead>
@@ -122,6 +92,36 @@ const powers = [
   <p class="note">
     The Indian system has no separate word at 10⁶: one million is “ten lakh”. That gap is why conversions between the two systems so often go wrong by a factor of ten.
   </p>
+
+  <h2 id="how-to-read">How to read a number system conversion table</h2>
+  <p>
+    A <strong>number system conversion table</strong> is a lookup, not a lesson: each row holds one value written in several bases. Read across to translate, read down to see how a base rolls over. The grid above covers decimal, binary, octal and hexadecimal from 0 to 255 — the full range of a byte.
+  </p>
+  <div class="answer-box">
+    <p><strong>Two rows worth memorising:</strong> 15 = <code>1111₂</code> = <code>17₈</code> = <code>F₁₆</code>, and 255 = <code>11111111₂</code> = <code>377₈</code> = <code>FF₁₆</code>.</p>
+  </div>
+
+  <h2 id="powers">Selected powers of two</h2>
+  <p>
+    Binary boundaries are powers of two, so the table makes more sense with them alongside. This is a selected list — every power from 2⁰ to 2¹⁶, then the values most used in computing. The two most useful are 2¹⁰ = 1,024 and 2³² = 4,294,967,296.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Power</th><th>Value</th><th>Power</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+      {powers.map((row, i) => (
+        i % 2 === 0 && (
+          <tr>
+            <td><code>{row[0]}</code></td>
+            <td>{row[1]}</td>
+            <td><code>{powers[i + 1]?.[0] ?? ''}</code></td>
+            <td>{powers[i + 1]?.[1] ?? ''}</td>
+          </tr>
+        )
+      ))}
+    </tbody>
+  </table>
 
   <h2 id="world-table">How other countries name the same values</h2>
   <p>

@@ -2,7 +2,6 @@
 import GuideLayout from '../../layouts/GuideLayout.astro';
 import BaseConverter from '../../components/BaseConverter.astro';
 import BaseTable from '../../components/BaseTable.astro';
-import WorldSystemsTable from '../../components/WorldSystemsTable.astro';
 import { guides } from '../../data/guides';
 
 const guide = guides.find((g) => g.slug === 'base-converter-calculator')!;
@@ -13,15 +12,15 @@ const toc = [
   { id: 'grid', label: '0–15 grid' },
   { id: 'methods', label: 'The two methods' },
   { id: 'world-bases', label: 'Bases the world used' },
-  { id: 'world-benchmark', label: 'World benchmark' },
+  { id: 'world-benchmark', label: 'Radix vs naming' },
   { id: 'naming', label: 'Bases vs naming systems' },
 ];
 
 const faqs = [
   {
-    question: 'What is the highest base a converter can handle?',
+    question: 'What is a base converter calculator?',
     answer:
-      'Base 36 is the practical ceiling because it uses the ten digits plus twenty-six letters. Higher bases need extra symbols, as base 60 did in Babylon. This converter supports every base from 2 to 36.',
+      'A base converter calculator rewrites one value in a different radix — base 2 (binary), 8 (octal), 10 (decimal), 16 (hex) or any base up to 36. It converts into decimal by summing digit × base<sup>position</sup>, then out by repeated division. This one supports every base from 2 to 36, including fractions.',
   },
   {
     question: 'How do I convert binary to hexadecimal without a calculator?',
@@ -37,6 +36,11 @@ const faqs = [
     question: 'Is “base” the same as “number system”?',
     answer:
       'Not quite. A base is a radix — how many digits exist. A number system can also mean the naming convention for large values, such as lakh/crore versus million/billion. Both of those naming systems are base 10.',
+  },
+  {
+    question: 'What is the largest number a base converter calculator can handle?',
+    answer:
+      'This calculator is exact up to 2<sup>53</sup> − 1 (about 9 quadrillion), the safe-integer limit of browser JavaScript. Values above that keep their leading digits but may round the last few. Fractional results are shown to twelve digits, with the repeating block noted where one exists.',
   },
 ];
 ---
@@ -73,6 +77,9 @@ const faqs = [
   </ul>
 
   <h2 id="methods">The two methods, side by side</h2>
+  <p>
+    Every base conversion runs in one of two directions. Going <em>into</em> decimal uses positional expansion; coming <em>out</em> of decimal uses repeated division. Together they let you check any calculator result by hand.
+  </p>
 
   <h3>Any base → decimal: positional expansion</h3>
   <ol>
@@ -121,30 +128,10 @@ const faqs = [
     Traces of base 20 survive in French: <em>quatre-vingts</em> is literally “four twenties”. Base 60 survives every time you read a clock. Base 2 survives every time you press a key.
   </p>
 
-  <h2 id="world-benchmark">How numbering systems benchmark against the International scale</h2>
+  <h2 id="world-benchmark">Radix is not the same axis as number naming</h2>
   <p>
-    Radix and naming are two different axes, and the world varies on both. The International short scale names 10⁹ as a billion and 10¹² as a trillion. Several major languages do not: Portuguese (Portugal), Spanish, French, German, Italian and Dutch keep the long scale, where “billion” starts at 10¹². Japanese, Chinese and Korean do not use thousands at all — they group by four.
-  </p>
-  <WorldSystemsTable caption="Sixteen systems benchmarked against the International short scale: names for 10⁶, 10⁹ and 10¹²." />
-
-  <h3>Nuance 1: Portuguese is a split language</h3>
-  <p>
-    Portugal writes 1 billion as <em>mil milhões</em> and reserves <em>bilião</em> for 10¹². Brazil uses <em>bilhão</em> for 10⁹ and <em>trilhão</em> for 10¹². The base does not change; the label does, and it changes by a factor of 1,000.
-  </p>
-
-  <h3>Nuance 2: Spanish “billón” is not a billion</h3>
-  <p>
-    Spanish has no everyday word for 10⁹ — speakers say <em>mil millones</em>. <em>Un billón</em> is 10¹², so an English “billion” translated as “billón” overstates the value a thousand times.
-  </p>
-
-  <h3>Nuance 3: Japanese, Chinese and Korean group by four</h3>
-  <p>
-    万 = 10⁴, 億 = 10⁸, 兆 = 10¹². A billion is “ten hundred-million” (10億) because there is no native 10⁹ unit — the grouping boundary never lines up with the English one.
-  </p>
-
-  <h3>Nuance 4: India inserts a step at 10⁵</h3>
-  <p>
-    The Indian scale names 10⁵ (lakh), 10⁷ (crore), 10⁹ (arab), 10¹¹ (kharab), 10¹³ (neel), 10¹⁵ (padma) and 10¹⁷ (shankh). Because the steps after 1,000 are hundreds, the comma rhythm is 3-then-2, not 3-3-3.
+    Changing the base changes how many digits exist. Changing the naming system keeps base 10 and changes the label and comma grouping. If a task mixes the two — a Portuguese <em>bilião</em> in a hex worksheet, for example — resolve the base first, then check the 10⁹/10¹² naming split in the
+    <a href="/knowledge-catalog/number-system-conversion-table/#world-table">world numbering table</a>. Base conversion does not depend on the language.
   </p>
   <p class="note">
     Practical rule: when a document crosses a language boundary, convert to a plain number first, then re-name it in the target language. Never translate the word “billion” directly.

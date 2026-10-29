@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-const pageTitle = 'About – Number System Converter | Free Online Tool';
-const pageDescription = 'Learn about the Number System Converter — a free, client-side tool that instantly converts numbers between Indian (Lakh, Crore) and International (Million, Billion) number systems with full word expansion.';
+const pageTitle = 'About NumSys – Number System Converter Team';
+const pageDescription = 'About NumSys: the editorial team behind a free, client-side number system converter for binary, octal, decimal, hex, lakh, crore, million and billion.';
 const pageCanonical = 'https://numbersystemconverter.com/about/';
 const pageKeywords = 'about number system converter, indian international number system, number conversion tool, lakh to million converter';
 ---
@@ -26,7 +26,7 @@ const pageKeywords = 'about number system converter, indian international number
           A clear, fast number system converter built for everyone.
         </h1>
         <p class="body-lg hero-lead">
-          The Number System Converter bridges the gap between Indian and International number naming conventions — making it effortless to understand, compare, and communicate large numbers across both systems.
+          NumSys builds free number system tools: radix conversion from base 2 to 36 with every step shown, and the lakh, crore, million and billion naming conventions that make large numbers easy to compare across markets.
         </p>
       </div>
     </section>
@@ -188,17 +188,19 @@ const pageKeywords = 'about number system converter, indian international number
               Base conversions are verified in both directions: decimal → binary → decimal, and decimal → hex → decimal. Naming conversions are checked against the anchors 1 million = 10 lakh, 1 billion = 1 arab = 100 crore, and 1 trillion = 1 lakh crore.
             </p>
           </div>
-          <div class="feature-card card shadow-level-3">
-            <h3 class="display-sm">Editorial standard</h3>
+          <div class="feature-card card shadow-level-3" id="author">
+            <h3 class="display-sm">Editorial team</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              Guides are written and reviewed by the NumSys editorial team and dated on the page. We cite standards bodies for conventions rather than other calculator sites. If you find an error, the <a href="/contact/">contact page</a> reaches the person who can fix it.
+              The <strong>NumSys Editorial Team</strong> writes and reviews every guide, and each page shows its publication and review dates. We cite standards bodies for conventions rather than other calculator sites. If you find an error, the <a href="/contact/">contact page</a> reaches the person who can fix it.
             </p>
           </div>
         </div>
 
         <p class="body-sm" style="color: var(--color-body); max-width: 760px; margin: var(--spacing-2xl) auto 0; text-align: center;">
           References for the conventions used here:
-          <a href="https://www.bipm.org/en/committees/cg" target="_blank" rel="noopener noreferrer">BIPM / CGPM</a> for the short-scale standard,
+          <a href="https://www.bipm.org/en/committees" target="_blank" rel="noopener noreferrer">BIPM / CGPM</a> for the short-scale standard,
+          <a href="https://www.iso.org/standard/76921.html" target="_blank" rel="noopener noreferrer">ISO 80000-1</a> for quantity and scale conventions,
+          <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener noreferrer">IEEE 754</a> for binary floating-point limits,
           <a href="https://www.nist.gov/pml/special-publication-811" target="_blank" rel="noopener noreferrer">NIST SP 811</a> for unit and number style,
           and <a href="https://cldr.unicode.org/" target="_blank" rel="noopener noreferrer">Unicode CLDR</a> for locale digit grouping.
           Page last reviewed: <time datetime="2026-10-27">27 October 2026</time>.
@@ -222,157 +224,157 @@ const pageKeywords = 'about number system converter, indian international number
 
   .hero-content {
     position: relative;
-    z-index: 2.
-    display: flex.
-    flex-direction: column.
-    align-items: center.
-    gap: var(--spacing-lg).
-    max-width: 800px.
-    margin-inline: auto.
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    max-width: 800px;
+    margin-inline: auto;
   }
 
   .hero-eyebrow {
-    color: var(--color-violet).
-    margin-bottom: 0.
+    color: var(--color-violet);
+    margin-bottom: 0;
   }
 
   .hero-headline {
-    color: var(--color-ink).
+    color: var(--color-ink);
   }
 
   .hero-lead {
-    color: var(--color-body).
-    max-width: 620px.
+    color: var(--color-body);
+    max-width: 620px;
   }
 
   /* ════════════ SECTION BAND ════════════ */
   .section-band {
-    padding: var(--spacing-5xl) var(--spacing-lg).
+    padding: var(--spacing-5xl) var(--spacing-lg);
   }
 
   .section-header {
-    text-align: center.
-    display: flex.
-    flex-direction: column.
-    align-items: center.
-    gap: var(--spacing-sm).
-    margin-bottom: var(--spacing-4xl).
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-4xl);
   }
 
   .section-header-dark .eyebrow {
-    color: rgba(255,255,255,0.5).
+    color: rgba(255,255,255,0.5);
   }
 
   .section-header h2 {
-    color: var(--color-ink).
+    color: var(--color-ink);
   }
 
   /* ════════════ FEATURES GRID ════════════ */
   .features-grid {
-    display: grid.
-    grid-template-columns: 1fr 1fr 1fr.
-    gap: var(--spacing-lg).
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-lg);
   }
 
   .feature-card {
-    padding: var(--spacing-lg).
+    padding: var(--spacing-lg);
   }
 
   .feature-icon-wrap {
-    width: 40px.
-    height: 40px.
-    display: flex.
-    align-items: center.
-    justify-content: center.
-    border-radius: var(--radius-md).
-    background: var(--color-link-bg-soft).
-    color: var(--color-link).
-    margin-bottom: var(--spacing-md).
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--color-link-bg-soft);
+    color: var(--color-link);
+    margin-bottom: var(--spacing-md);
   }
 
   .feature-card h3 {
-    color: var(--color-ink).
-    margin-bottom: var(--spacing-sm).
+    color: var(--color-ink);
+    margin-bottom: var(--spacing-sm);
   }
 
   /* ════════════ CLARITY GRID ════════════ */
   .clarity-grid {
-    display: grid.
-    grid-template-columns: 1fr 1fr.
-    gap: var(--spacing-lg).
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
   }
 
   .clarity-item {
-    padding: var(--spacing-lg).
+    padding: var(--spacing-lg);
   }
 
   .clarity-badge {
-    display: flex.
-    align-items: center.
-    gap: var(--spacing-xs).
-    margin-bottom: var(--spacing-sm).
-    color: var(--color-link).
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-link);
   }
 
   .clarity-label {
-    font-weight: 500.
-    font-size: 16px.
-    color: var(--color-ink).
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-ink);
   }
 
   /* ════════════ OPEN FEATURES (DARK BAND) ════════════ */
   .open-features {
-    display: grid.
-    grid-template-columns: 1fr 1fr 1fr.
-    gap: var(--spacing-lg).
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-lg);
   }
 
   .open-feature {
-    padding: var(--spacing-lg).
-    background: rgba(255,255,255,0.04).
-    border: 1px solid rgba(255,255,255,0.08).
-    border-radius: var(--radius-md).
+    padding: var(--spacing-lg);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-md);
   }
 
   .open-feature-icon {
-    font-size: 24px.
-    margin-bottom: var(--spacing-sm).
+    font-size: 24px;
+    margin-bottom: var(--spacing-sm);
   }
 
   .open-feature h3 {
-    margin-bottom: var(--spacing-xs).
+    margin-bottom: var(--spacing-xs);
   }
 
   /* ════════════ RESPONSIVE ════════════ */
   @media (max-width: 959px) {
     .features-grid {
-      grid-template-columns: 1fr 1fr.
+      grid-template-columns: 1fr 1fr;
     }
 
     .open-features {
-      grid-template-columns: 1fr 1fr.
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   @media (max-width: 600px) {
     .hero-band {
-      padding: 96px var(--spacing-md) 64px.
+      padding: 96px var(--spacing-md) 64px;
     }
 
     .section-band {
-      padding: var(--spacing-4xl) var(--spacing-md).
+      padding: var(--spacing-4xl) var(--spacing-md);
     }
 
     .features-grid {
-      grid-template-columns: 1fr.
+      grid-template-columns: 1fr;
     }
 
     .clarity-grid {
-      grid-template-columns: 1fr.
+      grid-template-columns: 1fr;
     }
 
     .open-features {
-      grid-template-columns: 1fr.
+      grid-template-columns: 1fr;
     }
   }
 </style>

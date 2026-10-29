@@ -41,15 +41,6 @@ const labelFor = (b: number) =>
     </div>
   </div>
 
-  <div class="bc-presets" aria-label="Example conversions">
-    <span class="bc-presets-label">Try:</span>
-    <button type="button" class="bc-chip" data-value="156" data-from="10" data-to="2">156₁₀ → binary</button>
-    <button type="button" class="bc-chip" data-value="10011100" data-from="2" data-to="10">10011100₂ → decimal</button>
-    <button type="button" class="bc-chip" data-value="255" data-from="10" data-to="16">255 → hex</button>
-    <button type="button" class="bc-chip" data-value="1A.8" data-from="16" data-to="10">1A.8₁₆ → decimal</button>
-    <button type="button" class="bc-chip" data-value="777" data-from="8" data-to="2">777₈ → binary</button>
-  </div>
-
   <p id="bcError" class="bc-error" role="alert" hidden></p>
 
   <div class="bc-result" id="bcResult" aria-live="polite">
@@ -57,9 +48,28 @@ const labelFor = (b: number) =>
     <div class="bc-result-row">
       <output class="bc-result-value code" id="bcOutput">10011100</output>
       <span class="bc-result-base" id="bcOutputBase">base 2</span>
-      <button type="button" class="bc-copy" id="bcCopy" aria-label="Copy result">Copy</button>
+      <div class="bc-result-actions">
+        <button type="button" class="bc-copy" id="bcLink" aria-label="Copy a link to this conversion">Link</button>
+        <button type="button" class="bc-copy" id="bcCopy" aria-label="Copy result">Copy</button>
+      </div>
     </div>
     <div class="bc-result-note body-sm" id="bcNote">156 in base 10 = 10011100 in base 2</div>
+  </div>
+
+  <div class="bc-allbases" id="bcAllBases" hidden aria-label="The same value in binary, octal, decimal and hexadecimal">
+    <div class="bc-allbase"><span>Binary</span><code id="bcAllBin">—</code></div>
+    <div class="bc-allbase"><span>Octal</span><code id="bcAllOct">—</code></div>
+    <div class="bc-allbase"><span>Decimal</span><code id="bcAllDec">—</code></div>
+    <div class="bc-allbase"><span>Hex</span><code id="bcAllHex">—</code></div>
+  </div>
+
+  <div class="bc-presets" aria-label="Example conversions">
+    <span class="bc-presets-label">Try:</span>
+    <button type="button" class="bc-chip" data-value="156" data-from="10" data-to="2">156₁₀ → binary</button>
+    <button type="button" class="bc-chip" data-value="10011100" data-from="2" data-to="10">10011100₂ → decimal</button>
+    <button type="button" class="bc-chip" data-value="255" data-from="10" data-to="16">255 → hex</button>
+    <button type="button" class="bc-chip" data-value="1A.8" data-from="16" data-to="10">1A.8₁₆ → decimal</button>
+    <button type="button" class="bc-chip" data-value="777" data-from="8" data-to="2">777₈ → binary</button>
   </div>
 
   <div class="bc-steps" id="bcSteps"></div>
@@ -79,8 +89,15 @@ const labelFor = (b: number) =>
   const noteEl = document.getElementById('bcNote') as HTMLDivElement;
   const stepsEl = document.getElementById('bcSteps') as HTMLDivElement;
   const copyBtn = document.getElementById('bcCopy') as HTMLButtonElement;
+  const linkBtn = document.getElementById('bcLink') as HTMLButtonElement;
+  const allBasesEl = document.getElementById('bcAllBases') as HTMLDivElement;
+  const allBin = document.getElementById('bcAllBin') as HTMLElement;
+  const allOct = document.getElementById('bcAllOct') as HTMLElement;
+  const allDec = document.getElementById('bcAllDec') as HTMLElement;
+  const allHex = document.getElementById('bcAllHex') as HTMLElement;
 
   const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let userEdited = false;
 
   function superscript(n: number): string {
     const map: Record<string, string> = {
@@ -121,6 +138,26 @@ const labelFor = (b: number) =>
       n = Math.floor(n / base);
     }
     return out;
+  }
+
+  function fractionToBase(fraction: number, base: number, limit = 12): string {
+    let f = fraction;
+    let out = '';
+    for (let i = 0; i < limit && f > 0; i++) {
+      const product = f * base;
+      const carry = Math.floor(product);
+      out += DIGITS[carry];
+      f = product - carry;
+    }
+    return out;
+  }
+
+  function valueToBase(value: number, base: number): string {
+    const intPart = Math.floor(value);
+    const fraction = value - intPart;
+    const whole = intToBase(intPart, base);
+    const frac = fraction > 0 ? '.' + fractionToBase(fraction, base) : '';
+    return whole + frac;
   }
 
   function fromSteps(raw: string, base: number) {
@@ -211,6 +248,7 @@ const labelFor = (b: number) =>
       outputEl.textContent = '—';
       noteEl.textContent = 'Fix the value to see the worked solution.';
       stepsEl.innerHTML = '';
+      allBasesEl.hidden = true;
       return;
     }
 
@@ -224,6 +262,20 @@ const labelFor = (b: number) =>
     outputEl.textContent = result;
     outputBaseEl.textContent = `base ${toBase}`;
     noteEl.textContent = `${raw.trim().toUpperCase()} in base ${fromBase} = ${result} in base ${toBase} (decimal value ${Number(decimal.toFixed(8))})`;
+
+    allBin.textContent = valueToBase(decimal, 2);
+    allOct.textContent = valueToBase(decimal, 8);
+    allDec.textContent = valueToBase(decimal, 10);
+    allHex.textContent = valueToBase(decimal, 16);
+    allBasesEl.hidden = false;
+
+    if (userEdited) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', raw.trim().toUpperCase());
+      url.searchParams.set('from', String(fromBase));
+      url.searchParams.set('to', String(toBase));
+      window.history.replaceState(null, '', url);
+    }
 
     const fromIsDecimal = fromBase === 10;
     const toIsDecimal = toBase === 10;
@@ -259,9 +311,9 @@ const labelFor = (b: number) =>
     stepsEl.innerHTML = fromBlock + toBlock;
   }
 
-  valueInput.addEventListener('input', render);
-  fromSelect.addEventListener('change', render);
-  toSelect.addEventListener('change', render);
+  valueInput.addEventListener('input', () => { userEdited = true; render(); });
+  fromSelect.addEventListener('change', () => { userEdited = true; render(); });
+  toSelect.addEventListener('change', () => { userEdited = true; render(); });
 
   document.querySelectorAll('.bc-chip').forEach((chip) => {
     chip.addEventListener('click', () => {
@@ -269,10 +321,21 @@ const labelFor = (b: number) =>
       valueInput.value = el.dataset.value ?? '';
       fromSelect.value = el.dataset.from ?? '10';
       toSelect.value = el.dataset.to ?? '2';
+      userEdited = true;
       render();
       valueInput.focus();
     });
   });
+
+  // Shareable permalink: ?v=156&from=10&to=2
+  const params = new URLSearchParams(window.location.search);
+  const paramValue = params.get('v');
+  const paramFrom = params.get('from');
+  const paramTo = params.get('to');
+  if (paramValue) valueInput.value = paramValue;
+  if (paramFrom && fromSelect.querySelector(`option[value="${paramFrom}"]`)) fromSelect.value = paramFrom;
+  if (paramTo && toSelect.querySelector(`option[value="${paramTo}"]`)) toSelect.value = paramTo;
+  if (paramFrom || paramTo || paramValue) userEdited = true;
 
   copyBtn.addEventListener('click', async () => {
     try {
@@ -281,6 +344,20 @@ const labelFor = (b: number) =>
       window.setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
     } catch {
       copyBtn.textContent = 'Select manually';
+    }
+  });
+
+  linkBtn.addEventListener('click', async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', valueInput.value.trim().toUpperCase());
+    url.searchParams.set('from', fromSelect.value);
+    url.searchParams.set('to', toSelect.value);
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      linkBtn.textContent = 'Link copied';
+      window.setTimeout(() => { linkBtn.textContent = 'Link'; }, 1400);
+    } catch {
+      linkBtn.textContent = 'Copy the URL above';
     }
   });
 
@@ -425,8 +502,13 @@ const labelFor = (b: number) =>
     color: var(--color-mute);
   }
 
-  .bc-copy {
+  .bc-result-actions {
+    display: flex;
+    gap: 6px;
     margin-left: auto;
+  }
+
+  .bc-copy {
     font-size: 12px;
     padding: 4px 10px;
     border-radius: var(--radius-full);
@@ -436,10 +518,52 @@ const labelFor = (b: number) =>
     cursor: pointer;
   }
 
+  .bc-copy:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
   .bc-result-note {
     color: var(--color-body);
     font-family: var(--font-mono);
     font-size: 12px;
+  }
+
+  .bc-allbases {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: var(--spacing-sm);
+  }
+
+  .bc-allbases[hidden] {
+    display: none;
+  }
+
+  .bc-allbase {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 10px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    background: var(--color-canvas);
+    min-width: 0;
+  }
+
+  .bc-allbase span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-mute);
+  }
+
+  .bc-allbase code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
   }
 
   .bc-steps {
@@ -502,6 +626,15 @@ const labelFor = (b: number) =>
   @media (max-width: 720px) {
     .bc-grid {
       grid-template-columns: 1fr;
+    }
+
+    .bc-allbases {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .bc-result-actions {
+      width: 100%;
+      margin-left: 0;
     }
   }
 </style>

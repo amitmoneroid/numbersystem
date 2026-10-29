@@ -30,10 +30,10 @@ interface Props {
 }
 
 const {
-  title = 'Number System Converter – Lakh, Crore to Million, Billion',
-  description = 'Free number system converter: convert lakh, crore, million and billion, plus binary, octal, decimal and hex with steps, tables and world-system benchmarks.',
+  title = 'Number System Converter – Bases 2–36 & Lakh/Crore',
+  description = 'Free number system converter with steps for binary, octal, decimal, hex and base 2–36, plus lakh, crore, million and billion. Tables, solutions and PDF.',
   canonicalURL = 'https://numbersystemconverter.com/',
-  keywords = 'number system converter, number system converter with steps, number system converter online, number system conversion calculator with solution, base converter calculator, number system conversion table, indian to international number system converter, lakh to million, crore to billion',
+  keywords = 'number system converter with steps, number system converter online, number system conversion calculator with solution, number system conversion pdf, base converter calculator, number system conversion table, number system converter, lakh to million, crore to billion',
   ogType = 'website',
   ogImage,
   includeAppSchema = false,
@@ -59,9 +59,30 @@ const graph: Record<string, unknown>[] = [
     name: 'NumSys',
     alternateName: ['Number System Converter', 'NumSys Converter'],
     url: 'https://numbersystemconverter.com/',
-    logo: 'https://numbersystemconverter.com/favicon-96x96.png',
+    // Profiles that officially represent the publisher (Spaarc Digital, the
+    // parent organization). Replace/extend with NumSys-specific profiles once
+    // dedicated accounts exist — only list live accounts the brand controls.
+    sameAs: [
+      'https://www.instagram.com/spaarcdigital',
+      'https://www.linkedin.com/company/spaarcdigital',
+      'https://x.com/spaarcdigital',
+      'https://www.youtube.com/@spaarcdigital',
+    ],
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://numbersystemconverter.com/web-app-manifest-512x512.png',
+      width: 512,
+      height: 512,
+    },
     description:
       'NumSys publishes free browser-based number system and base conversion tools with step-by-step worked solutions.',
+    knowsAbout: [
+      'Number system conversion',
+      'Binary, octal, decimal and hexadecimal',
+      'Indian numbering system (lakh, crore, arab)',
+      'International short scale (million, billion, trillion)',
+      'Base 2 to base 36 conversion',
+    ],
     parentOrganization: {
       '@type': 'Organization',
       name: 'Spaarc Digital',
@@ -105,6 +126,8 @@ if (includeAppSchema) {
       'Convert Indian number system to International format',
       'Convert International number system to Indian format',
       'Base 2 to base 36 conversion with steps',
+      'Binary, octal, decimal and hex shown side by side',
+      'Shareable conversion links (?v=156&from=10&to=2)',
       'Full word expansion in both systems',
       'Side-by-side comparison',
       'Breakdown table showing scale mapping',
@@ -182,7 +205,7 @@ if (faqItems.length > 0) {
 		<meta name="description" content={description} />
 		<meta name="keywords" content={keywords} />
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-		<meta name="author" content="NumSys" />
+		<meta name="author" content="NumSys Editorial Team" />
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- Open Graph / Facebook Meta Tags -->
@@ -214,10 +237,13 @@ if (faqItems.length > 0) {
 			'@graph': graph,
 		})} />
 
-		<!-- Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute) -->
+		<!-- Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute).
+		     Loaded asynchronously so the font CSS does not block first paint. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 	</head>
 	<body>
 		<slot />
