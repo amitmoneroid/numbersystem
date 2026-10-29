@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Native UI (scrollbars, form controls) follows the active theme. */
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
 /* ── Vercel-inspired Design Tokens ── */
 @theme {
   /* Fonts */

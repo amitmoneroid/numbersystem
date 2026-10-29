@@ -167,7 +167,7 @@ if (faqItems.length > 0) {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -178,13 +178,19 @@ if (faqItems.length > 0) {
 		<meta name="apple-mobile-web-app-title" content="Number System Converter" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0a0a0a" />
 
-		<!-- Prevent FOUC: set dark class before paint -->
+		<!-- Dark mode is the default; only an explicit user choice switches to light. -->
 		<script is:inline>
 			(function() {
-				const stored = localStorage.getItem('theme');
-				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				if (stored === 'dark' || (!stored && prefersDark) || stored === null) {
+				try {
+					if (localStorage.getItem('theme') === 'light') {
+						document.documentElement.classList.remove('dark');
+					} else {
+						document.documentElement.classList.add('dark');
+					}
+				} catch (e) {
 					document.documentElement.classList.add('dark');
 				}
 			})();

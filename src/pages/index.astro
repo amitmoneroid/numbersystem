@@ -19,7 +19,7 @@ import { nuances } from '../data/worldSystems';
 
         <div class="converter-heading">
           <span class="eyebrow">Free · No sign-up · Works offline</span>
-          <h1 class="converter-title">Number System Converter — Bases 2–36 &amp; Lakh/Crore</h1>
+          <h1 class="converter-title">Number System Converter — Bases 2–36, Lakh, Crore, Million &amp; Billion</h1>
           <p class="converter-lead">Binary, octal, decimal and hex with every division and weight shown. Switch tabs for lakh, crore, million and billion.</p>
         </div>
 
@@ -414,6 +414,75 @@ import { nuances } from '../data/worldSystems';
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ IN-DEPTH CONVERTER GUIDE ═══════════════ -->
+    <section id="converter-guide" class="band-canvas-soft section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Converter guide</span>
+          <h2 class="display-lg">Number system converter with steps: binary, octal, decimal and hexadecimal</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 720px;">
+            A converter earns trust when it shows the arithmetic. Both tools on this page print the working behind the answer, so a result can be checked instead of taken on faith.
+          </p>
+        </div>
+
+        <div class="deep-dive">
+          <p class="body-md">
+            The base converter rewrites any value between base 2 and base 36 and prints the positional expansion, every division and remainder, and the final digits. Binary is what processors execute, octal groups three bits at a time, decimal is what people read, and hexadecimal packs four bits into one character. That relationship is why programmers move between binary, octal and hex so easily: the digits describe identical bits, grouped differently.
+          </p>
+
+          <h3 class="display-sm">Worked example: one number, four bases</h3>
+          <p class="body-md">
+            Take 202. In base 10 the digits mean 2×10² + 0×10 + 2 = 202. Dividing repeatedly by 2 records remainders 0, 1, 0, 1, 0, 0, 1, 1; read bottom-up they form 11001010. Group the same bits in threes for octal 312 and in fours for hex CA. Expanding both confirms the result: 3×64 + 1×8 + 2 = 202, and 12×16 + 10 = 202. The quantity never changes — only the grouping does. Reading the trail from the bottom up, remainder by remainder, also makes it clear why the most significant digit is the last division: that is the point where the quotient reaches zero.
+          </p>
+          <p class="body-md">
+            Two checks catch most mistakes. Every digit must be smaller than its base — 2 is invalid in binary, and G is invalid below base 17 — and converting the answer back must return the original value. The converter enforces both as you type, which is faster than finding the error after the number reaches a database, a spreadsheet or a report.
+          </p>
+
+          <h3 class="display-sm">Fractions, negatives and bases above 16</h3>
+          <p class="body-md">
+            Digits after the point use negative powers: hex 2B.4 is 2×16 + 11 + 4/16 = 43.25, and the converter shows the multiply-by-base steps that generate those digits. Bases 11 to 36 extend the digit set with letters, so base 36 runs 0–9 then A–Z — useful for short links and ticket IDs because each character carries more values. Negative numbers are converted as magnitudes here; two's complement is a separate encoding step applied afterwards for machine integers, so convert the absolute value first and attach the sign in the target representation.
+          </p>
+
+          <h3 class="display-sm">When to use each base</h3>
+          <p class="body-md">
+            Use binary to reason about bit patterns, masks and permission flags. Octal survives in Unix modes, where 755 reads as rwxr-xr-x. Hex is the working language of colour codes such as #1A8F3C, memory addresses, MAC addresses and byte dumps. Decimal remains the default for anything a person will read. Convert to the base the next reader needs, and keep the step trail with the result so the work can be verified later by someone who did not run the conversion.
+          </p>
+
+          <h2 class="display-lg deep-dive-heading">Indian ⇄ International number system converter: lakh, crore, million and billion</h2>
+          <p class="body-md">
+            The second tab translates large values between the Indian system — thousand, lakh, crore, arab, kharab, neel, padma, shankh — and the International short scale of thousand, million, billion, trillion, quadrillion and quintillion. Indian notation separates the first three digits and then every two (12,34,56,789); International notation separates every three (123,456,789). The words change with the notation, so a figure copied from an Indian filing can look ten times larger or smaller in an international report.
+          </p>
+
+          <h3 class="display-sm">The conversions worth memorising</h3>
+          <p class="body-md">Four anchors cover most everyday work:</p>
+          <ul class="deep-dive-list body-md">
+            <li><strong>1 million = 10 lakh</strong> and 1 crore = 10 million</li>
+            <li><strong>1 billion = 100 crore = 1 arab</strong></li>
+            <li><strong>1 trillion = 1 lakh crore</strong></li>
+            <li><strong>1 lakh = 100 thousand</strong> and 1 thousand = 0.001 million</li>
+          </ul>
+          <p class="body-md">
+            Everything else moves a decimal point: 5.4 billion is 540 crore, 75 lakh is 7.5 million, 1.25 crore is 12.5 million, and 250 million is 25 crore. When a value fits no anchor, convert it and read the word expansion — if the digits say 540,000,000 but the words say five hundred forty crore, the scale is off by a factor of ten and the mismatch is obvious.
+          </p>
+
+          <h3 class="display-sm">Why the same number looks different</h3>
+          <p class="body-md">
+            Indian English writes 2.5 crore where an international wire story writes $30 million. Both are correct; they are conventions applied to the same scale. The pairs that cause the most confusion are lakh and million, then crore and billion, because each step looks like the other but differs by a factor of ten. The risk sits in contracts, salaries, budgets, valuations and loan documents, where reading lakh as million changes a figure tenfold and crore as billion changes it tenfold again. The side-by-side display and full word expansion act as a cross-check before a number is signed off or published.
+          </p>
+
+          <h3 class="display-sm">Using both converters together</h3>
+          <p class="body-md">
+            Many tasks need both tabs. A developer sizing a 4,294,967,296-byte limit can read it as hex 100000000 and as Indian words — 4 arab, 29 crore, 49 lakh, 67 thousand, 296 — while a finance team reads the same quantity as 4.29 billion. Copy the shareable link from either tab to send the exact conversion, including the bases or scales used, to a colleague.
+          </p>
+
+          <h3 class="display-sm">Accuracy, privacy and speed</h3>
+          <p class="body-md">
+            Every calculation runs in the browser, so salary figures, contract values and internal budgets are never uploaded. Results update as you type, both tabs accept decimals, and the step trail is produced by the same arithmetic that produces the answer — the explanation and the result cannot disagree.
+          </p>
         </div>
       </div>
     </section>
@@ -2209,5 +2278,42 @@ import { nuances } from '../data/worldSystems';
     .conversion-table-card {
       margin-inline: calc(-1 * var(--spacing-xs));
     }
+  }
+
+  /* ════════════ IN-DEPTH CONVERTER GUIDE ════════════ */
+  .deep-dive {
+    max-width: 760px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .deep-dive h3 {
+    color: var(--color-ink);
+    margin-top: var(--spacing-md);
+  }
+
+  .deep-dive p {
+    color: var(--color-body);
+    margin: 0;
+  }
+
+  .deep-dive-heading {
+    color: var(--color-ink);
+    margin-top: var(--spacing-3xl);
+  }
+
+  .deep-dive-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    color: var(--color-body);
+  }
+
+  .deep-dive-list li::marker {
+    color: var(--color-mute);
   }
 </style>
