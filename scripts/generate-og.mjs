@@ -54,5 +54,5 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 </svg>`;
 
 const out = path.join(process.cwd(), 'public', 'og-image.png');
-await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(out);
+await sharp(Buffer.from(svg)).png({ compressionLevel: 9, palette: true, quality: 92 }).toFile(out);
 console.log('OG image written:', out);

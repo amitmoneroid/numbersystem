@@ -22,11 +22,11 @@ Live: https://numbersystemconverter.com/
 
 ```text
 src/
-├── components/        BaseConverter, BaseTable, FAQ, Navbar, Footer
+├── components/        BaseConverter, BaseTable, ConsentBanner, FAQ, Navbar, Footer
 ├── data/              FAQ, guide metadata and world numbering data
 ├── layouts/           Layout.astro (SEO/GEO graph) and GuideLayout.astro
 ├── pages/
-│   ├── index.astro    Base-first converter hero + naming tab
+│   ├── index.astro    Naming-first converter hero + base tab
 │   └── knowledge-catalog/
 │       ├── number-system-converter-with-steps.astro
 │       ├── number-system-converter-online.astro
@@ -38,9 +38,10 @@ src/
 ```
 
 Public assets include `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`,
-`number-system-conversion-table.pdf`, `_headers`, `_routes.json` and `_redirects`.
+`number-system-conversion-table.pdf`, `sw.js`, `_headers`, `_routes.json` and `_redirects`.
 `functions/_middleware.js` handles the `www` -> apex redirect, which `_redirects`
-cannot express because it cannot match on hostname.
+cannot express because it cannot match on hostname. `sw.js` caches the shell and
+visited pages so the "works offline once loaded" promise is real.
 
 ## SEO notes
 
@@ -48,3 +49,4 @@ cannot express because it cannot match on hostname.
 - The steps and calculator guides add `HowTo` schema; the PDF page adds `DigitalDocument`.
 - Guide dates are stored in `src/data/guides.ts` (`published`, `updated`); update the sitemap when they change.
 - Canonicals use the apex domain with trailing slashes; `functions/_middleware.js` and `_redirects` consolidate `www` and slash-less URLs.
+- Google Analytics is loaded by `ConsentBanner.astro` only after opt-in; declining loads no analytics script. The footer "Analytics settings" control reopens the choice.

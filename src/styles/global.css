@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+/* ── Self-hosted fonts ──
+   Inter and JetBrains Mono (latin subsets, variable weights) are served from
+   the same origin. font-display: optional keeps a slow font from swapping in
+   after first paint, which removes the layout shift caused by third-party
+   Google Fonts. The system stack in --font-sans/--font-mono is the fallback. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: optional;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: optional;
+  src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+}
+
 /* Native UI (scrollbars, form controls) follows the active theme. */
 :root {
   color-scheme: light;
@@ -19,7 +40,7 @@
   --color-ink: #171717;
   --color-on-primary: #ffffff;
   --color-body: #4d4d4d;
-  --color-mute: #888888;
+  --color-mute: #6b6b6b;
   --color-hairline: #ebebeb;
   --color-hairline-strong: #a1a1a1;
   --color-canvas: #ffffff;
@@ -84,7 +105,7 @@
   --color-ink: #ededed;
   --color-on-primary: #ffffff;
   --color-body: #a1a1a1;
-  --color-mute: #666666;
+  --color-mute: #a1a1a1;
   --color-hairline: #2e2e2e;
   --color-hairline-strong: #444444;
   --color-canvas: #0a0a0a;
@@ -110,7 +131,7 @@
   --color-ink: #171717;
   --color-on-primary: #ffffff;
   --color-body: #4d4d4d;
-  --color-mute: #888888;
+  --color-mute: #6b6b6b;
   --color-hairline: #ebebeb;
   --color-hairline-strong: #a1a1a1;
   --color-canvas: #ffffff;
@@ -350,6 +371,55 @@ a {
 
 a:hover {
   color: var(--color-link-deep);
+}
+
+/* Inline links inside prose need more than colour to be distinguishable. */
+main p a,
+main li a,
+main td a,
+main dd a,
+footer p a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+:where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+/* ── Accessibility Utilities ── */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  z-index: 300;
+  padding: 10px 16px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  color: var(--color-canvas);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ── Page Container ── */

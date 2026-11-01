@@ -54,7 +54,7 @@ const sections = [
 >
   <Navbar />
 
-  <main class="catalog-page">
+  <main id="main" class="catalog-page">
     <header class="catalog-hero mesh-gradient">
       <div class="page-container">
         <span class="eyebrow">Knowledge Catalog</span>
@@ -136,7 +136,7 @@ const sections = [
         <div class="mini-grid">
           <div class="mini-card">
             <h3>Financial news analysis</h3>
-            <p>Converting ₹2.5 crore to its International equivalent, or reading a US$394 billion figure as 39.4 arab, keeps cross-border comparisons honest.</p>
+            <p>Converting ₹2.5 crore to its International equivalent, or reading a US$394 billion figure as 394 arab (39,400 crore), keeps cross-border comparisons honest.</p>
           </div>
           <div class="mini-card">
             <h3>Academic research</h3>
@@ -736,7 +736,7 @@ const sections = [
     margin-bottom: var(--spacing-sm);
   }
 
-  .dark .roadmap-badge {
+  :global(.dark) .roadmap-badge {
     color: var(--color-link);
   }
 

@@ -15,13 +15,13 @@ const labelFor = (b: number) =>
 <div class="base-converter card shadow-level-3" id="base-converter">
   <div class="bc-header">
     <span class="eyebrow">Base converter calculator</span>
-    <h3 class="display-sm">Convert any base from 2 to 36 — with every step shown</h3>
+    <h2 class="display-sm">Convert any base from 2 to 36 — with every step shown</h2>
   </div>
 
   <div class="bc-grid">
     <div class="bc-field bc-value-field">
       <label for="bcValue" class="bc-label">Value</label>
-      <input id="bcValue" class="bc-input code" type="text" value="156" inputmode="text" autocomplete="off" spellcheck="false" />
+      <input id="bcValue" class="bc-input code" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false" />
     </div>
     <div class="bc-field">
       <label for="bcFrom" class="bc-label">From base</label>
@@ -46,21 +46,21 @@ const labelFor = (b: number) =>
   <div class="bc-result" id="bcResult" aria-live="polite">
     <div class="bc-result-label">Result</div>
     <div class="bc-result-row">
-      <output class="bc-result-value code" id="bcOutput">10011100</output>
+      <output class="bc-result-value code" id="bcOutput">1</output>
       <span class="bc-result-base" id="bcOutputBase">base 2</span>
       <div class="bc-result-actions">
         <button type="button" class="bc-copy" id="bcLink" aria-label="Copy a link to this conversion">Link</button>
         <button type="button" class="bc-copy" id="bcCopy" aria-label="Copy result">Copy</button>
       </div>
     </div>
-    <div class="bc-result-note body-sm" id="bcNote">156 in base 10 = 10011100 in base 2</div>
+    <div class="bc-result-note body-sm" id="bcNote">1 in base 10 = 1 in base 2 (decimal value 1)</div>
   </div>
 
-  <div class="bc-allbases" id="bcAllBases" hidden aria-label="The same value in binary, octal, decimal and hexadecimal">
-    <div class="bc-allbase"><span>Binary</span><code id="bcAllBin">—</code></div>
-    <div class="bc-allbase"><span>Octal</span><code id="bcAllOct">—</code></div>
-    <div class="bc-allbase"><span>Decimal</span><code id="bcAllDec">—</code></div>
-    <div class="bc-allbase"><span>Hex</span><code id="bcAllHex">—</code></div>
+  <div class="bc-allbases" id="bcAllBases" aria-label="The same value in binary, octal, decimal and hexadecimal">
+    <div class="bc-allbase"><span>Binary</span><code id="bcAllBin">1</code></div>
+    <div class="bc-allbase"><span>Octal</span><code id="bcAllOct">1</code></div>
+    <div class="bc-allbase"><span>Decimal</span><code id="bcAllDec">1</code></div>
+    <div class="bc-allbase"><span>Hex</span><code id="bcAllHex">1</code></div>
   </div>
 
   <div class="bc-presets" aria-label="Example conversions">
@@ -72,7 +72,15 @@ const labelFor = (b: number) =>
     <button type="button" class="bc-chip" data-value="777" data-from="8" data-to="2">777₈ → binary</button>
   </div>
 
-  <div class="bc-steps" id="bcSteps"></div>
+  <div class="bc-steps" id="bcSteps">
+    <div class="bc-step-block">
+      <h3 class="bc-step-title">Step 1 — divide repeatedly by 2</h3>
+      <ol class="bc-step-list">
+        <li><code>1 ÷ 2 = 0, remainder <strong>1</strong> (1)</code></li>
+      </ol>
+      <p class="bc-step-sum">Read the integer remainders bottom-to-top: <code>1</code>.</p>
+    </div>
+  </div>
 
   <p class="bc-footnote body-sm">
     Integers and fractions are both supported. Digits above 9 use A–F for bases 11–16 and A–Z for bases 17–36. Values are handled as JavaScript numbers, exact to 2⁵³ − 1 (about 9 quadrillion).
@@ -283,12 +291,12 @@ const labelFor = (b: number) =>
     const fromBlock = fromIsDecimal
       ? (toIsDecimal
           ? `<div class="bc-step-block">
-               <h4 class="bc-step-title">Already decimal</h4>
+               <h3 class="bc-step-title">Already decimal</h3>
                <p class="bc-step-copy">Both bases are 10, so the value is unchanged: <code>${Number(decimal.toFixed(8))}</code>.</p>
              </div>`
           : '')
       : `<div class="bc-step-block">
-           <h4 class="bc-step-title">Step 1 — expand each digit by its positional weight (base ${fromBase})</h4>
+           <h3 class="bc-step-title">Step 1 — expand each digit by its positional weight (base ${fromBase})</h3>
            <ol class="bc-step-list">${from.rows.join('')}</ol>
            <p class="bc-step-sum">Sum = <strong>${Number(decimal.toFixed(8))}</strong> in decimal.</p>
          </div>`;
@@ -297,11 +305,11 @@ const labelFor = (b: number) =>
       ? (fromIsDecimal
           ? ''
           : `<div class="bc-step-block">
-               <h4 class="bc-step-title">Step 2 — the decimal value is the answer</h4>
+               <h3 class="bc-step-title">Step 2 — the decimal value is the answer</h3>
                <p class="bc-step-copy">Base ${toBase} is decimal, so no further division is needed.</p>
              </div>`)
       : `<div class="bc-step-block">
-           <h4 class="bc-step-title">Step ${fromIsDecimal ? 1 : 2} — divide repeatedly by ${toBase}</h4>
+           <h3 class="bc-step-title">Step ${fromIsDecimal ? 1 : 2} — divide repeatedly by ${toBase}</h3>
            <ol class="bc-step-list">${to.divRows.join('')}${to.fracRows.join('')}</ol>
            <p class="bc-step-sum">
              Read the integer remainders bottom-to-top: <code>${to.integerResult}</code>${to.fracDigits.length ? `, then read the fraction carries top-to-bottom: <code>.${to.fracDigits.join('')}</code>` : ''}.
@@ -377,7 +385,7 @@ const labelFor = (b: number) =>
     margin-bottom: var(--spacing-lg);
   }
 
-  .bc-header h3 {
+  .bc-header h2 {
     margin: var(--spacing-xs) 0 0;
     color: var(--color-ink);
   }
@@ -473,7 +481,12 @@ const labelFor = (b: number) =>
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-mute);
+    color: var(--color-body);
+  }
+
+  :global(.dark) .bc-result-label,
+  :global(.dark) .bc-result-base {
+    color: #c9d7e8;
   }
 
   .bc-result-row {
@@ -493,13 +506,13 @@ const labelFor = (b: number) =>
     overflow-wrap: anywhere;
   }
 
-  .dark .bc-result-value {
+  :global(.dark) .bc-result-value {
     color: var(--color-link);
   }
 
   .bc-result-base {
     font-size: 12px;
-    color: var(--color-mute);
+    color: var(--color-body);
   }
 
   .bc-result-actions {

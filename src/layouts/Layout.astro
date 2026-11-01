@@ -3,6 +3,8 @@
 // Layout.astro — SEO/GEO layout shell with entity, page, breadcrumb,
 // FAQ and web-app structured data.
 //
+import ConsentBanner from '../components/ConsentBanner.astro';
+
 interface Crumb {
   name: string;
   url: string;
@@ -20,6 +22,8 @@ interface Props {
   keywords?: string;
   ogType?: string;
   ogImage?: string;
+  /** Robots directive. Use "noindex, follow" for error pages. */
+  robots?: string;
   /** Render the WebApplication node (tool pages). */
   includeAppSchema?: boolean;
   /** Visible Q&A pairs to mirror in FAQPage schema. */
@@ -36,11 +40,12 @@ const {
   keywords = 'number system converter with steps, number system converter online, number system conversion calculator with solution, number system conversion pdf, base converter calculator, number system conversion table, number system converter, lakh to million, crore to billion',
   ogType = 'website',
   ogImage,
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   includeAppSchema = false,
   faqItems = [],
   breadcrumbs = [],
   datePublished = '2026-07-27',
-  dateModified = '2026-10-27',
+  dateModified = '2026-11-01',
 } = Astro.props;
 
 const siteName = 'NumSys';
@@ -76,6 +81,14 @@ const graph: Record<string, unknown>[] = [
     },
     description:
       'NumSys publishes free browser-based number system and base conversion tools with step-by-step worked solutions.',
+    publishingPrinciples: 'https://numbersystemconverter.com/about/#method',
+    correctionsPolicy: 'https://numbersystemconverter.com/about/#method',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      url: 'https://numbersystemconverter.com/contact/',
+      availableLanguage: ['en'],
+    },
     knowsAbout: [
       'Number system conversion',
       'Binary, octal, decimal and hexadecimal',
@@ -122,6 +135,7 @@ if (includeAppSchema) {
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    image: imageURL,
     featureList: [
       'Convert Indian number system to International format',
       'Convert International number system to Indian format',
@@ -187,8 +201,10 @@ if (faqItems.length > 0) {
 				try {
 					if (localStorage.getItem('theme') === 'light') {
 						document.documentElement.classList.remove('dark');
+						document.documentElement.classList.add('light');
 					} else {
 						document.documentElement.classList.add('dark');
+						document.documentElement.classList.remove('light');
 					}
 				} catch (e) {
 					document.documentElement.classList.add('dark');
@@ -196,21 +212,15 @@ if (faqItems.length > 0) {
 			})();
 		</script>
 
-		<!-- Google Analytics (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-3E6Y8CWECC"></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-3E6Y8CWECC');
-		</script>
+		<!-- Google Analytics is loaded by ConsentBanner.astro only after the
+		     visitor opts in; see /privacy-policy/. -->
 
 		<!-- Primary SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="keywords" content={keywords} />
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<meta name="robots" content={robots} />
 		<meta name="author" content="NumSys Editorial Team" />
 		<link rel="canonical" href={canonicalURL} />
 
@@ -243,16 +253,28 @@ if (faqItems.length > 0) {
 			'@graph': graph,
 		})} />
 
-		<!-- Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute).
-		     Loaded asynchronously so the font CSS does not block first paint. -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+		<!-- Self-hosted fonts (latin subsets). Preloaded so first paint can use
+		     them, with font-display: optional to prevent late swaps. -->
+		<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 	</head>
 	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
 		<slot />
+		<ConsentBanner />
+		<script is:inline>
+			// Offline support: the converter and every page you have visited keep
+			// working after the network drops. Skipped in local dev.
+			if (
+				'serviceWorker' in navigator &&
+				location.hostname !== 'localhost' &&
+				location.hostname !== '127.0.0.1'
+			) {
+				window.addEventListener('load', function () {
+					navigator.serviceWorker.register('/sw.js').catch(function () {});
+				});
+			}
+		</script>
 	</body>
 </html>
 

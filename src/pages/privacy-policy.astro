@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
 const pageTitle = 'Privacy Policy – Number System Converter';
-const pageDescription = 'Privacy policy for the Number System Converter. Learn how we handle your data — spoiler: we don\'t collect any. All conversions happen entirely in your browser.';
+const pageDescription = 'Privacy policy for the Number System Converter: what stays in your browser, the optional analytics we use, and the choices you control.';
 const pageCanonical = 'https://numbersystemconverter.com/privacy-policy/';
 const pageKeywords = 'privacy policy, number system converter privacy, data collection, cookies, local storage, client-side converter';
 ---
@@ -17,16 +17,16 @@ const pageKeywords = 'privacy policy, number system converter privacy, data coll
 >
   <Navbar />
 
-  <main>
+  <main id="main">
     <!-- ═══════════════ HERO BAND ═══════════════ -->
     <section class="hero-band mesh-gradient">
       <div class="page-container hero-content">
         <span class="eyebrow hero-eyebrow">Legal</span>
         <h1 class="display-xl hero-headline">Privacy Policy.</h1>
         <p class="body-lg hero-lead">
-          Your privacy matters to us. This policy explains what data the Number System Converter collects, how it's used, and how you can control it.
+          Your privacy matters to us. This policy explains what the Number System Converter stores, which optional analytics it uses, and how you can control both.
         </p>
-        <p class="last-updated caption-mono">Last updated: June 28, 2026</p>
+        <p class="last-updated caption-mono">Last updated: November 1, 2026</p>
       </div>
     </section>
 
@@ -38,52 +38,67 @@ const pageKeywords = 'privacy policy, number system converter privacy, data coll
           <!-- Introduction -->
           <div class="prose-section">
             <h2 class="display-sm">Introduction.</h2>
-            <p class="body-md">The Number System Converter ("we", "our", "the Tool") is a free, client-side web application that converts numbers between Indian and International number systems. This privacy policy describes our practices regarding data collection, use, and storage. Because our tool runs entirely in your browser with no server-side processing, our data practices are minimal by design.</p>
+            <p class="body-md">The Number System Converter ("we", "our", "the Tool") is a free, client-side web application that converts numbers between Indian and International number systems. Because the conversion runs entirely in your browser, the numbers you enter are never sent to us. This policy describes the small amount of data the site does handle: your theme preference, your analytics choice, and — only if you accept — standard Google Analytics page metrics.</p>
           </div>
 
           <!-- Information We Collect -->
           <div class="prose-section">
             <h2 class="display-sm">Information We Collect.</h2>
-            <p class="body-md"><strong>We do not collect any personal information.</strong> The Number System Converter does not require you to create an account, sign in, or provide any personal details such as your name, email address, or phone number.</p>
-            <p class="body-md">The numbers you enter into the converter are processed entirely within your browser. They are never transmitted to our servers or any third-party service. When you close the browser tab or navigate away, your input is gone — we have no way to access it.</p>
+            <p class="body-md"><strong>The numbers you enter are never collected.</strong> The Number System Converter does not require you to create an account, sign in, or provide personal details such as your name, email address, or phone number.</p>
+            <p class="body-md">The values you type are processed entirely within your browser. They are never transmitted to our servers or to any analytics service. When you close the tab or navigate away, the input is gone.</p>
+            <p class="body-md">If you choose <strong>Accept analytics</strong>, Google Analytics 4 records standard usage data: pages viewed, approximate location (city level), device and browser type, referring site, and interactions such as opening the PDF. This helps us decide which guides to improve. If you decline, the analytics script is not loaded at all.</p>
           </div>
 
           <!-- How We Use Information -->
           <div class="prose-section">
             <h2 class="display-sm">How We Use Information.</h2>
-            <p class="body-md">Since we do not collect any personal information, there is no data for us to use, share, or sell. The tool exists to provide instant number conversions, and that's all it does.</p>
+            <p class="body-md">Aggregate analytics is used to understand which pages and guides are useful, to find broken or confusing pages, and to prioritise new content. We do not sell data, build advertising profiles, or use the numbers you enter for any purpose.</p>
           </div>
 
           <!-- Cookies & Local Storage -->
           <div class="prose-section">
             <h2 class="display-sm">Cookies & Local Storage.</h2>
-            <p class="body-md">The Number System Converter uses your browser's <strong>localStorage</strong> to remember your theme preference (light or dark mode). This is a single key-value pair stored on your device:</p>
+            <p class="body-md">The Number System Converter uses your browser's <strong>localStorage</strong> for two preferences:</p>
             <div class="code-block">
-              <code>Key: "theme" &nbsp;|&nbsp; Value: "light" or "dark"</code>
+              <code>Key: "theme" &nbsp;|&nbsp; Value: "light" or "dark"</code><br />
+              <code>Key: "analytics-consent" &nbsp;|&nbsp; Value: "granted" or "denied"</code>
             </div>
-            <p class="body-md">This data is never sent to any server. You can clear it at any time by clearing your browser's local storage for this site. We do not use cookies for tracking, advertising, or analytics.</p>
+            <p class="body-md">Both stay on your device and are never sent to a server. You can clear them at any time by clearing your browser's local storage for this site.</p>
+            <p class="body-md">If you accept analytics, Google Analytics sets first-party cookies (<code>_ga</code> and <code>_ga_*</code>) to distinguish sessions. They are used only for aggregate measurement, not advertising, and expire after up to two years. If you decline, no analytics cookies are set.</p>
           </div>
 
           <!-- Third-Party Services -->
           <div class="prose-section">
             <h2 class="display-sm">Third-Party Services.</h2>
-            <p class="body-md">The Number System Converter loads the following third-party resources:</p>
+            <p class="body-md">The Number System Converter serves its fonts from this domain; no Google Fonts request is made. The only third-party resource is optional analytics:</p>
             <ul class="prose-list">
-              <li><strong>Google Fonts</strong> — We load the Inter and JetBrains Mono font families from fonts.googleapis.com to render text. Google may collect your IP address and browser information when fonts are loaded. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a> for details.</li>
+              <li><strong>Google Analytics 4</strong> — Loaded only after you accept analytics. It measures aggregate page views and interactions. Google Analytics 4 does not log or store IP addresses, and we never send the numbers you enter. See <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">how Google uses data</a>.</li>
             </ul>
-            <p class="body-md">We do not integrate any advertising networks, analytics platforms, or social media trackers.</p>
+            <p class="body-md">We do not integrate advertising networks, social media trackers, or data brokers.</p>
+          </div>
+
+          <!-- Your Choices -->
+          <div class="prose-section">
+            <h2 class="display-sm">Your Choices.</h2>
+            <p class="body-md">You control analytics at every step:</p>
+            <ul class="prose-list">
+              <li>Choose <strong>Decline</strong> in the consent banner and no analytics script is loaded.</li>
+              <li>Change your mind at any time with the <strong>Analytics settings</strong> link in the footer.</li>
+              <li>Block or delete cookies in your browser settings; the converter continues to work.</li>
+              <li>Install the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics opt-out browser add-on</a>.</li>
+            </ul>
           </div>
 
           <!-- Data Security -->
           <div class="prose-section">
             <h2 class="display-sm">Data Security.</h2>
-            <p class="body-md">Since all processing happens client-side and we do not collect or store any user data on our servers, the attack surface for data breaches is minimal. The tool is served over HTTPS to ensure the integrity of the code delivered to your browser.</p>
+            <p class="body-md">All processing happens client-side and we do not store the values you enter on our servers, so the attack surface for data breaches is minimal. The tool is served over HTTPS to ensure the integrity of the code delivered to your browser.</p>
           </div>
 
           <!-- Children's Privacy -->
           <div class="prose-section">
             <h2 class="display-sm">Children's Privacy.</h2>
-            <p class="body-md">The Number System Converter is a general-audience educational tool. We do not knowingly collect personal information from children under 13. Since we do not collect any personal information at all, our tool is safe for users of all ages.</p>
+            <p class="body-md">The Number System Converter is a general-audience educational tool. We do not knowingly collect personal information from children under 13. The converter does not ask for personal details, and analytics remains off unless the visitor opts in.</p>
           </div>
 
           <!-- Changes -->

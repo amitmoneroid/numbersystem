@@ -1,0 +1,185 @@
+---
+// ConsentBanner.astro — optional, opt-in analytics.
+//
+// Google Analytics is only requested after the visitor chooses "Accept
+// analytics". The converter itself never needs this script, and the values
+// typed into it are never sent to analytics. The choice is stored locally and
+// can be changed from the "Analytics settings" control in the footer.
+---
+
+<div
+  id="consent-banner"
+  class="consent-banner"
+  role="region"
+  aria-label="Analytics consent"
+  hidden
+>
+  <div class="consent-inner">
+    <p class="consent-copy">
+      <strong>Optional analytics.</strong>
+      Google Analytics helps us see which pages are useful. It never receives
+      the numbers you type. <a href="/privacy-policy/">Privacy</a>.
+    </p>
+    <div class="consent-actions">
+      <button type="button" class="consent-btn consent-decline" id="consent-decline">Decline</button>
+      <button type="button" class="consent-btn consent-accept" id="consent-accept">Accept analytics</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'analytics-consent';
+    var GA_ID = 'G-3E6Y8CWECC';
+    var banner = document.getElementById('consent-banner');
+
+    function loadAnalytics() {
+      window['ga-disable-' + GA_ID] = false;
+      if (window.__numsysGaLoaded) return;
+      window.__numsysGaLoaded = true;
+
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    }
+
+    function revokeAnalytics() {
+      window['ga-disable-' + GA_ID] = true;
+      document.cookie.split(';').forEach(function (cookie) {
+        var name = cookie.split('=')[0].trim();
+        if (name.indexOf('_ga') !== 0) return;
+        document.cookie = name + '=; Max-Age=0; path=/';
+        document.cookie = name + '=; Max-Age=0; path=/; domain=' + location.hostname;
+      });
+    }
+
+    function remember(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      if (value === 'granted') loadAnalytics();
+      if (value === 'denied') revokeAnalytics();
+      if (banner) banner.hidden = true;
+    }
+
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+    if (stored === 'granted') {
+      loadAnalytics();
+    } else if (stored !== 'denied' && banner) {
+      banner.hidden = false;
+    }
+
+    var accept = document.getElementById('consent-accept');
+    var decline = document.getElementById('consent-decline');
+    if (accept) accept.addEventListener('click', function () { remember('granted'); });
+    if (decline) decline.addEventListener('click', function () { remember('denied'); });
+
+    // Footer control: forget the stored choice and ask again.
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest('[data-consent-reset]')) return;
+      event.preventDefault();
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      revokeAnalytics();
+      if (banner) {
+        banner.hidden = false;
+        if (accept) accept.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .consent-banner[hidden] {
+    display: none;
+  }
+
+  .consent-inner {
+    pointer-events: auto;
+    width: min(720px, 100%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: 14px 16px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--color-canvas);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .consent-copy {
+    flex: 1;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-body);
+  }
+
+  .consent-copy strong {
+    color: var(--color-ink);
+  }
+
+  .consent-copy a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .consent-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .consent-btn {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .consent-btn:hover {
+    border-color: var(--color-hairline-strong);
+  }
+
+  .consent-accept {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  @media (max-width: 600px) {
+    .consent-inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .consent-actions {
+      justify-content: flex-end;
+    }
+  }
+</style>

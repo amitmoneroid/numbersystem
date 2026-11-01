@@ -101,7 +101,7 @@ export const guides: Guide[] = [
     summary: 'The 0–255 grid plus the lakh/crore and world-scale tables, all on one page.',
     shortLabel: 'Conversion table',
     published: '2026-10-25',
-    updated: '2026-10-27',
+    updated: '2026-11-01',
     readingMinutes: 4,
     answer:
       'A number system conversion table maps one value across several bases on a single row. The 0–255 grid below gives decimal, 8-bit binary, 3-digit octal and 2-digit hex; the scale table gives 1 million = 10 lakh, 1 billion = 1 arab = 100 crore, and 1 trillion = 1 lakh crore.',

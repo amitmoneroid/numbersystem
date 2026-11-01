@@ -1,21 +1,18 @@
 # Canonical URL rules for numbersystemconverter.com
 #
-# Canonicals are the apex domain with a trailing slash. Cloudflare `_redirects`
-# rules can only match a path (domain-level matching is not supported), so the
-# `www` -> apex redirect is handled in functions/_middleware.js.
-#
-# These rules catch legacy slash-less links that point at real pages. They are
-# kept relative so the same file works for both Cloudflare Pages and Workers
-# static assets.
+# Canonicals are the apex domain, HTTPS, with a trailing slash. Absolute
+# targets keep legacy slash-less links to a single hop even when the request
+# arrives over HTTP or on the www host. The same rules are mirrored in
+# functions/_middleware.js for routes handled by a Function.
 
-/about /about/ 301
-/contact /contact/ 301
-/privacy-policy /privacy-policy/ 301
-/terms /terms/ 301
-/knowledge-catalog /knowledge-catalog/ 301
-/knowledge-catalog/number-system-converter-with-steps /knowledge-catalog/number-system-converter-with-steps/ 301
-/knowledge-catalog/number-system-converter-online /knowledge-catalog/number-system-converter-online/ 301
-/knowledge-catalog/number-system-conversion-calculator-with-solution /knowledge-catalog/number-system-conversion-calculator-with-solution/ 301
-/knowledge-catalog/number-system-conversion-pdf /knowledge-catalog/number-system-conversion-pdf/ 301
-/knowledge-catalog/base-converter-calculator /knowledge-catalog/base-converter-calculator/ 301
-/knowledge-catalog/number-system-conversion-table /knowledge-catalog/number-system-conversion-table/ 301
+/about https://numbersystemconverter.com/about/ 301
+/contact https://numbersystemconverter.com/contact/ 301
+/privacy-policy https://numbersystemconverter.com/privacy-policy/ 301
+/terms https://numbersystemconverter.com/terms/ 301
+/knowledge-catalog https://numbersystemconverter.com/knowledge-catalog/ 301
+/knowledge-catalog/number-system-converter-with-steps https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/ 301
+/knowledge-catalog/number-system-converter-online https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/ 301
+/knowledge-catalog/number-system-conversion-calculator-with-solution https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/ 301
+/knowledge-catalog/number-system-conversion-pdf https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/ 301
+/knowledge-catalog/base-converter-calculator https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/ 301
+/knowledge-catalog/number-system-conversion-table https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/ 301

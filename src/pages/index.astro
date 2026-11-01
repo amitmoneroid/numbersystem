@@ -12,7 +12,7 @@ import { nuances } from '../data/worldSystems';
 <Layout includeAppSchema faqItems={faqItems}>
   <Navbar />
 
-  <main>
+  <main id="main">
     <!-- ═══════════════ CONVERTER (TOP OF PAGE) ═══════════════ -->
     <section class="converter-hero mesh-gradient" id="converter">
       <div class="page-container converter-container">
@@ -20,21 +20,28 @@ import { nuances } from '../data/worldSystems';
         <div class="converter-heading">
           <span class="eyebrow">Free · No sign-up · Works offline</span>
           <h1 class="converter-title">Number System Converter — Bases 2–36, Lakh, Crore, Million &amp; Billion</h1>
-          <p class="converter-lead">Binary, octal, decimal and hex with every division and weight shown. Switch tabs for lakh, crore, million and billion.</p>
+          <p class="converter-lead">Convert lakh, crore, million and billion with full word expansion. Switch tabs for binary, octal, decimal and hex with every step shown.</p>
+          <ul class="hero-badges" aria-label="Converter capabilities">
+            <li>13 naming scales</li>
+            <li>Base 2–36</li>
+            <li>Every step shown</li>
+            <li>Runs in your browser</li>
+          </ul>
         </div>
 
         <div class="converter-tabs" role="tablist" aria-label="Converter mode">
-          <button type="button" class="converter-tab active" id="tab-bases" role="tab" aria-selected="true" aria-controls="panel-bases" data-panel="bases">Bases 2–36</button>
-          <button type="button" class="converter-tab" id="tab-naming" role="tab" aria-selected="false" aria-controls="naming" data-panel="naming" tabindex="-1">Indian ⇄ International</button>
+          <button type="button" class="converter-tab" id="tab-bases" role="tab" aria-selected="false" aria-controls="panel-bases" data-panel="bases" tabindex="-1">Bases 2–36</button>
+          <button type="button" class="converter-tab active" id="tab-naming" role="tab" aria-selected="true" aria-controls="naming" data-panel="naming">Indian ⇄ International</button>
         </div>
 
-        <!-- Default tab: radix conversion, answered on load -->
-        <div id="panel-bases" class="converter-panel" role="tabpanel" aria-labelledby="tab-bases" data-panel="bases">
+        <!-- Default tab: Indian ⇄ International naming, answered on load -->
+        <div id="panel-bases" class="converter-panel hidden" role="tabpanel" aria-labelledby="tab-bases" data-panel="bases">
           <BaseConverter />
         </div>
 
         <!-- Second tab: lakh / crore naming conversion -->
-        <div id="naming" class="converter-panel hidden" role="tabpanel" aria-labelledby="tab-naming" data-panel="naming">
+        <div id="naming" class="converter-panel" role="tabpanel" aria-labelledby="tab-naming" data-panel="naming">
+        <h2 class="visually-hidden">Indian ⇄ International number system converter</h2>
         <div class="converter-card card shadow-level-3">
           <!-- Row 1: Amount + From Unit -->
           <div class="converter-input-row">
@@ -44,7 +51,7 @@ import { nuances } from '../data/worldSystems';
                 type="text"
                 id="numInput"
                 class="converter-input"
-                placeholder="e.g. 5.4"
+                placeholder="e.g. 1"
                 inputmode="decimal"
                 autocomplete="off"
               />
@@ -74,20 +81,20 @@ import { nuances } from '../data/worldSystems';
           </div>
 
           <!-- Row 2: To Unit -->
-          <div class="converter-input-row">
+          <div class="converter-input-row swap-row">
             <div class="field-group field-amount arrow-spacer">
               <label class="body-sm-strong field-label" style="visibility: hidden; height: 0; margin: 0; padding: 0;">&nbsp;</label>
-              <span class="converter-arrow" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
+              <button type="button" id="swapScales" class="converter-arrow swap-btn" aria-label="Swap the from and to scales" title="Swap scales">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
             </div>
             <div class="field-group field-scale">
               <label for="toScale" class="body-sm-strong field-label">To</label>
               <select id="toScale" class="scale-select">
                 <optgroup label="Indian System">
                   <option value="1e5">Lakh</option>
-                  <option value="1e7">Crore</option>
-                  <option value="1e9" selected>Arab</option>
+                  <option value="1e7" selected>Crore</option>
+                  <option value="1e9">Arab</option>
                   <option value="1e11">Kharab</option>
                   <option value="1e13">Neel</option>
                   <option value="1e15">Padma</option>
@@ -105,12 +112,17 @@ import { nuances } from '../data/worldSystems';
             </div>
           </div>
 
-          <div id="inputError" class="input-error"></div>
+          <div id="inputError" class="input-error" role="alert"></div>
 
           <!-- Converted Value Display -->
           <div id="convertedValueArea" class="converted-value-area hidden">
             <div class="converted-value-label">Converted Value</div>
-            <div id="convertedValue" class="converted-value code">—</div>
+            <div class="converted-value-row">
+              <div id="convertedValue" class="converted-value code">—</div>
+              <button class="copy-btn" data-target="convertedValue" title="Copy converted value" aria-label="Copy converted value">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
             <div id="convertedSubtitle" class="converted-subtitle body-sm">—</div>
           </div>
 
@@ -141,7 +153,7 @@ import { nuances } from '../data/worldSystems';
 
             <!-- All Representations Table -->
             <div class="representations-section">
-              <h3 class="representations-title body-sm-strong" id="representationsTitle">—</h3>
+              <h3 class="representations-title body-sm-strong" id="representationsTitle">All Indian representations</h3>
               <div class="representations-grid" id="representationsGrid">
               </div>
             </div>
@@ -178,6 +190,11 @@ import { nuances } from '../data/worldSystems';
           <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps guide</a>,
           browse the <a href="/knowledge-catalog/number-system-conversion-table/">0–255 conversion table</a>, or
           print the <a href="/knowledge-catalog/number-system-conversion-pdf/">two-page PDF</a>.
+        </p>
+        <p class="hero-review">
+          Reviewed <time datetime="2026-11-01">1 November 2026</time> by the
+          <a href="/about/#author">NumSys Editorial Team</a> ·
+          <a href="/about/#method">How the numbers are checked</a>
         </p>
 
       </div>
@@ -246,7 +263,7 @@ import { nuances } from '../data/worldSystems';
           </div>
           <div class="about-stats">
             <div class="stat-card card shadow-level-2">
-              <div class="stat-value code">13+</div>
+              <div class="stat-value code">13</div>
               <div class="stat-label body-sm">Number Scales Supported</div>
             </div>
             <div class="stat-card card shadow-level-2">
@@ -254,8 +271,8 @@ import { nuances } from '../data/worldSystems';
               <div class="stat-label body-sm">Bases Supported</div>
             </div>
             <div class="stat-card card shadow-level-2">
-              <div class="stat-value code">100%</div>
-              <div class="stat-label body-sm">Free & Accurate</div>
+              <div class="stat-value code">0</div>
+              <div class="stat-label body-sm">Sign-ups or uploads</div>
             </div>
           </div>
         </div>
@@ -471,7 +488,7 @@ import { nuances } from '../data/worldSystems';
 
           <h3 class="display-sm">Why the same number looks different</h3>
           <p class="body-md">
-            Indian English writes 2.5 crore where an international wire story writes $30 million. Both are correct; they are conventions applied to the same scale. The pairs that cause the most confusion are lakh and million, then crore and billion, because each step looks like the other but differs by a factor of ten. The risk sits in contracts, salaries, budgets, valuations and loan documents, where reading lakh as million changes a figure tenfold and crore as billion changes it tenfold again. The side-by-side display and full word expansion act as a cross-check before a number is signed off or published.
+            Indian English writes 2.5 crore where an international wire story writes 25 million. Both are correct; they are conventions applied to the same scale. The pairs that cause the most confusion are lakh and million (a factor of ten) and crore and billion (a factor of one hundred). The risk sits in contracts, salaries, budgets, valuations and loan documents, where reading lakh as million changes a figure tenfold and crore as billion changes it a hundredfold. The side-by-side display and full word expansion act as a cross-check before a number is signed off or published.
           </p>
 
           <h3 class="display-sm">Using both converters together</h3>
@@ -506,7 +523,7 @@ import { nuances } from '../data/worldSystems';
             </div>
             <h3 class="display-sm">Finance & Investment</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              Global stock markets, mutual funds, and corporate valuations often report in Billions (International) while Indian investors think in Crores. Converting ₹50 Crore to its International equivalent (approximately $60 Million) helps in cross-border investment analysis and portfolio diversification decisions.
+              Global stock markets and corporate valuations often report in billions, while Indian investors think in crores. ₹50 crore is 500 million rupees, or 0.5 billion rupees. Seeing the same amount in both systems stops a cross-border valuation from being misread by a factor of ten.
             </p>
           </div>
 
@@ -528,7 +545,7 @@ import { nuances } from '../data/worldSystems';
             </div>
             <h3 class="display-sm">International Business</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              Multinational companies report revenue in different formats depending on their primary market. When Apple reports $394 Billion in annual revenue, Indian subsidiaries may reference this as 39.4 Arab or approximately 3,940 Crore for local compliance and stakeholder communication.
+              When a company reports $394 billion in annual revenue, the Indian-scale equivalent is 394 arab, or 39,400 crore. The converter prints the words and the grouped digits side by side, so the factor-of-ten slip is visible before the figure reaches a filing.
             </p>
           </div>
 
@@ -539,7 +556,7 @@ import { nuances } from '../data/worldSystems';
             </div>
             <h3 class="display-sm">Real Estate & Property</h3>
             <p class="body-sm" style="color: var(--color-body);">
-              Property developers in India price projects in Crores while international buyers may prefer Million notation. A property listed at ₹2.5 Crore is equivalent to $300,000 (approximately 0.3 Million), making it easier for NRI buyers to evaluate investments.
+              Indian developers price projects in crores while international buyers think in millions. ₹2.5 crore is 25 million rupees, or 0.025 billion rupees; convert the scale first, then apply the exchange rate separately so currency movement does not hide a scale error.
             </p>
           </div>
         </div>
@@ -571,7 +588,7 @@ import { nuances } from '../data/worldSystems';
           <div class="conversion-item">
             <span class="conversion-left code">1 Trillion</span>
             <span class="conversion-arrow-small">&rarr;</span>
-            <span class="conversion-right code">1 Padma (1,000 Lakh Crore)</span>
+            <span class="conversion-right code">1 Lakh Crore</span>
           </div>
           <div class="conversion-item">
             <span class="conversion-left code">1 Lakh</span>
@@ -596,7 +613,7 @@ import { nuances } from '../data/worldSystems';
           <div class="conversion-item">
             <span class="conversion-left code">1 Quadrillion</span>
             <span class="conversion-arrow-small">&rarr;</span>
-            <span class="conversion-right code">1 Lakh Crore</span>
+            <span class="conversion-right code">1 Padma (100 Lakh Crore)</span>
           </div>
           <div class="conversion-item">
             <span class="conversion-left code">1 Kharab</span>
@@ -959,10 +976,8 @@ import { nuances } from '../data/worldSystems';
       return parts.length > 1 ? `${intPart}.${parts[1]}` : intPart;
     }
 
-    // Very small numbers — show up to 6 significant digits
-    const formatted = value.toPrecision(6);
-    // Strip trailing zeros after decimal
-    return parseFloat(formatted).toString();
+    // Very small numbers — plain decimal, never exponential notation
+    return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 6 }).format(value);
   }
 
   // ── Parse Input ──
@@ -1107,11 +1122,6 @@ import { nuances } from '../data/worldSystems';
     // Words
     intlWords.textContent = numberToWordsInternational(integerPart);
     indWords.textContent = numberToWordsIndian(integerPart);
-
-    // Animate
-    resultsArea.style.animation = 'none';
-    resultsArea.offsetHeight;
-    resultsArea.style.animation = 'fadeInUp 0.4s ease';
   }
 
   // ── Get the "To" scale display name ──
@@ -1135,6 +1145,15 @@ import { nuances } from '../data/worldSystems';
     convert();
   });
 
+  // ── Swap the From and To scales ──
+  const swapBtn = document.getElementById('swapScales') as HTMLButtonElement | null;
+  swapBtn?.addEventListener('click', () => {
+    const fromValue = fromScale.value;
+    fromScale.value = toScale.value;
+    toScale.value = fromValue;
+    convert();
+  });
+
   // ── Copy to Clipboard ──
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -1144,8 +1163,9 @@ import { nuances } from '../data/worldSystems';
       if (!targetEl) return;
 
       const text = targetEl.textContent?.trim() ?? '';
+      const copyText = targetId === 'convertedValue' ? `${text} ${getToScaleName()}`.trim() : text;
       try {
-        await navigator.clipboard.writeText(text);
+        await navigator.clipboard.writeText(copyText);
         btn.classList.add('copied');
         setTimeout(() => btn.classList.remove('copied'), 1200);
       } catch {
@@ -1226,20 +1246,29 @@ import { nuances } from '../data/worldSystems';
     });
   });
 
-  if (window.location.hash === '#naming') {
-    activatePanel('naming');
+  function activateFromHash(hash: string): void {
+    if (hash === '#converter' || hash === '#base-converter') {
+      activatePanel('bases');
+      if (hash === '#base-converter') {
+        requestAnimationFrame(() => {
+          document.getElementById('base-converter')?.scrollIntoView({ block: 'start' });
+        });
+      }
+    } else if (hash === '#naming') {
+      activatePanel('naming');
+    }
   }
 
+  // The naming converter is the default view; switch to bases only when the
+  // URL explicitly asks for it.
+  activateFromHash(window.location.hash);
+
   window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#naming') {
-      activatePanel('naming');
-    } else if (window.location.hash === '#converter') {
-      activatePanel('bases');
-    }
+    activateFromHash(window.location.hash);
   });
 
   // Prefill the naming converter so the first view always contains a result.
-  numInput.value = '5.4';
+  numInput.value = '1';
   fromScale.value = '1e9';
   toScale.value = '1e7';
   convert();
@@ -1387,6 +1416,7 @@ import { nuances } from '../data/worldSystems';
   /* ════════════ CONVERTER CARD ════════════ */
   .converter-card {
     padding: var(--spacing-lg) var(--spacing-lg);
+    text-align: left;
   }
 
   .converter-header {
@@ -1407,6 +1437,33 @@ import { nuances } from '../data/worldSystems';
     font-size: 14px;
     color: var(--color-body);
     margin: 0;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: var(--spacing-sm) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-badges li {
+    padding: 3px 10px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    background: var(--color-canvas);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-body);
+  }
+
+  .hero-review {
+    margin: var(--spacing-xs) 0 0;
+    color: var(--color-mute);
+    text-align: center;
+    font-size: 12px;
   }
 
   /* ════════════ INPUT ROW ════════════ */
@@ -1538,6 +1595,17 @@ import { nuances } from '../data/worldSystems';
     stroke: var(--color-ink);
   }
 
+  .swap-btn {
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .swap-btn:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
   /* ════════════ CONVERTED VALUE AREA ════════════ */
   .converted-value-area {
     margin-top: var(--spacing-md);
@@ -1554,10 +1622,18 @@ import { nuances } from '../data/worldSystems';
   .converted-value-label {
     font-size: 12px;
     font-weight: 500;
-    color: var(--color-mute);
+    color: var(--color-body);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-family: var(--font-mono);
+    margin-bottom: 4px;
+  }
+
+  .converted-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
     margin-bottom: 4px;
   }
 
@@ -1567,20 +1643,21 @@ import { nuances } from '../data/worldSystems';
     color: var(--color-link);
     letter-spacing: -1px;
     line-height: 1.1;
-    margin-bottom: 4px;
+    margin-bottom: 0;
   }
 
-  .dark .converted-value {
+  :global(.dark) .converted-value {
     color: var(--color-link-deep);
   }
 
   .converted-subtitle {
-    color: var(--color-link-deep);
+    color: var(--color-body);
     font-size: 13px;
   }
 
-  .dark .converted-subtitle {
-    color: var(--color-link);
+  :global(.dark) .converted-subtitle,
+  :global(.dark) .converted-value-label {
+    color: #c9d7e8;
   }
 
   /* ════════════ CHIPS ════════════ */
@@ -1666,7 +1743,7 @@ import { nuances } from '../data/worldSystems';
     margin-bottom: 4px;
   }
 
-  .dark .best-fit-value {
+  :global(.dark) .best-fit-value {
     color: var(--color-link-deep);
   }
 
@@ -1675,7 +1752,7 @@ import { nuances } from '../data/worldSystems';
     font-size: 13px;
   }
 
-  .dark .best-fit-subtitle {
+  :global(.dark) .best-fit-subtitle {
     color: var(--color-link);
   }
 
@@ -2005,18 +2082,6 @@ import { nuances } from '../data/worldSystems';
   }
 
   /* ════════════ RESPONSIVE ════════════ */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* ════════════ RESPONSIVE ════════════ */
   @media (max-width: 959px) {
     .features-grid {
       grid-template-columns: 1fr 1fr;
@@ -2037,12 +2102,25 @@ import { nuances } from '../data/worldSystems';
       gap: var(--spacing-sm);
     }
 
+    .converter-input-row.swap-row {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
     .arrow-spacer {
-      display: none;
+      display: flex;
+      flex: 0 0 48px;
+      width: 48px;
     }
 
     .field-scale {
-      min-width: 100%;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .swap-row .field-scale {
+      width: auto;
+      flex: 1;
     }
 
     .converter-tabs {

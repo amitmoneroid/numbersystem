@@ -13,7 +13,7 @@
     </div>
     <div class="footer-nav">
       <div class="footer-nav-col">
-        <h4 class="footer-nav-heading">Learn</h4>
+        <h2 class="footer-nav-heading">Learn</h2>
         <ul class="footer-nav-list">
           <li><a href="/knowledge-catalog/">Knowledge Catalog</a></li>
           <li><a href="/knowledge-catalog/number-system-converter-with-steps/">Converter with steps</a></li>
@@ -25,23 +25,24 @@
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h4 class="footer-nav-heading">Pages</h4>
+        <h2 class="footer-nav-heading">Pages</h2>
         <ul class="footer-nav-list">
           <li><a href="/about/">About Us</a></li>
           <li><a href="/contact/">Contact Us</a></li>
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h4 class="footer-nav-heading">Legal</h4>
+        <h2 class="footer-nav-heading">Legal</h2>
         <ul class="footer-nav-list">
           <li><a href="/privacy-policy/">Privacy Policy</a></li>
           <li><a href="/terms/">Terms & Conditions</a></li>
+          <li><button type="button" class="footer-link-btn" data-consent-reset>Analytics settings</button></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="page-container footer-bottom">
-    <p class="footer-copy">&copy; 2026 NumSys Converter. All rights reserved. &nbsp;·&nbsp; Last updated <time datetime="2026-10-27">27 October 2026</time></p>
+    <p class="footer-copy">&copy; 2026 NumSys Converter. All rights reserved. &nbsp;·&nbsp; Last updated <time datetime="2026-11-01">1 November 2026</time></p>
     <p class="footer-powered">
       Powered by <a href="https://www.spaarcdigital.com/" target="_blank" rel="noopener noreferrer">Spaarc Digital</a>
     </p>
@@ -133,6 +134,24 @@
     color: var(--color-body);
     text-decoration: none;
     transition: color 0.15s ease;
+  }
+
+  .footer-link-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--color-body);
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .footer-link-btn:hover {
+    color: var(--color-ink);
   }
 
   .footer-nav-list a:hover {

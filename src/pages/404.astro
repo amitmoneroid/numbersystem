@@ -13,10 +13,11 @@ const pageCanonical = 'https://numbersystemconverter.com/404';
   description={pageDescription}
   canonicalURL={pageCanonical}
   ogType="website"
+  robots="noindex, follow"
 >
   <Navbar />
 
-  <main>
+  <main id="main">
     <section class="error-band">
       <div class="page-container error-content">
         <span class="error-code">404</span>
@@ -108,12 +109,12 @@ const pageCanonical = 'https://numbersystemconverter.com/404';
     color: #fff;
   }
 
-  .dark .btn-primary {
+  :global(.dark) .btn-primary {
     background: #ededed;
     color: #0a0a0a;
   }
 
-  .dark .btn-primary:hover {
+  :global(.dark) .btn-primary:hover {
     background: #fff;
     color: #000;
   }
@@ -131,13 +132,13 @@ const pageCanonical = 'https://numbersystemconverter.com/404';
     background: var(--color-canvas-soft-2);
   }
 
-  .dark .btn-secondary {
+  :global(.dark) .btn-secondary {
     background: #1a1a1a;
     color: #ededed;
     box-shadow: inset 0 0 0 1px var(--color-hairline);
   }
 
-  .dark .btn-secondary:hover {
+  :global(.dark) .btn-secondary:hover {
     background: #2e2e2e;
   }
 
