@@ -13,10 +13,11 @@
 - [Calculator With Solution](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/): Full solution format: positional weights, division chain, fractional carries and a reverse check. Example: 200₁₀ = 11001000₂; 0.6875₁₀ = 0.1011₂.
 - [Conversion Table](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/): 0–255 in decimal, 8-bit binary, 3-digit octal and 2-digit hexadecimal, plus powers of two and Indian vs International scales.
 - [Conversion PDF](https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/): Free two-page printable chart (23 KB). Direct file: https://numbersystemconverter.com/number-system-conversion-table.pdf
+- [INS for Food Additives](https://numbersystemconverter.com/knowledge-catalog/international-numbering-system-food-additives/): The Codex International Numbering System that puts a short code on a food additive (INS 102 = E102 tartrazine, INS 211 = E211 sodium benzoate), the number ranges by additive class, and what an INS code does and does not say about safety.
 
 ## Reference
 
-- [Knowledge Catalog](https://numbersystemconverter.com/knowledge-catalog/): Directory of all six guides, use cases, audience and FAQ.
+- [Knowledge Catalog](https://numbersystemconverter.com/knowledge-catalog/): Directory of all seven guides, use cases, audience and FAQ.
 - [About](https://numbersystemconverter.com/about/): What the site does, how examples are checked, and the editorial team.
 - [Contact](https://numbersystemconverter.com/contact/): Report a conversion error or broken page.
 

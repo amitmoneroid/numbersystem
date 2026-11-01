@@ -115,6 +115,19 @@ URL: https://numbersystemconverter.com/knowledge-catalog/number-system-conversio
 - French milliard / German Milliarde / Dutch miljard / Italian miliardo: 10⁹.
 - Japanese, Chinese, Korean group in fours: 万 10⁴, 億 10⁸, 兆 10¹².
 
+## International Numbering System (INS) for food additives
+
+INS is the Codex Alimentarius index that gives each food additive a short number, so a label can name an additive without printing a chemical name. It is the international counterpart to the EU E-number list.
+
+- Publisher: Codex Alimentarius Commission (FAO and WHO); the current list is CXG 36-1989.
+- Format: three or four digits, with an optional letter or Roman numeral for variants (INS 150a, INS 500(ii)).
+- Leading digit by class: 100-199 colours; 200-299 preservatives; 300-399 antioxidants and acidity regulators; 400-499 thickeners, stabilisers and emulsifiers; 500-599 acidity regulators and anti-caking agents; 600-699 flavour enhancers; 700-799 antibiotics (effectively unused); 800-899 unassigned; 900-999 glazing agents, gases and sweeteners; 1000-1599 additional additives.
+- INS and E numbers usually share digits: INS 102 = E102 tartrazine, INS 211 = E211 sodium benzoate, INS 621 = E621 monosodium glutamate.
+- An INS number identifies a substance; it is not a safety rating. JECFA sets acceptable daily intakes, the GSFA sets maximum use levels, and national regulators decide what may be sold.
+- Divergence example: INS 171 titanium dioxide remains on the Codex list but is no longer authorised as a food additive in the EU (2022).
+
+URL: https://numbersystemconverter.com/knowledge-catalog/international-numbering-system-food-additives/
+
 ## Contact and corrections
 
 Report a conversion error: https://numbersystemconverter.com/contact/

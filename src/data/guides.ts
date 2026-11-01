@@ -106,6 +106,20 @@ export const guides: Guide[] = [
     answer:
       'A number system conversion table maps one value across several bases on a single row. The 0–255 grid below gives decimal, 8-bit binary, 3-digit octal and 2-digit hex; the scale table gives 1 million = 10 lakh, 1 billion = 1 arab = 100 crore, and 1 trillion = 1 lakh crore.',
   },
+  {
+    slug: 'international-numbering-system-food-additives',
+    h1: 'International Numbering System for Food Additives (INS)',
+    metaTitle: 'International Numbering System (INS) for Food Additives',
+    description:
+      'What the INS is, how to read an INS number on a food label, the code ranges behind INS 102 and INS 211, and how INS numbers compare with E numbers.',
+    summary: 'How Codex turns a long chemical name into a short INS number — and how to read those numbers on a label.',
+    shortLabel: 'INS food additives',
+    published: '2026-11-01',
+    updated: '2026-11-01',
+    readingMinutes: 7,
+    answer:
+      'The International Numbering System (INS) is a Codex Alimentarius scheme that gives each food additive a short number — INS 102 for tartrazine, INS 211 for sodium benzoate — so a label can name an ingredient without printing a chemical name. It is the international counterpart to Europe’s E numbers.',
+  },
 ];
 
 export function guideHref(slug: string): string {

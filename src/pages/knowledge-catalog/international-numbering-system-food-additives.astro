@@ -1,0 +1,361 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import { guides } from '../../data/guides';
+
+const guide = guides.find((g) => g.slug === 'international-numbering-system-food-additives')!;
+
+const toc = [
+  { id: 'what-it-is', label: 'What the INS is' },
+  { id: 'why-numbers', label: 'Why numbers, not names' },
+  { id: 'anatomy', label: 'Reading an INS number' },
+  { id: 'ranges', label: 'Number ranges' },
+  { id: 'e-numbers', label: 'INS vs E numbers' },
+  { id: 'safety', label: 'What INS says about safety' },
+  { id: 'on-a-label', label: 'On a real label' },
+  { id: 'quick-reference', label: 'Common codes' },
+  { id: 'other-systems', label: 'Other numbering systems' },
+];
+
+const faqs = [
+  {
+    question: 'What does INS stand for on a food label?',
+    answer:
+      '<strong>INS</strong> stands for the <strong>International Numbering System for Food Additives</strong>, the Codex Alimentarius list that assigns a short number to each additive. <code>INS 211</code> is sodium benzoate, <code>INS 102</code> is tartrazine, and <code>INS 322</code> is lecithin.',
+  },
+  {
+    question: 'Is an INS number the same as an E number?',
+    answer:
+      'Usually the digits match, so <code>INS 102</code> is <code>E102</code> and <code>INS 211</code> is <code>E211</code>. The prefixes belong to different lists, though: <strong>INS</strong> is the Codex index used in much of Asia, Africa and Oceania, while <strong>E</strong> is the European Union’s approved-additive list. An additive can appear in one list without appearing in the other.',
+  },
+  {
+    question: 'Does an INS number mean the additive is safe?',
+    answer:
+      'No. An INS number is an <strong>identity</strong>, not a safety rating. Safety is assessed separately by JECFA, which sets acceptable daily intakes, and each country decides which additives may be sold in its market. Titanium dioxide carries the INS number 171 and is no longer permitted as a food additive in the European Union.',
+  },
+  {
+    question: 'Why do some INS numbers have letters after them?',
+    answer:
+      'A letter or Roman numeral separates closely related substances that share one family number. The four caramel colour classes run from <code>INS 150a</code> to <code>INS 150d</code>, and the sodium carbonates are written <code>INS 500(i)</code>, <code>500(ii)</code> and <code>500(iii)</code>.',
+  },
+  {
+    question: 'Do US food labels use INS numbers?',
+    answer:
+      'Rarely. The FDA regulates additives through its own approved list and asks manufacturers to print the common or chemical name, so a US ingredients panel usually says “sodium benzoate” rather than <code>INS 211</code>. INS codes are most visible on labels in India, the Gulf, Australia and New Zealand, and across much of Africa and Southeast Asia.',
+  },
+];
+
+const ranges = [
+  ['100–199', 'Colours', 'Tartrazine (102), carotenes (160a)', 'E100–E199'],
+  ['200–299', 'Preservatives', 'Sodium benzoate (211), sulphur dioxide (220)', 'E200–E299'],
+  ['300–399', 'Antioxidants and acidity regulators', 'Ascorbic acid (300), citric acid (330)', 'E300–E399'],
+  ['400–499', 'Thickeners, stabilisers and emulsifiers', 'Carrageenan (407), xanthan gum (415)', 'E400–E499'],
+  ['500–599', 'Acidity regulators and anti-caking agents', 'Sodium carbonates (500), silicon dioxide (551)', 'E500–E599'],
+  ['600–699', 'Flavour enhancers', 'Monosodium glutamate (621), disodium inosinate (631)', 'E600–E699'],
+  ['700–799', 'Antibiotics (a range that is effectively unused)', 'No additives currently listed', 'E700–E799'],
+  ['800–899', 'Unassigned', 'No Codex class uses this band', '—'],
+  ['900–999', 'Glazing agents, gases and sweeteners', 'Aspartame (951), saccharin (954)', 'E900–E999'],
+  ['1000–1599', 'Additional additives', 'Pullulan (1204), triethyl citrate (1505)', 'E1000–E1599'],
+];
+
+const commonCodes = [
+  ['100', 'Curcumin', 'Colour', 'E100'],
+  ['102', 'Tartrazine', 'Colour', 'E102'],
+  ['110', 'Sunset Yellow FCF', 'Colour', 'E110'],
+  ['120', 'Cochineal and carmines', 'Colour', 'E120'],
+  ['150a', 'Caramel I, plain', 'Colour', 'E150a'],
+  ['160a', 'Carotenes', 'Colour', 'E160a'],
+  ['171', 'Titanium dioxide', 'Colour', 'E171'],
+  ['200', 'Sorbic acid', 'Preservative', 'E200'],
+  ['202', 'Potassium sorbate', 'Preservative', 'E202'],
+  ['211', 'Sodium benzoate', 'Preservative', 'E211'],
+  ['220', 'Sulphur dioxide', 'Preservative, antioxidant', 'E220'],
+  ['250', 'Sodium nitrite', 'Preservative', 'E250'],
+  ['300', 'Ascorbic acid', 'Antioxidant', 'E300'],
+  ['322', 'Lecithins', 'Emulsifier', 'E322'],
+  ['330', 'Citric acid', 'Acidity regulator', 'E330'],
+  ['407', 'Carrageenan', 'Thickener', 'E407'],
+  ['412', 'Guar gum', 'Thickener', 'E412'],
+  ['415', 'Xanthan gum', 'Thickener', 'E415'],
+  ['440', 'Pectin', 'Gelling agent', 'E440'],
+  ['471', 'Mono- and diglycerides of fatty acids', 'Emulsifier', 'E471'],
+  ['621', 'Monosodium glutamate', 'Flavour enhancer', 'E621'],
+  ['627', 'Disodium guanylate', 'Flavour enhancer', 'E627'],
+  ['631', 'Disodium inosinate', 'Flavour enhancer', 'E631'],
+  ['951', 'Aspartame', 'Sweetener', 'E951'],
+  ['954', 'Saccharin and its salts', 'Sweetener', 'E954'],
+  ['968', 'Erythritol', 'Sweetener', 'E968'],
+];
+
+const sourcesNote = `
+  <strong>How this page was checked.</strong>
+  Number ranges and additive names follow the Codex
+  <a href="https://www.fao.org/fao-who-codexalimentarius/sh-proxy/en/?lnk=1&amp;url=https%253A%252F%252Fworkspace.fao.org%252Fsites%252Fcodex%252FStandards%252FCXG%2B36-1989%252FCXG_036e.pdf" target="_blank" rel="noopener noreferrer">Class Names and the International Numbering System for Food Additives (CXG 36-1989)</a>,
+  with safety evaluations from
+  <a href="https://www.who.int/groups/joint-fao-who-expert-committee-on-food-additives-(jecfa)/database" target="_blank" rel="noopener noreferrer">JECFA</a>
+  and EU authorisations from
+  <a href="https://eur-lex.europa.eu/eli/reg/2008/1333/oj" target="_blank" rel="noopener noreferrer">Regulation (EC) 1333/2008</a>.
+  Background reading:
+  <a href="https://copperpod.medium.com/introduction-to-international-numbering-system-ins-for-food-additives-b89fe53d16af" target="_blank" rel="noopener noreferrer">Copperpod IP, “Introduction to International Numbering System (INS) for Food Additives”</a>.
+  Found an error? <a href="/contact/">Report it here</a> and we will correct the page.
+`;
+---
+
+<GuideLayout
+  guide={guide}
+  toc={toc}
+  faqs={faqs}
+  toolHref="#quick-reference"
+  toolLabel="Look up a common INS code"
+  ctaCopy="Short on time? Jump straight to the table of the codes that appear most often on packaged food."
+  subject="International Numbering System for food additives"
+  sources={sourcesNote}
+>
+  <h2 id="what-it-is">What the International Numbering System is</h2>
+
+  <div class="answer-box">
+    <p>
+      The <strong>International Numbering System (INS) for Food Additives</strong> is a global numerical scheme managed by the
+      <strong>Codex Alimentarius Commission</strong>, the food standards body established jointly by the FAO and the WHO in 1963.
+      It gives every food additive a short number — INS 102, INS 211, INS 322 — so that a product label can identify an ingredient
+      without printing a long chemical name.
+    </p>
+  </div>
+
+  <p>
+    Codex publishes the scheme as a single reference list, <em>Class Names and the International Numbering System for Food Additives</em>
+    (CXG 36-1989). The list pairs each number with an additive’s name, its technical function and the synonyms a manufacturer might use
+    instead. It is deliberately open-ended: additives are inserted as they are assessed and removed when they fall out of use, which is why
+    older code lists and newer ones do not match line for line.
+  </p>
+
+  <p>
+    The closest relative is the European <strong>E-number</strong> system. Both use the same three- and four-digit blocks, and for the great
+    majority of additives the digits are identical — INS 102 is E102, INS 211 is E211. The difference is scope and legal standing: E numbers
+    exist only for additives authorised in the European Union, while INS covers additives traded internationally, including many that no EU
+    member state permits.
+  </p>
+
+  <h2 id="why-numbers">Why additives get numbers instead of names</h2>
+
+  <p>
+    A chemical name such as <em>sodium hydrogen carbonate</em> or <em>mono- and diglycerides of fatty acids</em> takes 20 to 40 characters
+    to print. On a 40 mm-wide ingredients panel, translated into a language the designer did not plan for, that is a typographic problem
+    before it is a chemistry one. Numbers solve it in three ways:
+  </p>
+
+  <ul>
+    <li><strong>They fit.</strong> “Colour (INS 102)” reads in the same space as a brand name, and stays legible at 6 pt.</li>
+    <li><strong>They travel.</strong> A number needs no translation. The same code means the same substance on a label in Nairobi, Dubai and Chennai.</li>
+    <li><strong>They group.</strong> A single number can stand for a family of related compounds, so four grades of caramel colour are covered by 150a to 150d rather than four separate chemical descriptions.</li>
+  </ul>
+
+  <p>
+    The trade-off is that a number is opaque to anyone who has not memorised the list. That is the reason ingredient panels usually print the
+    function alongside the code — “preservative (INS 211)”, “colour (INS 102)” — so a shopper can at least tell what job the additive is doing.
+  </p>
+
+  <h2 id="anatomy">How to read an INS number</h2>
+
+  <p>
+    An INS identifier is three or four digits, sometimes followed by a letter or a Roman numeral. Read it in two parts: the opening digits place
+    the additive in a functional class — the first digit for a three-digit code, the first two for a four-digit code — and the digits that follow
+    identify the specific substance.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Written as</th><th>Parts</th><th>What it identifies</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>INS 102</code></td><td>Class 1, item 02</td><td>Tartrazine, a synthetic yellow colour</td></tr>
+      <tr><td><code>INS 211</code></td><td>Class 2, item 11</td><td>Sodium benzoate, a preservative</td></tr>
+      <tr><td><code>INS 150a</code></td><td>Family 150, variant a</td><td>Caramel I, plain — the first of four caramel classes</td></tr>
+      <tr><td><code>INS 500(ii)</code></td><td>Family 500, salt ii</td><td>Sodium hydrogen carbonate, the second of the sodium carbonates</td></tr>
+      <tr><td><code>INS 1505</code></td><td>Class 15, item 05</td><td>Triethyl citrate, a carrier and humectant</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note">
+    INS numbers are not unique per molecule. One number can cover a group of similar compounds, and a compound that is marketed in several
+    salt forms can carry a shared family number with a numeral for each salt. When you look a code up, read the full entry rather than
+    assuming a single chemical.
+  </p>
+
+  <h2 id="ranges">INS number ranges by additive class</h2>
+
+  <p>
+    The blocks are the fastest way to guess what an unfamiliar code does. Memorise the leading digit and you can classify an additive before
+    you look it up. The E-number blocks run in parallel, which is why the two columns line up.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>INS range</th><th>Functional class</th><th>Typical entries</th><th>E range</th></tr>
+    </thead>
+    <tbody>
+      {ranges.map((row) => (
+        <tr>
+          <td><code>{row[0]}</code></td>
+          <td>{row[1]}</td>
+          <td>{row[2]}</td>
+          <td><code>{row[3]}</code></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p>
+    The blocks are a guide, not a law. Many additives perform several functions, so a substance filed under acidity regulators may also act as a
+    preservative or a sequestrant, and Codex says plainly that no exclusive class range can be guaranteed. Also note the gap: nothing is assigned
+    between 800 and 899, and the 700 block is a legacy slot for antibiotics that current listings leave empty.
+  </p>
+
+  <h2 id="e-numbers">INS numbers versus E numbers</h2>
+
+  <p>
+    The two schemes are often described as equivalent, which is close enough for shopping and wrong for compliance. A like-for-like table makes the
+    difference visible:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th></th><th>INS</th><th>E number</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Publisher</strong></td><td>Codex Alimentarius Commission (FAO and WHO)</td><td>European Food Safety Authority and the European Commission</td></tr>
+      <tr><td><strong>Legal force</strong></td><td>Reference standard; adopted voluntarily by national regulators</td><td>Binding in EU law once an additive is authorised</td></tr>
+      <tr><td><strong>Coverage</strong></td><td>Additives in international trade, including ones the EU does not permit</td><td>Only additives authorised for use in the EU</td></tr>
+      <tr><td><strong>Prefix</strong></td><td><code>INS</code> before the digits</td><td><code>E</code> before the digits</td></tr>
+      <tr><td><strong>Same substance</strong></td><td><code>INS 211</code> sodium benzoate</td><td><code>E211</code> sodium benzoate</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Two practical consequences follow. First, a code that appears in the INS list does not automatically hold an E number — the EU authorisation
+    is a separate decision, and some internationally traded additives have never been approved there. Second, an additive can carry an E number
+    while its INS entry is written differently, particularly where the EU split a family into finer sub-numbers than Codex did.
+  </p>
+
+  <h2 id="safety">What an INS number does and does not tell you about safety</h2>
+
+  <p>
+    An INS number answers “which substance is this?”. It does not answer “is this safe for me?”. Those questions are handled by different bodies,
+    and keeping them apart matters when you read a label.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Toxicology sits with JECFA.</strong> The Joint FAO/WHO Expert Committee on Food Additives reviews the evidence and sets an
+      acceptable daily intake (ADI) — the amount that can be consumed every day over a lifetime without appreciable risk. Aspartame, for example,
+      has an ADI of 40 mg per kilogram of body weight per day, a figure JECFA reaffirmed in 2023.
+    </li>
+    <li>
+      <strong>Use levels sit with the Codex General Standard for Food Additives.</strong> The GSFA sets maximum concentrations per food category,
+      so the same additive may be permitted at 200 mg/kg in one product and prohibited in another.
+    </li>
+    <li>
+      <strong>Market access sits with national regulators.</strong> India applies the FSSAI Food Safety and Standards (Food Products Standards and
+      Food Additives) Regulations; the EU applies Regulation 1333/2008; the United States uses the FDA’s own approved and GRAS lists.
+    </li>
+  </ul>
+
+  <p>
+    Regulators disagree, and the disagreements are visible in the numbering. <strong>INS 171</strong>, titanium dioxide, remains on the Codex list,
+    but the European Union stopped authorising it as a food additive in 2022 after EFSA concluded that genotoxicity could not be ruled out. Sulphites
+    are another case worth knowing: because they can trigger reactions in sensitive people, Codex requires declaration when sulphur dioxide and its
+    salts (INS 220 to 228) reach 10 mg/kg or more, alongside the eight other allergen groups — gluten-containing cereals, crustacea, eggs, fish,
+    peanuts, soybeans, milk and tree nuts.
+  </p>
+
+  <h2 id="on-a-label">Reading a food label that uses INS codes</h2>
+
+  <p>
+    Ingredient panels are written to a formula: ingredients in descending order of weight, additives inside the ingredient they were added with,
+    and the functional class in brackets before the name or code. A five-step read handles almost every pack.
+  </p>
+
+  <ol>
+    <li><strong>Find the bracket.</strong> “Colour (INS 102)” gives you the job first, then the identity. If the label prints only a number, the class digit is your fallback.</li>
+    <li><strong>Group by leading digit.</strong> A 2xx code is a preservative, a 3xx is usually an antioxidant or acidity regulator, a 6xx is almost always a flavour enhancer.</li>
+    <li><strong>Watch for families.</strong> A letter suffix such as 150c tells you which caramel class was used; the safety profile can differ between variants.</li>
+    <li><strong>Check the allergen statement separately.</strong> Codes 220 to 228 indicate sulphites, which must be declared above the threshold, and lecithin (322) is usually soy-derived.</li>
+    <li><strong>Compare like with like.</strong> Two similar products often share a base formula and differ only in colours, preservatives and sweeteners — the codes are where the difference sits.</li>
+  </ol>
+
+  <p>
+    Doing that by hand is fine for one product and tedious in an aisle with two similar packs in each hand. If you would rather not memorise the
+    blocks, <a href="https://www.thefoodscanner.com/">The Food Scanner</a> reads an ingredients panel from a phone photo and returns the name,
+    functional class and acceptable daily intake behind each INS and E code, along with any restriction applied outside India. The same list works in
+    reverse: paste a single code into its checker and it names the additive without a shop visit.
+  </p>
+
+  <p class="note">
+    A number on a pack is not a verdict. The useful question is rarely “does this product contain additives?” — most packaged food does — but
+    “which additives, at what dose, and does that dose matter for me?”. ADIs are expressed per kilogram of body weight per day, so the same product
+    carries a different share of the limit for a child and an adult.
+  </p>
+
+  <h2 id="quick-reference">Common INS codes, and what they mean</h2>
+
+  <p>
+    These are the codes that turn up most often on packaged food in markets that print INS numbers. The E column is included because the digits are
+    usually identical, so the same lookup serves a European pack.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>INS</th><th>Additive</th><th>Function</th><th>E number</th></tr>
+    </thead>
+    <tbody>
+      {commonCodes.map((row) => (
+        <tr>
+          <td><code>{row[0]}</code></td>
+          <td>{row[1]}</td>
+          <td>{row[2]}</td>
+          <td><code>{row[3]}</code></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p>
+    Note how the class digit holds across the table: 1xx codes are colours, 2xx preservatives, 3xx antioxidants and acidity regulators, 4xx
+    thickeners and emulsifiers, 6xx flavour enhancers and 9xx sweeteners. Once that pattern is in place, an unfamiliar code still tells you what
+    kind of additive you are looking at.
+  </p>
+
+  <h2 id="other-systems">Where the INS sits among other numbering systems</h2>
+
+  <p>
+    An INS number belongs to a family of short identifiers that trade precision for usability. Each one answers a different question:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Scheme</th><th>Example</th><th>Question it answers</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>INS</td><td><code>INS 211</code></td><td>Which additive is this, internationally?</td></tr>
+      <tr><td>E number</td><td><code>E211</code></td><td>Is it authorised in the EU, and under which entry?</td></tr>
+      <tr><td>CAS Registry Number</td><td><code>532-32-1</code></td><td>Which exact chemical substance is this?</td></tr>
+      <tr><td>Harmonised System code</td><td><code>2916.31</code></td><td>How is the shipment classified for customs?</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    The design is the same one that runs through every numbering scheme in this catalog: fixed-width fields, a leading block that carries the
+    classification, and a trailing element that picks out the individual item. The Indian and International scales do it with digit grouping,
+    where the comma position tells you which naming system a document uses; INS does it with the class digit, where the first number tells you the
+    functional family. Neither code is a quantity, so nothing here converts arithmetically — but the same habit of reading a number as
+    <em>structure first, value second</em> is what makes both easy to work with. The <a href="/knowledge-catalog/number-system-conversion-table/">number system conversion table</a>
+    shows the same idea applied to bases, and the <a href="/">converter</a> handles the arithmetic when a label, a report or a data set throws a
+    number at you that needs translating.
+  </p>
+
+  <h3>The one-line summary</h3>
+  <p>
+    The INS is a Codex-maintained index that turns a chemical name into a three- or four-digit code, with the leading digit marking the additive
+    class and the rest identifying the substance. It matches E numbers for most additives, carries no safety judgement of its own, and is the reason
+    a small ingredients panel can name a preservative in five characters instead of thirty.
+  </p>
+</GuideLayout>

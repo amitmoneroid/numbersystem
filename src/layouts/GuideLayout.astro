@@ -22,6 +22,12 @@ interface Props {
   toolHref?: string;
   /** Label for the primary CTA. */
   toolLabel?: string;
+  /** Optional HTML for the “How this page was checked” note, when the default sources do not apply. */
+  sources?: string;
+  /** Optional supporting line under the sidebar CTA eyebrow. */
+  ctaCopy?: string;
+  /** Optional subject for the Article schema's `about`, when the guide is not about radix conversion. */
+  subject?: string;
 }
 
 const {
@@ -31,6 +37,9 @@ const {
   answer = guide.answer,
   toolHref = '#base-converter',
   toolLabel = 'Open the converter',
+  sources,
+  ctaCopy = 'Run the conversion while you read — the tool shows both the answer and the working.',
+  subject = 'number system and radix conversion',
 } = Astro.props;
 
 const canonical = `https://numbersystemconverter.com${guideHref(guide.slug)}`;
@@ -61,7 +70,7 @@ const articleSchema = {
   isPartOf: { '@id': 'https://numbersystemconverter.com/#website' },
   about: {
     '@type': 'DefinedTerm',
-    name: 'number system and radix conversion',
+    name: subject,
     inDefinedTermSet: 'https://numbersystemconverter.com/knowledge-catalog/',
   },
   image: 'https://numbersystemconverter.com/og-image.png',
@@ -121,7 +130,7 @@ const articleSchema = {
 
         <aside class="guide-cta card shadow-level-2">
           <span class="eyebrow">Try it</span>
-          <p class="cta-copy">Run the conversion while you read — the tool shows both the answer and the working.</p>
+          <p class="cta-copy">{ctaCopy}</p>
           <a class="cta-btn" href={toolHref}>{toolLabel}</a>
           <a class="cta-link" href="/knowledge-catalog/">Browse all guides →</a>
         </aside>
@@ -144,13 +153,19 @@ const articleSchema = {
         <slot />
 
         <aside class="guide-sources" aria-label="How this page was checked">
-          <strong>How this page was checked.</strong>
-          Every example was recomputed against the on-page converter before publication.
-          Scale conventions follow
-          <a href="https://www.iso.org/standard/76921.html" target="_blank" rel="noopener noreferrer">ISO 80000-1</a>;
-          binary fraction limits follow
-          <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener noreferrer">IEEE 754</a>.
-          Found an error? <a href="/contact/">Report it here</a> and we will correct the page.
+          {sources ? (
+            <Fragment set:html={sources} />
+          ) : (
+            <Fragment>
+              <strong>How this page was checked.</strong>
+              Every example was recomputed against the on-page converter before publication.
+              Scale conventions follow
+              <a href="https://www.iso.org/standard/76921.html" target="_blank" rel="noopener noreferrer">ISO 80000-1</a>;
+              binary fraction limits follow
+              <a href="https://standards.ieee.org/ieee/754/6210/" target="_blank" rel="noopener noreferrer">IEEE 754</a>.
+              Found an error? <a href="/contact/">Report it here</a> and we will correct the page.
+            </Fragment>
+          )}
         </aside>
       </article>
     </div>
