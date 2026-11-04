@@ -1,0 +1,487 @@
+---
+// Translated home pages: /es/, /fr/, /de/, /pt/, /it/.
+// The English home stays at / and keeps its existing URLs.
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import LocalizedNamingConverter from '../../components/LocalizedNamingConverter.astro';
+import FAQ from '../../components/FAQ.astro';
+import { localizedHome } from '../../i18n/home';
+import {
+  nonDefaultLocales,
+  localeMeta,
+  SITE_URL,
+  type Locale,
+} from '../../i18n/routing';
+
+export function getStaticPaths() {
+  return nonDefaultLocales.map((locale) => ({
+    params: { lang: locale },
+    props: { locale },
+  }));
+}
+
+interface Props {
+  locale: Exclude<Locale, 'en'>;
+}
+
+const { locale } = Astro.props;
+const t = localizedHome[locale];
+const meta = localeMeta[locale];
+const canonical = `${SITE_URL}${meta.path}`;
+const faqItems = t.faq.items.map((item) => ({
+  question: item.q,
+  answer: item.a,
+}));
+---
+
+<Layout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  canonicalURL={canonical}
+  keywords={t.keywords}
+  locale={locale}
+  includeAppSchema
+  faqItems={faqItems}
+>
+  <Navbar locale={locale} />
+
+  <main id="main">
+    <!-- ═══════════════ CONVERTER HERO ═══════════════ -->
+    <section class="lh-hero mesh-gradient" id="converter">
+      <div class="page-container lh-container">
+        <span class="eyebrow">{t.hero.eyebrow}</span>
+        <h1 class="lh-title">{t.hero.h1}</h1>
+        <p class="lh-lead">{t.hero.lead}</p>
+        <ul class="lh-badges" aria-label={t.steps.eyebrow}>
+          {t.hero.badges.map((badge) => <li>{badge}</li>)}
+        </ul>
+
+        <div class="lh-converter-wrap">
+          <div id="naming">
+            <LocalizedNamingConverter locale={locale} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ STEP-BY-STEP METHOD ═══════════════ -->
+    <section id="method" class="band-canvas section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">{t.steps.eyebrow}</span>
+          <h2 class="display-lg">{t.steps.h2}</h2>
+          <p class="body-md">{t.steps.lead}</p>
+        </div>
+
+        <div class="lh-grid-3">
+          {t.steps.cards.map((card) => (
+            <article class="lh-card card shadow-level-3">
+              <h3 class="display-sm">{card.title}</h3>
+              <p class="body-sm">{card.body}</p>
+              <code>{card.example}</code>
+            </article>
+          ))}
+        </div>
+
+        <div class="lh-answer">
+          <h3 class="display-sm">{t.steps.answerTitle}</h3>
+          {t.steps.answer.map((paragraph) => (
+            <p class="body-sm" set:html={paragraph} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SCALE NAMES (LONG VS SHORT) ═══════════════ -->
+    <section id="scales" class="band-ink section-band">
+      <div class="page-container">
+        <div class="section-header section-header-dark">
+          <span class="eyebrow" style="color: rgba(255,255,255,0.5);">{t.scales.eyebrow}</span>
+          <h2 class="display-lg" style="color: #fff;">{t.scales.h2}</h2>
+          <p class="body-md" style="color: rgba(255,255,255,0.65);">{t.scales.lead}</p>
+        </div>
+
+        <div class="lh-table-scroll">
+          <table class="reference-table">
+            <thead>
+              <tr>
+                {t.scales.columns.map((column) => <th scope="col">{column}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {t.scales.rows.map((row) => (
+                <tr>
+                  <td class="scale-name">{row.power}</td>
+                  <td>{row.local}</td>
+                  <td>{row.english}</td>
+                  <td class="num-intl">{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lh-warning">
+          <h3 class="display-sm">{t.scales.warningTitle}</h3>
+          <p class="body-sm">{t.scales.warning}</p>
+        </div>
+
+        <div class="lh-anchors">
+          {t.scales.anchors.map((anchor) => (
+            <p class="lh-anchor">{anchor}</p>
+          ))}
+        </div>
+        <p class="lh-anchors-note body-sm">{t.scales.anchorsNote}</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 0–15 CONVERSION TABLE ═══════════════ -->
+    <section id="reference" class="band-canvas-soft section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">{t.table.eyebrow}</span>
+          <h2 class="display-lg">{t.table.h2}</h2>
+          <p class="body-md">{t.table.lead}</p>
+        </div>
+
+        <div class="lh-table-wrap card shadow-level-3">
+          <table class="lh-table">
+            <caption>{t.table.caption}</caption>
+            <thead>
+              <tr>
+                {t.table.columns.map((column) => <th scope="col">{column}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 16 }, (_, n) => (
+                <tr>
+                  <td>{n}</td>
+                  <td>{n.toString(2).padStart(4, '0')}</td>
+                  <td>{n.toString(8)}</td>
+                  <td>{n.toString(16).toUpperCase()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ FAQ ═══════════════ -->
+    <FAQ items={faqItems} heading={t.faq.heading} intro={t.faq.intro} />
+
+    <!-- ═══════════════ RELATED GUIDES ═══════════════ -->
+    <section class="band-canvas-soft section-band lh-related">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">{t.related.eyebrow}</span>
+          <h2 class="display-lg">{t.related.h2}</h2>
+          <p class="body-md">{t.related.lead}</p>
+        </div>
+        <div class="lh-grid-3">
+          {t.related.links.map((link) => (
+            <a class="lh-link-card card shadow-level-2" href={link.href} hreflang="en">
+              <span>{link.label}</span>
+              <span class="lh-link-arrow" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer locale={locale} />
+</Layout>
+
+<style>
+  .section-band {
+    padding-block: var(--spacing-4xl);
+  }
+
+  .section-header {
+    max-width: 760px;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .section-header h2 {
+    margin: var(--spacing-xs) 0 var(--spacing-sm);
+    color: var(--color-ink);
+  }
+
+  .section-header p {
+    color: var(--color-body);
+    margin: 0;
+  }
+
+  .card {
+    background-color: var(--color-canvas);
+    border-radius: var(--radius-lg);
+  }
+
+  #converter,
+  #method,
+  #naming,
+  #scales,
+  #reference {
+    scroll-margin-top: 80px;
+  }
+
+  /* ── Hero ── */
+  .lh-hero {
+    padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-4xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-canvas-soft);
+  }
+
+  .lh-container {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+  }
+
+  .lh-title {
+    font-size: 40px;
+    line-height: 1.08;
+    letter-spacing: -1.6px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: var(--spacing-sm) auto var(--spacing-md);
+    max-width: 30ch;
+  }
+
+  .lh-lead {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--color-body);
+    max-width: 66ch;
+    margin: 0 auto;
+  }
+
+  .lh-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: var(--spacing-md) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lh-badges li {
+    padding: 3px 10px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    background: var(--color-canvas);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-body);
+  }
+
+  .lh-converter-wrap {
+    max-width: 760px;
+    margin: var(--spacing-2xl) auto 0;
+    text-align: left;
+  }
+
+  /* ── Cards / grids ── */
+  .lh-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .lh-card {
+    padding: var(--spacing-lg);
+  }
+
+  .lh-card h3 {
+    color: var(--color-ink);
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .lh-card p {
+    color: var(--color-body);
+    margin: 0 0 var(--spacing-sm);
+    line-height: 1.55;
+  }
+
+  .lh-card code {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--color-hairline);
+    border-radius: 4px;
+    background: var(--color-canvas-soft);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink);
+  }
+
+  .lh-answer {
+    max-width: 760px;
+    margin: var(--spacing-xl) auto 0;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-link-bg-soft);
+    border-left: 3px solid var(--color-link);
+    border-radius: var(--radius-sm);
+  }
+
+  .lh-answer h3 {
+    color: var(--color-ink);
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .lh-answer p {
+    color: var(--color-body);
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .lh-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Long-scale table ── */
+  .lh-table-scroll {
+    overflow-x: auto;
+  }
+
+  .lh-warning {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--color-cyan);
+    border-radius: var(--radius-sm);
+  }
+
+  .lh-warning h3 {
+    color: #fff;
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .lh-warning p {
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .lh-anchors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+  }
+
+  .lh-anchor {
+    margin: 0;
+    padding-top: var(--spacing-xs);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #ededed;
+  }
+
+  .lh-anchors-note {
+    margin: var(--spacing-sm) 0 0;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* ── 0–15 table ── */
+  .lh-table-wrap {
+    overflow-x: auto;
+    padding: var(--spacing-sm);
+  }
+
+  .lh-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .lh-table caption {
+    caption-side: top;
+    text-align: left;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-mute);
+  }
+
+  .lh-table th {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--color-hairline);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    color: var(--color-mute);
+    white-space: nowrap;
+  }
+
+  .lh-table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--color-hairline);
+    color: var(--color-body);
+    font-family: var(--font-mono);
+  }
+
+  .lh-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ── Related guides ── */
+  .lh-related {
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .lh-link-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    color: var(--color-ink);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .lh-link-card:hover {
+    transform: translateY(-2px);
+    color: var(--color-ink);
+  }
+
+  .lh-link-arrow {
+    color: var(--color-link);
+  }
+
+  @media (max-width: 900px) {
+    .lh-grid-3 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .lh-hero {
+      padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-3xl);
+    }
+
+    .lh-title {
+      font-size: 30px;
+      letter-spacing: -1.1px;
+    }
+
+    .lh-lead {
+      font-size: 16px;
+      line-height: 25px;
+    }
+
+    .section-band {
+      padding-block: var(--spacing-3xl);
+    }
+  }
+</style>

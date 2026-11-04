@@ -1,41 +1,70 @@
 ---
 // BaseConverter.astro — radix converter (base 2–36) that prints the working.
-// All maths runs client-side; no data leaves the browser.
+// All maths runs client-side; no data leaves the browser. Copy is locale-aware
+// so the same component can render on the translated home pages.
+import { baseConverterUi } from '../i18n/baseConverter';
+import { defaultLocale, isLocale, localeMeta } from '../i18n/routing';
+
+interface Props {
+  /** Locale used for all labels and messages. Defaults to English. */
+  locale?: string;
+}
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : defaultLocale;
+const ui = baseConverterUi[locale];
 const bases = Array.from({ length: 35 }, (_, i) => i + 2);
-const labelFor = (b: number) =>
-  b === 2 ? '2 — binary' :
-  b === 8 ? '8 — octal' :
-  b === 10 ? '10 — decimal' :
-  b === 16 ? '16 — hexadecimal' :
-  b === 20 ? '20 — vigesimal' :
-  b === 60 ? '60 — sexagesimal' :
+const baseLabel = (b: number) =>
+  b === 2 ? `2 — ${ui.labels.binary}` :
+  b === 8 ? `8 — ${ui.labels.octal}` :
+  b === 10 ? `10 — ${ui.labels.decimal}` :
+  b === 16 ? `16 — ${ui.hexSelectLabel}` :
   `${b}`;
+
+const fill = (template: string, values: Record<string, string | number>) =>
+  template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ''));
+
+const initialNote = fill(ui.noteTemplate, {
+  raw: '1',
+  from: 10,
+  result: '1',
+  to: 2,
+  decimal: 1,
+});
+const initialStepTitle = fill(ui.divideTitle, { step: 1, to: 2 });
+const initialRead = fill(ui.readRemainders, { int: '<code>1</code>' });
+const presetValues = [
+  { value: '156', from: '10', to: '2' },
+  { value: '10011100', from: '2', to: '10' },
+  { value: '255', from: '10', to: '16' },
+  { value: '1A.8', from: '16', to: '10' },
+  { value: '777', from: '8', to: '2' },
+];
 ---
 
-<div class="base-converter card shadow-level-3" id="base-converter">
+<div class="base-converter card shadow-level-3" id="base-converter" lang={localeMeta[locale].htmlLang}>
   <div class="bc-header">
-    <span class="eyebrow">Base converter calculator</span>
-    <h2 class="display-sm">Convert any base from 2 to 36 — with every step shown</h2>
+    <span class="eyebrow">{ui.eyebrow}</span>
+    <h2 class="display-sm">{ui.heading}</h2>
   </div>
 
   <div class="bc-grid">
     <div class="bc-field bc-value-field">
-      <label for="bcValue" class="bc-label">Value</label>
+      <label for="bcValue" class="bc-label">{ui.valueLabel}</label>
       <input id="bcValue" class="bc-input code" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false" />
     </div>
     <div class="bc-field">
-      <label for="bcFrom" class="bc-label">From base</label>
+      <label for="bcFrom" class="bc-label">{ui.fromLabel}</label>
       <select id="bcFrom" class="bc-select">
         {bases.map((b) => (
-          <option value={b} selected={b === 10}>{labelFor(b)}</option>
+          <option value={b} selected={b === 10}>{baseLabel(b)}</option>
         ))}
       </select>
     </div>
     <div class="bc-field">
-      <label for="bcTo" class="bc-label">To base</label>
+      <label for="bcTo" class="bc-label">{ui.toLabel}</label>
       <select id="bcTo" class="bc-select">
         {bases.map((b) => (
-          <option value={b} selected={b === 2}>{labelFor(b)}</option>
+          <option value={b} selected={b === 2}>{baseLabel(b)}</option>
         ))}
       </select>
     </div>
@@ -44,50 +73,69 @@ const labelFor = (b: number) =>
   <p id="bcError" class="bc-error" role="alert" hidden></p>
 
   <div class="bc-result" id="bcResult" aria-live="polite">
-    <div class="bc-result-label">Result</div>
+    <div class="bc-result-label">{ui.resultLabel}</div>
     <div class="bc-result-row">
       <output class="bc-result-value code" id="bcOutput">1</output>
-      <span class="bc-result-base" id="bcOutputBase">base 2</span>
+      <span class="bc-result-base" id="bcOutputBase">{ui.baseWord} 2</span>
       <div class="bc-result-actions">
-        <button type="button" class="bc-copy" id="bcLink" aria-label="Copy a link to this conversion">Link</button>
-        <button type="button" class="bc-copy" id="bcCopy" aria-label="Copy result">Copy</button>
+        <button type="button" class="bc-copy" id="bcLink" aria-label={ui.linkAria}>{ui.link}</button>
+        <button type="button" class="bc-copy" id="bcCopy" aria-label={ui.copyAria}>{ui.copy}</button>
       </div>
     </div>
-    <div class="bc-result-note body-sm" id="bcNote">1 in base 10 = 1 in base 2 (decimal value 1)</div>
+    <div class="bc-result-note body-sm" id="bcNote">{initialNote}</div>
   </div>
 
-  <div class="bc-allbases" id="bcAllBases" aria-label="The same value in binary, octal, decimal and hexadecimal">
-    <div class="bc-allbase"><span>Binary</span><code id="bcAllBin">1</code></div>
-    <div class="bc-allbase"><span>Octal</span><code id="bcAllOct">1</code></div>
-    <div class="bc-allbase"><span>Decimal</span><code id="bcAllDec">1</code></div>
-    <div class="bc-allbase"><span>Hex</span><code id="bcAllHex">1</code></div>
+  <div class="bc-allbases" id="bcAllBases" aria-label={ui.allBasesAria}>
+    <div class="bc-allbase"><span>{ui.labels.binary}</span><code id="bcAllBin">1</code></div>
+    <div class="bc-allbase"><span>{ui.labels.octal}</span><code id="bcAllOct">1</code></div>
+    <div class="bc-allbase"><span>{ui.labels.decimal}</span><code id="bcAllDec">1</code></div>
+    <div class="bc-allbase"><span>{ui.labels.hex}</span><code id="bcAllHex">1</code></div>
   </div>
 
-  <div class="bc-presets" aria-label="Example conversions">
-    <span class="bc-presets-label">Try:</span>
-    <button type="button" class="bc-chip" data-value="156" data-from="10" data-to="2">156₁₀ → binary</button>
-    <button type="button" class="bc-chip" data-value="10011100" data-from="2" data-to="10">10011100₂ → decimal</button>
-    <button type="button" class="bc-chip" data-value="255" data-from="10" data-to="16">255 → hex</button>
-    <button type="button" class="bc-chip" data-value="1A.8" data-from="16" data-to="10">1A.8₁₆ → decimal</button>
-    <button type="button" class="bc-chip" data-value="777" data-from="8" data-to="2">777₈ → binary</button>
+  <div class="bc-presets" aria-label={ui.presetsLabel}>
+    <span class="bc-presets-label">{ui.presetsLabel}</span>
+    {presetValues.map((preset, index) => (
+      <button
+        type="button"
+        class="bc-chip"
+        data-value={preset.value}
+        data-from={preset.from}
+        data-to={preset.to}
+      >{ui.presets[index]}</button>
+    ))}
   </div>
 
   <div class="bc-steps" id="bcSteps">
     <div class="bc-step-block">
-      <h3 class="bc-step-title">Step 1 — divide repeatedly by 2</h3>
+      <h3 class="bc-step-title">{initialStepTitle}</h3>
       <ol class="bc-step-list">
-        <li><code>1 ÷ 2 = 0, remainder <strong>1</strong> (1)</code></li>
+        <li><code>1 ÷ 2 = 0, {ui.remainderWord} <strong>1</strong> (1)</code></li>
       </ol>
-      <p class="bc-step-sum">Read the integer remainders bottom-to-top: <code>1</code>.</p>
+      <p class="bc-step-sum" set:html={initialRead} />
     </div>
   </div>
 
   <p class="bc-footnote body-sm">
-    Integers and fractions are both supported. Digits above 9 use A–F for bases 11–16 and A–Z for bases 17–36. Values are handled as JavaScript numbers, exact to 2⁵³ − 1 (about 9 quadrillion).
+    {ui.footnote}
   </p>
+
+  <script type="application/json" id="bc-i18n" set:html={JSON.stringify(ui)} />
 </div>
 
 <script>
+  import { baseConverterUi, type BaseConverterUi } from '../i18n/baseConverter';
+
+  const i18nElement = document.getElementById('bc-i18n');
+  const ui: BaseConverterUi = i18nElement?.textContent
+    ? (JSON.parse(i18nElement.textContent) as BaseConverterUi)
+    : baseConverterUi.en;
+
+  const fill = (
+    template: string,
+    values: Record<string, string | number>
+  ): string =>
+    template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ''));
+
   const valueInput = document.getElementById('bcValue') as HTMLInputElement;
   const fromSelect = document.getElementById('bcFrom') as HTMLSelectElement;
   const toSelect = document.getElementById('bcTo') as HTMLSelectElement;
@@ -208,14 +256,14 @@ const labelFor = (b: number) =>
 
     let n = intPart;
     if (n === 0) {
-      divRows.push('<li><code>0 ÷ ' + base + ' = 0, remainder 0</code></li>');
+      divRows.push('<li><code>0 ÷ ' + base + ' = 0, ' + ui.remainderWord + ' 0</code></li>');
       remainders.push('0');
     }
     while (n > 0) {
       const q = Math.floor(n / base);
       const r = n % base;
       divRows.push(
-        `<li><code>${n} ÷ ${base} = ${q}, remainder <strong>${r}</strong> (${DIGITS[r]})</code></li>`
+        `<li><code>${n} ÷ ${base} = ${q}, ${ui.remainderWord} <strong>${r}</strong> (${DIGITS[r]})</code></li>`
       );
       remainders.push(DIGITS[r]);
       n = q;
@@ -229,7 +277,7 @@ const labelFor = (b: number) =>
       const carry = Math.floor(product);
       const next = product - carry;
       fracRows.push(
-        `<li><code>${Number(f.toFixed(8))} × ${base} = ${Number(product.toFixed(8))} → carry <strong>${DIGITS[carry]}</strong>, remainder ${Number(next.toFixed(8))}</code></li>`
+        `<li><code>${Number(f.toFixed(8))} × ${base} = ${Number(product.toFixed(8))} → ${ui.carryWord} <strong>${DIGITS[carry]}</strong>, ${ui.remainderWord} ${Number(next.toFixed(8))}</code></li>`
       );
       fracDigits.push(DIGITS[carry]);
       f = next;
@@ -251,10 +299,20 @@ const labelFor = (b: number) =>
     const parsed = parseInBase(raw, fromBase);
 
     if (!parsed) {
+      const maxDigit = Math.min(fromBase - 1, 9);
+      const letters =
+        fromBase > 10
+          ? fill(ui.invalidLetters, { last: DIGITS[fromBase - 1] })
+          : '';
+      const digits = fill(ui.invalidDigits, { max: maxDigit, letters });
       errorEl.hidden = false;
-      errorEl.textContent = `“${raw}” is not a valid base-${fromBase} number. Use digits 0–${Math.min(fromBase - 1, 9)}${fromBase > 10 ? ` and letters A–${DIGITS[fromBase - 1]}` : ''}.`;
+      errorEl.textContent = fill(ui.invalidTemplate, {
+        raw,
+        from: fromBase,
+        digits,
+      });
       outputEl.textContent = '—';
-      noteEl.textContent = 'Fix the value to see the worked solution.';
+      noteEl.textContent = ui.fixValue;
       stepsEl.innerHTML = '';
       allBasesEl.hidden = true;
       return;
@@ -268,8 +326,14 @@ const labelFor = (b: number) =>
     const result = to.integerResult + (to.fracDigits.length ? '.' + to.fracDigits.join('') : '');
 
     outputEl.textContent = result;
-    outputBaseEl.textContent = `base ${toBase}`;
-    noteEl.textContent = `${raw.trim().toUpperCase()} in base ${fromBase} = ${result} in base ${toBase} (decimal value ${Number(decimal.toFixed(8))})`;
+    outputBaseEl.textContent = `${ui.baseWord} ${toBase}`;
+    noteEl.textContent = fill(ui.noteTemplate, {
+      raw: raw.trim().toUpperCase(),
+      from: fromBase,
+      result,
+      to: toBase,
+      decimal: Number(decimal.toFixed(8)),
+    });
 
     allBin.textContent = valueToBase(decimal, 2);
     allOct.textContent = valueToBase(decimal, 8);
@@ -291,29 +355,41 @@ const labelFor = (b: number) =>
     const fromBlock = fromIsDecimal
       ? (toIsDecimal
           ? `<div class="bc-step-block">
-               <h3 class="bc-step-title">Already decimal</h3>
-               <p class="bc-step-copy">Both bases are 10, so the value is unchanged: <code>${Number(decimal.toFixed(8))}</code>.</p>
+               <h3 class="bc-step-title">${ui.alreadyDecimalTitle}</h3>
+               <p class="bc-step-copy">${fill(ui.alreadyDecimalCopy, {
+                 decimal: `<code>${Number(decimal.toFixed(8))}</code>`,
+                 to: toBase,
+               })}</p>
              </div>`
           : '')
       : `<div class="bc-step-block">
-           <h3 class="bc-step-title">Step 1 — expand each digit by its positional weight (base ${fromBase})</h3>
+           <h3 class="bc-step-title">${fill(ui.expandTitle, { from: fromBase })}</h3>
            <ol class="bc-step-list">${from.rows.join('')}</ol>
-           <p class="bc-step-sum">Sum = <strong>${Number(decimal.toFixed(8))}</strong> in decimal.</p>
+           <p class="bc-step-sum">${fill(ui.sumTemplate, {
+             decimal: `<strong>${Number(decimal.toFixed(8))}</strong>`,
+           })}</p>
          </div>`;
 
     const toBlock = toIsDecimal
       ? (fromIsDecimal
           ? ''
           : `<div class="bc-step-block">
-               <h3 class="bc-step-title">Step 2 — the decimal value is the answer</h3>
-               <p class="bc-step-copy">Base ${toBase} is decimal, so no further division is needed.</p>
+               <h3 class="bc-step-title">${ui.decimalAnswerTitle}</h3>
+               <p class="bc-step-copy">${fill(ui.decimalAnswerCopy, { to: toBase })}</p>
              </div>`)
       : `<div class="bc-step-block">
-           <h3 class="bc-step-title">Step ${fromIsDecimal ? 1 : 2} — divide repeatedly by ${toBase}</h3>
+           <h3 class="bc-step-title">${fill(ui.divideTitle, { step: fromIsDecimal ? 1 : 2, to: toBase })}</h3>
            <ol class="bc-step-list">${to.divRows.join('')}${to.fracRows.join('')}</ol>
-           <p class="bc-step-sum">
-             Read the integer remainders bottom-to-top: <code>${to.integerResult}</code>${to.fracDigits.length ? `, then read the fraction carries top-to-bottom: <code>.${to.fracDigits.join('')}</code>` : ''}.
-           </p>
+           <p class="bc-step-sum">${
+             to.fracDigits.length
+               ? fill(ui.readRemaindersFraction, {
+                   int: `<code>${to.integerResult}</code>`,
+                   frac: `<code>.${to.fracDigits.join('')}</code>`,
+                 })
+               : fill(ui.readRemainders, {
+                   int: `<code>${to.integerResult}</code>`,
+                 })
+           }</p>
          </div>`;
 
     stepsEl.innerHTML = fromBlock + toBlock;
@@ -348,10 +424,10 @@ const labelFor = (b: number) =>
   copyBtn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(outputEl.textContent ?? '');
-      copyBtn.textContent = 'Copied';
-      window.setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+      copyBtn.textContent = ui.copied;
+      window.setTimeout(() => { copyBtn.textContent = ui.copy; }, 1200);
     } catch {
-      copyBtn.textContent = 'Select manually';
+      copyBtn.textContent = ui.selectManually;
     }
   });
 
@@ -362,10 +438,10 @@ const labelFor = (b: number) =>
     url.searchParams.set('to', toSelect.value);
     try {
       await navigator.clipboard.writeText(url.toString());
-      linkBtn.textContent = 'Link copied';
-      window.setTimeout(() => { linkBtn.textContent = 'Link'; }, 1400);
+      linkBtn.textContent = ui.linkCopied;
+      window.setTimeout(() => { linkBtn.textContent = ui.link; }, 1400);
     } catch {
-      linkBtn.textContent = 'Copy the URL above';
+      linkBtn.textContent = ui.copyUrl;
     }
   });
 

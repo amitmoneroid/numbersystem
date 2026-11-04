@@ -52,7 +52,7 @@ export const guides: Guide[] = [
   },
   {
     slug: 'number-system-conversion-calculator-with-solution',
-    h1: 'Number System Conversion Calculator With Solution',
+    h1: 'Number System Conversion Calculator With Solution — Number System Converter',
     metaTitle: 'Number System Conversion Calculator With Solution',
     description:
       'A converter that prints the full solution: division remainders, positional expansion, fractional steps and a benchmark against Indian and world scales.',
@@ -66,7 +66,7 @@ export const guides: Guide[] = [
   },
   {
     slug: 'number-system-conversion-pdf',
-    h1: 'Number System Conversion PDF',
+    h1: 'Number System Conversion PDF — Number System Converter',
     metaTitle: 'Number System Conversion PDF – Free Printable Chart',
     description:
       'Download a free 2-page number system conversion PDF: binary, octal, decimal and hex tables, powers of two, lakh and crore scales, world benchmarks.',
@@ -80,7 +80,7 @@ export const guides: Guide[] = [
   },
   {
     slug: 'base-converter-calculator',
-    h1: 'Base Converter Calculator',
+    h1: 'Base Converter Calculator — Number System Converter',
     metaTitle: 'Base Converter Calculator – Convert Base 2 to 36',
     description:
       'Convert between base 2 and base 36 with steps shown, including binary, octal, decimal, hex, fractions and world numbering benchmarks.',
@@ -94,7 +94,7 @@ export const guides: Guide[] = [
   },
   {
     slug: 'number-system-conversion-table',
-    h1: 'Number System Conversion Table',
+    h1: 'Number System Conversion Table — Number System Converter',
     metaTitle: 'Number System Conversion Table – Binary, Octal, Hex',
     description:
       'A complete 0–255 conversion table in decimal, binary, octal and hex, plus powers of two, lakh and crore scales and 16 world numbering systems.',
@@ -108,7 +108,7 @@ export const guides: Guide[] = [
   },
   {
     slug: 'international-numbering-system-food-additives',
-    h1: 'International Numbering System for Food Additives (INS)',
+    h1: 'International Numbering System for Food Additives (INS) and the Number System Converter',
     metaTitle: 'International Numbering System (INS) for Food Additives',
     description:
       'What the INS is, how to read an INS number on a food label, the code ranges behind INS 102 and INS 211, and how INS numbers compare with E numbers.',

@@ -1,50 +1,86 @@
 ---
-// Footer.astro — Vercel-style footer with site navigation
+// Footer.astro — Vercel-style footer with site navigation and language links.
+import {
+  defaultLocale,
+  isLocale,
+  localeMeta,
+  locales,
+  localizePath,
+} from '../i18n/routing';
+import { footerUi } from '../i18n/ui';
+
+interface Props {
+  /** Current page locale. Defaults to English. */
+  locale?: string;
+}
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : defaultLocale;
+const t = footerUi[locale];
+const languageOptions = locales.map((code) => ({
+  code,
+  meta: localeMeta[code],
+  href: localizePath('/', code),
+  current: code === locale,
+}));
 ---
 
 <footer class="footer">
   <div class="page-container footer-inner">
     <div class="footer-left">
-      <a href="/" class="footer-logo">
+      <a href={locale === defaultLocale ? '/' : `/${locale}/`} class="footer-logo">
         <span class="logo-mark-sm"></span>
         <span>NumSys</span>
       </a>
-      <p class="footer-pitch">A clear, fast number system converter built with clarity in mind.</p>
+      <p class="footer-pitch">{t.pitch}</p>
     </div>
     <div class="footer-nav">
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">Learn</h2>
+        <h2 class="footer-nav-heading">{t.learnHeading}</h2>
         <ul class="footer-nav-list">
-          <li><a href="/knowledge-catalog/">Knowledge Catalog</a></li>
-          <li><a href="/knowledge-catalog/number-system-converter-with-steps/">Converter with steps</a></li>
-          <li><a href="/knowledge-catalog/number-system-converter-online/">Converter online</a></li>
-          <li><a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">Calculator with solution</a></li>
-          <li><a href="/knowledge-catalog/base-converter-calculator/">Base converter calculator</a></li>
-          <li><a href="/knowledge-catalog/number-system-conversion-table/">Conversion table</a></li>
-          <li><a href="/knowledge-catalog/number-system-conversion-pdf/">Conversion PDF</a></li>
+          {t.learnLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">Pages</h2>
+        <h2 class="footer-nav-heading">{t.pagesHeading}</h2>
         <ul class="footer-nav-list">
-          <li><a href="/about/">About Us</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
+          {t.pageLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">Legal</h2>
+        <h2 class="footer-nav-heading">{t.legalHeading}</h2>
         <ul class="footer-nav-list">
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-          <li><a href="/terms/">Terms & Conditions</a></li>
-          <li><button type="button" class="footer-link-btn" data-consent-reset>Analytics settings</button></li>
+          {t.legalLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+          <li><button type="button" class="footer-link-btn" data-consent-reset>{t.analytics}</button></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h2 class="footer-nav-heading">{t.languagesHeading}</h2>
+        <ul class="footer-nav-list">
+          {languageOptions.map((option) => (
+            <li>
+              <a
+                href={option.href}
+                hreflang={option.meta.htmlLang}
+                lang={option.meta.htmlLang}
+                aria-current={option.current ? 'page' : undefined}
+                class:list={{ current: option.current }}
+              >{option.meta.nativeName}</a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   </div>
   <div class="page-container footer-bottom">
-    <p class="footer-copy">&copy; 2026 NumSys Converter. All rights reserved. &nbsp;·&nbsp; Last updated <time datetime="2026-11-01">1 November 2026</time></p>
+    <p class="footer-copy">{t.copyright} &nbsp;·&nbsp; {t.lastUpdated} <time datetime="2026-11-01">1 November 2026</time></p>
     <p class="footer-powered">
-      Powered by <a href="https://www.spaarcdigital.com/" target="_blank" rel="noopener noreferrer">Spaarc Digital</a>
+      {t.poweredBy} <a href="https://www.spaarcdigital.com/" target="_blank" rel="noopener noreferrer">Spaarc Digital</a>
     </p>
   </div>
 </footer>
@@ -98,6 +134,7 @@
 
   .footer-nav {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--spacing-4xl);
   }
 
@@ -156,6 +193,11 @@
 
   .footer-nav-list a:hover {
     color: var(--color-ink);
+  }
+
+  .footer-nav-list a.current {
+    color: var(--color-ink);
+    font-weight: 600;
   }
 
   .footer-bottom {

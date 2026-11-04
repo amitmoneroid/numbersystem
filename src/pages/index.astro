@@ -2,14 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import BaseConverter from '../components/BaseConverter.astro';
 import FAQ from '../components/FAQ.astro';
 import { faqItems } from '../data/faq';
 import { guides, guideHref } from '../data/guides';
 import { nuances } from '../data/worldSystems';
 ---
 
-<Layout includeAppSchema faqItems={faqItems}>
+<Layout
+  includeAppSchema
+  faqItems={faqItems}
+  title="Number System Converter – Lakh, Crore, Million & Billion"
+  description="Convert lakh, crore, million and billion with full word expansion. Compare the Indian and International number systems side by side, with every scale named."
+>
   <Navbar />
 
   <main id="main">
@@ -19,28 +23,17 @@ import { nuances } from '../data/worldSystems';
 
         <div class="converter-heading">
           <span class="eyebrow">Free · No sign-up · Works offline</span>
-          <h1 class="converter-title">Number System Converter — Bases 2–36, Lakh, Crore, Million &amp; Billion</h1>
-          <p class="converter-lead">Convert lakh, crore, million and billion with full word expansion. Switch tabs for binary, octal, decimal and hex with every step shown.</p>
+          <h1 class="converter-title">Number System Converter — Lakh, Crore, Million &amp; Billion</h1>
+          <p class="converter-lead">Convert lakh, crore, million and billion with full word expansion. Compare the Indian and International systems side by side, with every scale named.</p>
           <ul class="hero-badges" aria-label="Converter capabilities">
             <li>13 naming scales</li>
-            <li>Base 2–36</li>
-            <li>Every step shown</li>
+            <li>Indian ⇄ International</li>
+            <li>Full word expansion</li>
             <li>Runs in your browser</li>
           </ul>
         </div>
 
-        <div class="converter-tabs" role="tablist" aria-label="Converter mode">
-          <button type="button" class="converter-tab" id="tab-bases" role="tab" aria-selected="false" aria-controls="panel-bases" data-panel="bases" tabindex="-1">Bases 2–36</button>
-          <button type="button" class="converter-tab active" id="tab-naming" role="tab" aria-selected="true" aria-controls="naming" data-panel="naming">Indian ⇄ International</button>
-        </div>
-
-        <!-- Default tab: Indian ⇄ International naming, answered on load -->
-        <div id="panel-bases" class="converter-panel hidden" role="tabpanel" aria-labelledby="tab-bases" data-panel="bases">
-          <BaseConverter />
-        </div>
-
-        <!-- Second tab: lakh / crore naming conversion -->
-        <div id="naming" class="converter-panel" role="tabpanel" aria-labelledby="tab-naming" data-panel="naming">
+        <div id="naming">
         <h2 class="visually-hidden">Indian ⇄ International number system converter</h2>
         <div class="converter-card card shadow-level-3">
           <!-- Row 1: Amount + From Unit -->
@@ -190,6 +183,8 @@ import { nuances } from '../data/worldSystems';
           <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps guide</a>,
           browse the <a href="/knowledge-catalog/number-system-conversion-table/">0–255 conversion table</a>, or
           print the <a href="/knowledge-catalog/number-system-conversion-pdf/">two-page PDF</a>.
+          Need binary, octal, decimal or hex? Open the
+          <a href="/knowledge-catalog/base-converter-calculator/">base converter guide</a>.
         </p>
         <p class="hero-review">
           Reviewed <time datetime="2026-11-01">1 November 2026</time> by the
@@ -206,9 +201,9 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">With steps</span>
-          <h2 class="display-lg">How a number system conversion works, step by step</h2>
+          <h2 class="display-lg">How the Number System Converter works, step by step</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 700px;">
-            Two rules cover every base: expand the source digits into decimal with positional weights, then divide repeatedly to reach the target base. The converter above runs both and prints every line. For example, 156₁₀ becomes 10011100₂ in eight divisions.
+            Two rules cover every base: expand the source digits into decimal with positional weights, then divide repeatedly to reach the target base. The base converter in the guide runs both and prints every line. For example, 156₁₀ becomes 10011100₂ in eight divisions.
           </p>
         </div>
 
@@ -255,10 +250,10 @@ import { nuances } from '../data/worldSystems';
             <span class="eyebrow">About This Tool</span>
             <h2 class="display-lg">What is a Number System Converter?</h2>
             <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-              A number system converter does two related jobs. It rewrites a value in a different radix — binary, octal, decimal, hexadecimal or any base up to 36 — and it translates large numbers between the Indian naming system (lakh, crore, arab) and the International system (million, billion, trillion), with full word expansion.
+              A number system converter can do two related jobs. It translates large numbers between the Indian naming system (lakh, crore, arab) and the International system (million, billion, trillion), with full word expansion — that is the tool on this page. It can also rewrite a value in a different radix — binary, octal, decimal, hexadecimal or any base up to 36 — which the <a href="/knowledge-catalog/base-converter-calculator/">base converter guide</a> covers.
             </p>
             <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-              Both jobs matter in finance, engineering and education. International reports quote billions while Indian documents quote crores; code uses binary and hex while people read decimal. This converter bridges both gaps, shows the working, and runs entirely in your browser.
+              Both jobs matter in finance, engineering and education. International reports quote billions while Indian documents quote crores; code uses binary and hex while people read decimal. The naming converter here bridges the first gap, the base converter guide bridges the second, and both show the working.
             </p>
           </div>
           <div class="about-stats">
@@ -284,7 +279,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">How It Works</span>
-          <h2 class="display-lg">How is the Indian number system different from the International system?</h2>
+          <h2 class="display-lg">How does the Number System Converter handle lakh, crore, million and billion?</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 640px;">
             India groups digits in threes then twos (12,34,56,789) and names 10⁵ lakh, 10⁷ crore and 10⁹ arab. The International short scale groups in threes and names 10⁶ million, 10⁹ billion and 10¹² trillion. The same quantity therefore carries different names: <strong>1 billion = 1 arab = 100 crore</strong>.
           </p>
@@ -341,7 +336,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header section-header-dark">
           <span class="eyebrow" style="color: rgba(255,255,255,0.5);">Reference</span>
-          <h2 class="display-lg" style="color: #fff;">Number system conversion table: Indian vs International</h2>
+          <h2 class="display-lg" style="color: #fff;">Number System Converter table: Indian vs International</h2>
           <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 640px;">
             A complete mapping of how each scale is named, formatted, and pronounced in the International versus Indian number system.
           </p>
@@ -442,7 +437,7 @@ import { nuances } from '../data/worldSystems';
           <span class="eyebrow">Converter guide</span>
           <h2 class="display-lg">Number system converter with steps: binary, octal, decimal and hexadecimal</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-            A converter earns trust when it shows the arithmetic. Both tools on this page print the working behind the answer, so a result can be checked instead of taken on faith.
+            A converter earns trust when it shows the arithmetic. The naming converter here and the base converter guide both print the working behind the answer, so a result can be checked instead of taken on faith.
           </p>
         </div>
 
@@ -456,12 +451,12 @@ import { nuances } from '../data/worldSystems';
             Take 202. In base 10 the digits mean 2×10² + 0×10 + 2 = 202. Dividing repeatedly by 2 records remainders 0, 1, 0, 1, 0, 0, 1, 1; read bottom-up they form 11001010. Group the same bits in threes for octal 312 and in fours for hex CA. Expanding both confirms the result: 3×64 + 1×8 + 2 = 202, and 12×16 + 10 = 202. The quantity never changes — only the grouping does. Reading the trail from the bottom up, remainder by remainder, also makes it clear why the most significant digit is the last division: that is the point where the quotient reaches zero.
           </p>
           <p class="body-md">
-            Two checks catch most mistakes. Every digit must be smaller than its base — 2 is invalid in binary, and G is invalid below base 17 — and converting the answer back must return the original value. The converter enforces both as you type, which is faster than finding the error after the number reaches a database, a spreadsheet or a report.
+            Two checks catch most mistakes. Every digit must be smaller than its base — 2 is invalid in binary, and G is invalid below base 17 — and converting the answer back must return the original value. The base converter enforces both as you type, which is faster than finding the error after the number reaches a database, a spreadsheet or a report.
           </p>
 
           <h3 class="display-sm">Fractions, negatives and bases above 16</h3>
           <p class="body-md">
-            Digits after the point use negative powers: hex 2B.4 is 2×16 + 11 + 4/16 = 43.25, and the converter shows the multiply-by-base steps that generate those digits. Bases 11 to 36 extend the digit set with letters, so base 36 runs 0–9 then A–Z — useful for short links and ticket IDs because each character carries more values. Negative numbers are converted as magnitudes here; two's complement is a separate encoding step applied afterwards for machine integers, so convert the absolute value first and attach the sign in the target representation.
+            Digits after the point use negative powers: hex 2B.4 is 2×16 + 11 + 4/16 = 43.25, and the base converter shows the multiply-by-base steps that generate those digits. Bases 11 to 36 extend the digit set with letters, so base 36 runs 0–9 then A–Z — useful for short links and ticket IDs because each character carries more values. Negative numbers are converted as magnitudes here; two's complement is a separate encoding step applied afterwards for machine integers, so convert the absolute value first and attach the sign in the target representation.
           </p>
 
           <h3 class="display-sm">When to use each base</h3>
@@ -509,7 +504,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">Real-World Applications</span>
-          <h2 class="display-lg">When do you need number system conversion?</h2>
+          <h2 class="display-lg">When do you need a Number System Converter?</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 640px;">
             Understanding both number systems is essential in many professional and educational contexts.
           </p>
@@ -568,7 +563,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header section-header-dark">
           <span class="eyebrow" style="color: rgba(255,255,255,0.5);">Quick Reference</span>
-          <h2 class="display-lg" style="color: #fff;">Number system conversion table: common values</h2>
+          <h2 class="display-lg" style="color: #fff;">Number System Converter quick reference: common values</h2>
           <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 640px;">
             Bookmark these frequently used conversions for quick access in your daily work.
           </p>
@@ -645,7 +640,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">Quick table</span>
-          <h2 class="display-lg">Number system conversion table (0–15)</h2>
+          <h2 class="display-lg">Number System Converter table (0–15)</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 680px;">
             The first sixteen values in all four computing bases. Read a row across and you have the same number in decimal, binary, octal and hexadecimal.
           </p>
@@ -686,7 +681,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">Around the world</span>
-          <h2 class="display-lg">How do other countries count big numbers?</h2>
+          <h2 class="display-lg">How does the Number System Converter handle other countries' big numbers?</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 720px;">
             The International system is not the only way to name a billion. Portuguese, Spanish, French and German all use a long scale where “billion” starts at 10¹², while Japanese, Chinese and Korean group digits in fours. Here is how those systems benchmark against the International scale.
           </p>
@@ -716,7 +711,7 @@ import { nuances } from '../data/worldSystems';
       <div class="page-container">
         <div class="section-header">
           <span class="eyebrow">Knowledge Catalog</span>
-          <h2 class="display-lg">Number system guides, in depth</h2>
+          <h2 class="display-lg">Number System Converter guides, in depth</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 680px;">
             {guides.length} focused guides covering the converter, the calculator, the tables, the PDF, the numbering systems used around the world, and the INS codes that identify food additives on a label.
           </p>
@@ -1213,59 +1208,6 @@ import { nuances } from '../data/worldSystems';
       e.preventDefault();
       convert();
     }
-  });
-
-  // ── Tabs: bases (default) and lakh/crore ──
-  const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.converter-tab'));
-  const tabPanels = Array.from(document.querySelectorAll<HTMLDivElement>('.converter-panel'));
-
-  function activatePanel(panelId: string): void {
-    tabPanels.forEach((panel) => {
-      panel.classList.toggle('hidden', panel.dataset.panel !== panelId);
-    });
-    tabButtons.forEach((tab) => {
-      const isActive = tab.dataset.panel === panelId;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', String(isActive));
-      tab.tabIndex = isActive ? 0 : -1;
-    });
-  }
-
-  tabButtons.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      activatePanel(tab.dataset.panel ?? 'bases');
-    });
-    tab.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      e.preventDefault();
-      const index = tabButtons.indexOf(tab);
-      const next = e.key === 'ArrowRight'
-        ? (index + 1) % tabButtons.length
-        : (index - 1 + tabButtons.length) % tabButtons.length;
-      tabButtons[next].focus();
-      activatePanel(tabButtons[next].dataset.panel ?? 'bases');
-    });
-  });
-
-  function activateFromHash(hash: string): void {
-    if (hash === '#converter' || hash === '#base-converter') {
-      activatePanel('bases');
-      if (hash === '#base-converter') {
-        requestAnimationFrame(() => {
-          document.getElementById('base-converter')?.scrollIntoView({ block: 'start' });
-        });
-      }
-    } else if (hash === '#naming') {
-      activatePanel('naming');
-    }
-  }
-
-  // The naming converter is the default view; switch to bases only when the
-  // URL explicitly asks for it.
-  activateFromHash(window.location.hash);
-
-  window.addEventListener('hashchange', () => {
-    activateFromHash(window.location.hash);
   });
 
   // Prefill the naming converter so the first view always contains a result.

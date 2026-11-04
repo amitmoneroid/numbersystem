@@ -1,0 +1,720 @@
+---
+// LocalizedNamingConverter.astro — full Indian ⇄ International converter for
+// the translated home pages: scale conversion, target-system representations,
+// grouped numbers, localized number-to-words and copy actions.
+import { namingUi } from '../i18n/naming';
+import { isLocale, type Locale } from '../i18n/routing';
+
+type NamingLocale = Exclude<Locale, 'en'>;
+
+interface Props {
+  locale?: string;
+}
+
+const locale: NamingLocale =
+  isLocale(Astro.props.locale) && Astro.props.locale !== 'en'
+    ? Astro.props.locale
+    : 'es';
+const ui = namingUi[locale];
+
+const intlOptions = [
+  { value: '1e18', label: ui.scales.intl.quintillion },
+  { value: '1e15', label: ui.scales.intl.quadrillion },
+  { value: '1e12', label: ui.scales.intl.trillion },
+  { value: '1e9', label: ui.scales.intl.billion },
+  { value: '1e6', label: ui.scales.intl.million },
+  { value: '1e3', label: ui.scales.intl.thousand },
+];
+
+const indianOptions = [
+  { value: '1e17', label: ui.scales.indian.shankh },
+  { value: '1e15', label: ui.scales.indian.padma },
+  { value: '1e13', label: ui.scales.indian.neel },
+  { value: '1e11', label: ui.scales.indian.kharab },
+  { value: '1e9', label: ui.scales.indian.arab },
+  { value: '1e7', label: ui.scales.indian.crore },
+  { value: '1e5', label: ui.scales.indian.lakh },
+];
+
+const chips = [
+  { value: '1', from: '1e3', label: `1 ${ui.scales.intl.thousand}` },
+  { value: '1', from: '1e5', label: `1 ${ui.scales.indian.lakh}` },
+  { value: '1', from: '1e6', label: `1 ${ui.scales.intl.million}` },
+  { value: '1', from: '1e7', label: `1 ${ui.scales.indian.crore}` },
+  { value: '5,4', from: '1e9', label: `5,4 ${ui.scales.intl.billion}` },
+];
+---
+
+<div class="naming-converter card shadow-level-3" id="naming-converter">
+  <div class="nc-header">
+    <span class="eyebrow">{ui.eyebrow}</span>
+    <h2 class="display-sm">{ui.heading}</h2>
+  </div>
+
+  <div class="nc-grid">
+    <div class="nc-field nc-amount">
+      <label for="ncAmount" class="nc-label">{ui.amount}</label>
+      <input
+        id="ncAmount"
+        class="nc-input"
+        type="text"
+        inputmode="decimal"
+        autocomplete="off"
+        value={ui.initialAmount}
+      />
+    </div>
+    <div class="nc-field">
+      <label for="ncFrom" class="nc-label">{ui.from}</label>
+      <select id="ncFrom" class="nc-select">
+        <optgroup label={ui.intlSystem}>
+          {intlOptions.map((option) => (
+            <option value={option.value} data-system="intl" selected={option.value === '1e9'}>{option.label}</option>
+          ))}
+        </optgroup>
+        <optgroup label={ui.indianSystem}>
+          {indianOptions.map((option) => (
+            <option value={option.value} data-system="indian">{option.label}</option>
+          ))}
+        </optgroup>
+      </select>
+    </div>
+    <div class="nc-field">
+      <label for="ncTo" class="nc-label">{ui.to}</label>
+      <select id="ncTo" class="nc-select">
+        <optgroup label={ui.indianSystem}>
+          {indianOptions.map((option) => (
+            <option value={option.value} data-system="indian" selected={option.value === '1e7'}>{option.label}</option>
+          ))}
+        </optgroup>
+        <optgroup label={ui.intlSystem}>
+          {intlOptions.map((option) => (
+            <option value={option.value} data-system="intl">{option.label}</option>
+          ))}
+        </optgroup>
+      </select>
+    </div>
+  </div>
+
+  <button type="button" class="nc-swap" id="ncSwap" aria-label={ui.swap} title={ui.swap}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+
+  <p id="ncError" class="nc-error" role="alert" hidden></p>
+
+  <div class="nc-result" aria-live="polite">
+    <div class="nc-result-head">
+      <div class="nc-result-label">{ui.converted}</div>
+      <button type="button" class="nc-copy" data-target="ncValue" aria-label={ui.copyValueAria} title={ui.copyValueAria}>{ui.copy}</button>
+    </div>
+    <div class="nc-result-value code" id="ncValue">—</div>
+    <div class="nc-result-note" id="ncNote">—</div>
+  </div>
+
+  <div class="nc-chips">
+    <span class="nc-chips-label">{ui.tryLabel}</span>
+    {chips.map((chip) => (
+      <button
+        type="button"
+        class="nc-chip"
+        data-value={chip.value}
+        data-from={chip.from}
+      >{chip.label}</button>
+    ))}
+  </div>
+
+  <div class="nc-details" id="ncDetails" hidden>
+    <div class="nc-bestfit">
+      <span class="nc-subhead">{ui.bestFit}</span>
+      <div class="nc-bestfit-value code" id="ncBestFit">—</div>
+      <div class="nc-bestfit-subtitle" id="ncBestFitSubtitle">—</div>
+    </div>
+
+    <div class="nc-reps">
+      <span class="nc-subhead" id="ncRepsTitle">{ui.allIndianReps}</span>
+      <div class="nc-reps-grid" id="ncRepsGrid"></div>
+    </div>
+
+    <div class="nc-full">
+      <div class="nc-full-group">
+        <div class="nc-full-row">
+          <span class="nc-full-label">{ui.intl}</span>
+          <span class="nc-full-value code" id="ncFullIntl">—</span>
+          <button type="button" class="nc-copy" data-target="ncFullIntl" aria-label={ui.copyIntlAria} title={ui.copyIntlAria}>{ui.copy}</button>
+        </div>
+        <div class="nc-words" id="ncIntlWords">—</div>
+      </div>
+
+      <div class="nc-full-group">
+        <div class="nc-full-row">
+          <span class="nc-full-label">{ui.indian}</span>
+          <span class="nc-full-value code" id="ncFullIndian">—</span>
+          <button type="button" class="nc-copy" data-target="ncFullIndian" aria-label={ui.copyIndianAria} title={ui.copyIndianAria}>{ui.copy}</button>
+        </div>
+        <div class="nc-words" id="ncIndianWords">—</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="nc-footnote body-sm">{ui.footnote}</p>
+
+  <script type="application/json" id="nc-i18n" set:html={JSON.stringify(ui)} />
+</div>
+
+<script>
+  import { namingUi, type NamingUi } from '../i18n/naming';
+  import { numberWords } from '../i18n/numberWords';
+
+  const i18nElement = document.getElementById('nc-i18n');
+  const ui: NamingUi = i18nElement?.textContent
+    ? (JSON.parse(i18nElement.textContent) as NamingUi)
+    : namingUi.es;
+  const words = numberWords[ui.localeCode];
+
+  const amountInput = document.getElementById('ncAmount') as HTMLInputElement;
+  const fromSelect = document.getElementById('ncFrom') as HTMLSelectElement;
+  const toSelect = document.getElementById('ncTo') as HTMLSelectElement;
+  const swapButton = document.getElementById('ncSwap') as HTMLButtonElement;
+  const errorEl = document.getElementById('ncError') as HTMLParagraphElement;
+  const valueEl = document.getElementById('ncValue') as HTMLDivElement;
+  const noteEl = document.getElementById('ncNote') as HTMLDivElement;
+  const detailsEl = document.getElementById('ncDetails') as HTMLDivElement;
+  const bestFitEl = document.getElementById('ncBestFit') as HTMLDivElement;
+  const bestFitSubtitle = document.getElementById('ncBestFitSubtitle') as HTMLDivElement;
+  const repsTitle = document.getElementById('ncRepsTitle') as HTMLSpanElement;
+  const repsGrid = document.getElementById('ncRepsGrid') as HTMLDivElement;
+  const fullIntl = document.getElementById('ncFullIntl') as HTMLSpanElement;
+  const fullIndian = document.getElementById('ncFullIndian') as HTMLSpanElement;
+  const intlWords = document.getElementById('ncIntlWords') as HTMLDivElement;
+  const indianWords = document.getElementById('ncIndianWords') as HTMLDivElement;
+
+  const localFormat = new Intl.NumberFormat(ui.numberLocale, {
+    maximumFractionDigits: 8,
+  });
+  const intlFormat = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 0,
+  });
+  const indianFormat = new Intl.NumberFormat('en-IN', {
+    maximumFractionDigits: 0,
+  });
+
+  const intlScales = [
+    { value: 1e18, name: ui.scales.intl.quintillion },
+    { value: 1e15, name: ui.scales.intl.quadrillion },
+    { value: 1e12, name: ui.scales.intl.trillion },
+    { value: 1e9, name: ui.scales.intl.billion },
+    { value: 1e6, name: ui.scales.intl.million },
+    { value: 1e3, name: ui.scales.intl.thousand },
+  ];
+
+  const indianScales = [
+    { value: 1e17, name: ui.scales.indian.shankh },
+    { value: 1e15, name: ui.scales.indian.padma },
+    { value: 1e13, name: ui.scales.indian.neel },
+    { value: 1e11, name: ui.scales.indian.kharab },
+    { value: 1e9, name: ui.scales.indian.arab },
+    { value: 1e7, name: ui.scales.indian.crore },
+    { value: 1e5, name: ui.scales.indian.lakh },
+  ];
+
+  function parseAmount(raw: string): number {
+    let clean = raw.trim().replace(/\s/g, '');
+    if (clean === '') return NaN;
+
+    const lastComma = clean.lastIndexOf(',');
+    const lastDot = clean.lastIndexOf('.');
+
+    if (lastComma > -1 && lastDot > -1) {
+      if (lastComma > lastDot) {
+        clean = clean.replace(/\./g, '').replace(',', '.');
+      } else {
+        clean = clean.replace(/,/g, '');
+      }
+    } else if (lastComma > -1) {
+      clean = clean.replace(',', '.');
+    }
+
+    return Number(clean);
+  }
+
+  function selectedScale(select: HTMLSelectElement): {
+    value: number;
+    name: string;
+    system: 'intl' | 'indian';
+  } {
+    const option = select.selectedOptions[0] ?? null;
+    return {
+      value: parseFloat(select.value),
+      name: option?.textContent?.trim() ?? '',
+      system: option?.dataset.system === 'indian' ? 'indian' : 'intl',
+    };
+  }
+
+  function selectSystemValue(
+    select: HTMLSelectElement,
+    system: 'intl' | 'indian',
+    value: string
+  ): void {
+    const options = Array.from(select.options);
+    const index = options.findIndex(
+      (option) => option.value === value && option.dataset.system === system
+    );
+    if (index >= 0) select.selectedIndex = index;
+  }
+
+  function displayScale(
+    name: string,
+    value: number,
+    system: 'intl' | 'indian'
+  ): string {
+    if (system === 'indian' || Math.abs(value) === 1) return name;
+
+    switch (ui.localeCode) {
+      case 'es':
+        return name.replace(/ón$/, 'ones');
+      case 'fr':
+        return name === 'mille' || name.endsWith('s') ? name : `${name}s`;
+      case 'de':
+        if (name === 'Tausend') return name;
+        if (name.endsWith('ion')) return `${name}en`;
+        if (name.endsWith('e')) return `${name}n`;
+        return name;
+      case 'pt':
+        return name.replace(/ão$/, 'ões');
+      case 'it':
+        return name.replace(/ione$/, 'ioni').replace(/iardo$/, 'iardi');
+      default:
+        return name;
+    }
+  }
+
+  function render(): void {
+    const amount = parseAmount(amountInput.value);
+    if (!Number.isFinite(amount) || amount < 0) {
+      errorEl.hidden = false;
+      errorEl.textContent = ui.error;
+      valueEl.textContent = '—';
+      noteEl.textContent = '—';
+      detailsEl.hidden = true;
+      return;
+    }
+
+    errorEl.hidden = true;
+    const fromScale = selectedScale(fromSelect);
+    const toScale = selectedScale(toSelect);
+    const value = amount * fromScale.value;
+
+    if (value > 1e20) {
+      errorEl.hidden = false;
+      errorEl.textContent = ui.errorLarge;
+      valueEl.textContent = '—';
+      noteEl.textContent = '—';
+      detailsEl.hidden = true;
+      return;
+    }
+
+    const target = value / toScale.value;
+    const integerPart = Math.floor(value);
+
+    const fromName = displayScale(fromScale.name, amount, fromScale.system);
+    const targetName = displayScale(toScale.name, target, toScale.system);
+
+    valueEl.textContent = `${localFormat.format(target)} ${targetName}`;
+    noteEl.textContent = `${localFormat.format(amount)} ${fromName} = ${localFormat.format(target)} ${targetName}`;
+
+    const targetScales =
+      toScale.system === 'indian' ? indianScales : intlScales;
+    repsTitle.textContent =
+      toScale.system === 'indian' ? ui.allIndianReps : ui.allIntlReps;
+
+    const bestFit =
+      targetScales.find((scale) => Math.abs(value) >= scale.value) ?? null;
+    const bestFitValue = bestFit ? value / bestFit.value : value;
+    const bestFitText = bestFit
+      ? `${localFormat.format(bestFitValue)} ${displayScale(
+          bestFit.name,
+          bestFitValue,
+          toScale.system
+        )}`
+      : localFormat.format(value);
+    bestFitEl.textContent = bestFitText;
+    bestFitSubtitle.textContent = `${localFormat.format(amount)} ${fromName} = ${bestFitText}`;
+
+    repsGrid.innerHTML = targetScales
+      .map((scale) => {
+        const ratio = value / scale.value;
+        return `<div class="nc-rep"><span>${displayScale(
+          scale.name,
+          ratio,
+          toScale.system
+        )}</span><code>${localFormat.format(ratio)}</code></div>`;
+      })
+      .join('');
+
+    fullIntl.textContent = intlFormat.format(integerPart);
+    fullIndian.textContent = indianFormat.format(integerPart);
+    intlWords.textContent = words.international(integerPart);
+    indianWords.textContent = words.indian(integerPart);
+    detailsEl.hidden = false;
+  }
+
+  swapButton.addEventListener('click', () => {
+    const from = fromSelect.value;
+    fromSelect.value = toSelect.value;
+    toSelect.value = from;
+    render();
+  });
+
+  amountInput.addEventListener('input', render);
+  fromSelect.addEventListener('change', render);
+  toSelect.addEventListener('change', render);
+
+  document.querySelectorAll('.nc-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const button = chip as HTMLButtonElement;
+      amountInput.value = button.dataset.value ?? '';
+      const from = button.dataset.from ?? '1e9';
+      fromSelect.value = from;
+
+      const fromIsIntl = Array.from(fromSelect.options).some(
+        (option) =>
+          option.value === from &&
+          option.dataset.system === 'intl' &&
+          option.selected
+      );
+      if (fromIsIntl) {
+        selectSystemValue(toSelect, 'indian', '1e7');
+      } else {
+        selectSystemValue(toSelect, 'intl', '1e9');
+      }
+
+      render();
+      amountInput.focus();
+    });
+  });
+
+  document.querySelectorAll('.nc-copy').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const targetId = (button as HTMLButtonElement).dataset.target;
+      const target = targetId ? document.getElementById(targetId) : null;
+      if (!target) return;
+
+      try {
+        await navigator.clipboard.writeText(target.textContent?.trim() ?? '');
+        const original = button.textContent;
+        button.textContent = ui.copied;
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1200);
+      } catch {
+        // Clipboard access can be blocked; leave the value visible for manual copy.
+      }
+    });
+  });
+
+  render();
+</script>
+
+<style>
+  .naming-converter {
+    background: var(--color-canvas);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: left;
+  }
+
+  .nc-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .nc-header h2 {
+    margin: var(--spacing-xs) 0 0;
+    color: var(--color-ink);
+  }
+
+  .nc-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: var(--spacing-sm);
+    align-items: end;
+  }
+
+  .nc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .nc-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .nc-input,
+  .nc-select {
+    height: 44px;
+    padding: 0 var(--spacing-sm);
+    font-size: 15px;
+    color: var(--color-ink);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    outline: none;
+    width: 100%;
+  }
+
+  .nc-input:focus,
+  .nc-select:focus {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 1px var(--color-ink);
+  }
+
+  .nc-input {
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  .nc-swap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-top: var(--spacing-sm);
+    padding: 0;
+    color: var(--color-body);
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .nc-swap:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .nc-error {
+    margin: var(--spacing-xs) 0 0;
+    font-size: 13px;
+    color: var(--color-error);
+  }
+
+  .nc-result {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-link-bg-soft);
+    border-radius: var(--radius-md);
+  }
+
+  .nc-result-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+  }
+
+  .nc-result-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-body);
+  }
+
+  .nc-result-value {
+    margin: 2px 0 4px;
+    font-family: var(--font-mono);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-link-deep);
+    overflow-wrap: anywhere;
+  }
+
+  :global(.dark) .nc-result-value {
+    color: var(--color-link);
+  }
+
+  .nc-result-note {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-body);
+  }
+
+  .nc-copy {
+    flex-shrink: 0;
+    padding: 3px 9px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    background: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .nc-copy:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .nc-chips {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--spacing-sm);
+  }
+
+  .nc-chips-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-mute);
+  }
+
+  .nc-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background: var(--color-canvas-soft);
+    color: var(--color-body);
+    cursor: pointer;
+  }
+
+  .nc-chip:hover {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+  }
+
+  .nc-details {
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--color-hairline);
+    padding-top: var(--spacing-md);
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .nc-details[hidden] {
+    display: none;
+  }
+
+  .nc-subhead {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-mute);
+    margin-bottom: 6px;
+  }
+
+  .nc-bestfit-value {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--color-ink);
+  }
+
+  .nc-bestfit-subtitle {
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-mute);
+  }
+
+  .nc-reps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 6px;
+  }
+
+  .nc-rep {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 10px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    background: var(--color-canvas-soft);
+  }
+
+  .nc-rep span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-mute);
+  }
+
+  .nc-rep code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+  }
+
+  .nc-full {
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .nc-full-group {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
+    background: var(--color-canvas-soft);
+  }
+
+  .nc-full-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  .nc-full-label {
+    min-width: 100px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-mute);
+  }
+
+  .nc-full-value {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+  }
+
+  .nc-full-row .nc-copy {
+    margin-left: auto;
+  }
+
+  .nc-words {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-body);
+    overflow-wrap: anywhere;
+  }
+
+  .nc-footnote {
+    margin: var(--spacing-md) 0 0;
+    color: var(--color-mute);
+    font-size: 12px;
+  }
+
+  @media (max-width: 720px) {
+    .nc-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nc-swap {
+      margin-top: 0;
+    }
+  }
+</style>

@@ -22,7 +22,7 @@ export const faqItems: FaqItem[] = [
   {
     question: 'What is a base converter calculator?',
     answer:
-      'A base converter calculator rewrites a value in another radix — binary (2), octal (8), decimal (10) or hexadecimal (16), up to base 36. It expands the source digits into decimal, then divides repeatedly by the target base. This one also supports fractions and shareable links.',
+      'A base converter calculator rewrites a value in another radix — binary (2), octal (8), decimal (10) or hexadecimal (16), up to base 36. It expands the source digits into decimal, then divides repeatedly by the target base. The base converter guide also supports fractions and shareable links.',
   },
   {
     question: 'Is there a number system conversion table PDF?',

@@ -4,6 +4,13 @@
 // FAQ and web-app structured data.
 //
 import ConsentBanner from '../components/ConsentBanner.astro';
+import {
+  defaultLocale,
+  hreflangCluster,
+  isLocale,
+  localeMeta,
+  locales,
+} from '../i18n/routing';
 
 interface Crumb {
   name: string;
@@ -31,6 +38,8 @@ interface Props {
   breadcrumbs?: Crumb[];
   datePublished?: string;
   dateModified?: string;
+  /** Current language of the page. Defaults to English. */
+  locale?: string;
 }
 
 const {
@@ -46,7 +55,18 @@ const {
   breadcrumbs = [],
   datePublished = '2026-07-27',
   dateModified = '2026-11-01',
+  locale: localeProp,
 } = Astro.props;
+
+const locale = isLocale(localeProp) ? localeProp : defaultLocale;
+const currentLocale = localeMeta[locale];
+const alternateLocales = locales
+  .filter((code) => code !== locale)
+  .map((code) => localeMeta[code].ogLocale);
+
+// Self-referencing hreflang cluster + x-default, emitted only for pages that
+// have translated counterparts (see src/i18n/routing.ts).
+const alternates = hreflangCluster(new URL(canonicalURL).pathname);
 
 const siteName = 'NumSys';
 const organizationId = 'https://numbersystemconverter.com/#organization';
@@ -87,7 +107,7 @@ const graph: Record<string, unknown>[] = [
       '@type': 'ContactPoint',
       contactType: 'customer support',
       url: 'https://numbersystemconverter.com/contact/',
-      availableLanguage: ['en'],
+      availableLanguage: locales.map((code) => localeMeta[code].htmlLang),
     },
     knowsAbout: [
       'Number system conversion',
@@ -108,7 +128,7 @@ const graph: Record<string, unknown>[] = [
     url: 'https://numbersystemconverter.com/',
     name: siteName,
     publisher: { '@id': organizationId },
-    inLanguage: 'en',
+    inLanguage: locales.map((code) => localeMeta[code].htmlLang),
   },
   {
     '@type': 'WebPage',
@@ -118,7 +138,7 @@ const graph: Record<string, unknown>[] = [
     description,
     isPartOf: { '@id': websiteId },
     about: { '@id': organizationId },
-    inLanguage: 'en',
+    inLanguage: currentLocale.htmlLang,
     datePublished,
     dateModified,
   },
@@ -139,12 +159,10 @@ if (includeAppSchema) {
     featureList: [
       'Convert Indian number system to International format',
       'Convert International number system to Indian format',
-      'Base 2 to base 36 conversion with steps',
-      'Binary, octal, decimal and hex shown side by side',
-      'Shareable conversion links (?v=156&from=10&to=2)',
       'Full word expansion in both systems',
       'Side-by-side comparison',
       'Breakdown table showing scale mapping',
+      'Works offline once loaded',
     ],
     creator: { '@id': organizationId },
     publisher: { '@id': organizationId },
@@ -181,7 +199,7 @@ if (faqItems.length > 0) {
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={currentLocale.htmlLang} class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -224,13 +242,21 @@ if (faqItems.length > 0) {
 		<meta name="author" content="NumSys Editorial Team" />
 		<link rel="canonical" href={canonicalURL} />
 
+		<!-- hreflang: every translated language plus x-default (English) -->
+		{alternates.map((alternate) => (
+			<link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+		))}
+
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:site_name" content={siteName} />
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale" content={currentLocale.ogLocale} />
+		{alternateLocales.map((ogLocale) => (
+			<meta property="og:locale:alternate" content={ogLocale} />
+		))}
 		<meta property="og:image" content={imageURL} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
