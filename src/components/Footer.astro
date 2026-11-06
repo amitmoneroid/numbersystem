@@ -1,11 +1,13 @@
 ---
 // Footer.astro — Vercel-style footer with site navigation and language links.
 import {
+  canonicalPath,
   defaultLocale,
   isLocale,
   localeMeta,
   locales,
   localizePath,
+  translatedPaths,
 } from '../i18n/routing';
 import { footerUi } from '../i18n/ui';
 
@@ -22,6 +24,8 @@ const languageOptions = locales.map((code) => ({
   href: localizePath('/', code),
   current: code === locale,
 }));
+// Only offer locale links where a translated version of this page exists.
+const showLanguages = translatedPaths.has(canonicalPath(Astro.url.pathname));
 ---
 
 <footer class="footer">
@@ -35,7 +39,7 @@ const languageOptions = locales.map((code) => ({
     </div>
     <div class="footer-nav">
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">{t.learnHeading}</h2>
+        <h3 class="footer-nav-heading">{t.learnHeading}</h3>
         <ul class="footer-nav-list">
           {t.learnLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -43,7 +47,7 @@ const languageOptions = locales.map((code) => ({
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">{t.pagesHeading}</h2>
+        <h3 class="footer-nav-heading">{t.pagesHeading}</h3>
         <ul class="footer-nav-list">
           {t.pageLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -51,7 +55,7 @@ const languageOptions = locales.map((code) => ({
         </ul>
       </div>
       <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">{t.legalHeading}</h2>
+        <h3 class="footer-nav-heading">{t.legalHeading}</h3>
         <ul class="footer-nav-list">
           {t.legalLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -59,26 +63,28 @@ const languageOptions = locales.map((code) => ({
           <li><button type="button" class="footer-link-btn" data-consent-reset>{t.analytics}</button></li>
         </ul>
       </div>
-      <div class="footer-nav-col">
-        <h2 class="footer-nav-heading">{t.languagesHeading}</h2>
-        <ul class="footer-nav-list">
-          {languageOptions.map((option) => (
-            <li>
-              <a
-                href={option.href}
-                hreflang={option.meta.htmlLang}
-                lang={option.meta.htmlLang}
-                aria-current={option.current ? 'page' : undefined}
-                class:list={{ current: option.current }}
-              >{option.meta.nativeName}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {showLanguages && (
+        <div class="footer-nav-col">
+          <h3 class="footer-nav-heading">{t.languagesHeading}</h3>
+          <ul class="footer-nav-list">
+            {languageOptions.map((option) => (
+              <li>
+                <a
+                  href={option.href}
+                  hreflang={option.meta.htmlLang}
+                  lang={option.meta.htmlLang}
+                  aria-current={option.current ? 'page' : undefined}
+                  class:list={{ current: option.current }}
+                >{option.meta.nativeName}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   </div>
   <div class="page-container footer-bottom">
-    <p class="footer-copy">{t.copyright} &nbsp;·&nbsp; {t.lastUpdated} <time datetime="2026-11-01">1 November 2026</time></p>
+    <p class="footer-copy">{t.copyright} &nbsp;·&nbsp; {t.lastUpdated} <time datetime="2026-11-06">6 November 2026</time></p>
     <p class="footer-powered">
       {t.poweredBy} <a href="https://www.spaarcdigital.com/" target="_blank" rel="noopener noreferrer">Spaarc Digital</a>
     </p>

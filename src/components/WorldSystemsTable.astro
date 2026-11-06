@@ -4,12 +4,23 @@ import { worldSystems } from '../data/worldSystems';
 
 interface Props {
   caption?: string;
+  /** Render only the first N systems (used for excerpts that link to the full table). */
+  limit?: number;
+  /** When set with `limit`, shows a link to the complete table. */
+  moreHref?: string;
 }
-const { caption = 'How 16 numbering systems name 1 million, 1 billion and 1 trillion, benchmarked against the International short scale.' } = Astro.props;
+const {
+  caption = 'How 16 numbering systems name 1 million, 1 billion and 1 trillion, benchmarked against the International short scale.',
+  limit,
+  moreHref,
+} = Astro.props;
+
+const visibleSystems = typeof limit === 'number' ? worldSystems.slice(0, limit) : worldSystems;
+const hasMore = typeof limit === 'number' && limit < worldSystems.length;
 ---
 
 <div class="world-table-wrap card shadow-level-2">
-  <div class="world-table-scroll">
+  <div class="world-table-scroll" tabindex="0" role="region" aria-label={caption}>
     <table class="world-table">
       <caption>{caption}</caption>
       <thead>
@@ -22,7 +33,7 @@ const { caption = 'How 16 numbering systems name 1 million, 1 billion and 1 tril
         </tr>
       </thead>
       <tbody>
-        {worldSystems.map((system) => (
+        {visibleSystems.map((system) => (
           <tr>
             <th scope="row">
               <span class="system-name">{system.name}</span>
@@ -38,6 +49,12 @@ const { caption = 'How 16 numbering systems name 1 million, 1 billion and 1 tril
       </tbody>
     </table>
   </div>
+  {hasMore && (
+    <p class="world-table-more">
+      Showing {visibleSystems.length} of {worldSystems.length} systems.
+      {moreHref && <a href={moreHref}>See the complete world numbering table →</a>}
+    </p>
+  )}
 </div>
 
 <style>
@@ -53,6 +70,19 @@ const { caption = 'How 16 numbering systems name 1 million, 1 billion and 1 tril
   .world-table-scroll {
     overflow-x: auto;
     max-width: 100%;
+  }
+
+  .world-table-scroll:focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: -2px;
+  }
+
+  .world-table-more {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-top: 1px solid var(--color-hairline);
+    font-size: 13px;
+    color: var(--color-mute);
+    margin: 0;
   }
 
   .world-table {

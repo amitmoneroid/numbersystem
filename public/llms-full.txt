@@ -1,7 +1,7 @@
 # NumSys — Number System Converter (full reference)
 
 Source: https://numbersystemconverter.com/
-Last reviewed: 2026-11-01
+Last reviewed: 2026-11-06
 
 ## What the tool does
 
@@ -36,13 +36,13 @@ Reverse check, 10011100₂ → decimal: 1×2⁷ + 0×2⁶ + 0×2⁵ + 1×2⁴ + 
 
 URL: https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/
 
-## Number system converter online
+## Number system converter (home)
 
-An online converter should answer as you type, run in the browser, and keep working after the page has loaded. This converter supports base 2–36, fractions, copyable results and shareable links of the form ?v=156&from=10&to=2.
+The homepage is the online converter: it answers as you type, runs in the browser, and keeps working after the page has loaded. It supports Indian ⇄ International naming with page links of the form ?v=1&from=1e9&to=1e7&fsys=intl&tsys=ind, and the base converter supports base 2–36 with ?v=156&from=10&to=2.
 
 Naming versus radix: base conversion changes the radix (binary, octal, decimal, hex). Naming conversion keeps base 10 and changes the label and comma grouping (lakh/crore versus million/billion).
 
-URL: https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/
+URL: https://numbersystemconverter.com/
 
 ## Number system conversion calculator with solution
 
@@ -103,6 +103,8 @@ Indian ⇄ International anchors:
 - 1 million = 10 lakh
 - 1 billion = 1 arab = 100 crore
 - 1 trillion = 1 lakh crore
+- 1 quadrillion = 1 padma = 1,000 lakh crore
+- 1 shankh = 100 quadrillion
 
 URL: https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/
 

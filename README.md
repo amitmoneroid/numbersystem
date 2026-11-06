@@ -29,7 +29,6 @@ src/
 │   ├── index.astro    Naming-first converter hero + base tab
 │   └── knowledge-catalog/
 │       ├── number-system-converter-with-steps.astro
-│       ├── number-system-converter-online.astro
 │       ├── number-system-conversion-calculator-with-solution.astro
 │       ├── number-system-conversion-pdf.astro
 │       ├── base-converter-calculator.astro

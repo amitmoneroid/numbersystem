@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/verify-numerals.mjs",
+    "verify:numbers": "node scripts/verify-numerals.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler pages deploy dist",
+    "indexnow": "node scripts/indexnow.mjs",
     "astro": "astro",
     "generate:assets": "node scripts/generate-pdf.mjs && node scripts/generate-og.mjs"
   },

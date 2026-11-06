@@ -11,9 +11,13 @@
 /terms https://numbersystemconverter.com/terms/ 301
 /knowledge-catalog https://numbersystemconverter.com/knowledge-catalog/ 301
 /knowledge-catalog/number-system-converter-with-steps https://numbersystemconverter.com/knowledge-catalog/number-system-converter-with-steps/ 301
-/knowledge-catalog/number-system-converter-online https://numbersystemconverter.com/knowledge-catalog/number-system-converter-online/ 301
 /knowledge-catalog/number-system-conversion-calculator-with-solution https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-calculator-with-solution/ 301
 /knowledge-catalog/number-system-conversion-pdf https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-pdf/ 301
 /knowledge-catalog/base-converter-calculator https://numbersystemconverter.com/knowledge-catalog/base-converter-calculator/ 301
 /knowledge-catalog/number-system-conversion-table https://numbersystemconverter.com/knowledge-catalog/number-system-conversion-table/ 301
 /knowledge-catalog/international-numbering-system-food-additives https://numbersystemconverter.com/knowledge-catalog/international-numbering-system-food-additives/ 301
+
+# Consolidated guide: /number-system-converter-online/ duplicated the homepage
+# and /with-steps/ for the same intent. Keep one canonical target per query.
+/knowledge-catalog/number-system-converter-online https://numbersystemconverter.com/ 301
+/knowledge-catalog/number-system-converter-online/ https://numbersystemconverter.com/ 301

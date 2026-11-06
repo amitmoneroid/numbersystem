@@ -33,6 +33,12 @@ interface Props {
   robots?: string;
   /** Render the WebApplication node (tool pages). */
   includeAppSchema?: boolean;
+  /** Localised display name for the WebApplication node. */
+  appName?: string;
+  /** Localised feature list for the WebApplication node. */
+  appFeatureList?: string[];
+  /** Optional ItemList collection graph (catalog / directory pages). */
+  collection?: { name: string; items: { name: string; url: string }[] };
   /** Visible Q&A pairs to mirror in FAQPage schema. */
   faqItems?: FaqSchemaItem[];
   breadcrumbs?: Crumb[];
@@ -51,10 +57,13 @@ const {
   ogImage,
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   includeAppSchema = false,
+  appName = 'Number System Converter',
+  appFeatureList,
+  collection,
   faqItems = [],
   breadcrumbs = [],
   datePublished = '2026-07-27',
-  dateModified = '2026-11-01',
+  dateModified = '2026-11-06',
   locale: localeProp,
 } = Astro.props;
 
@@ -84,15 +93,9 @@ const graph: Record<string, unknown>[] = [
     name: 'NumSys',
     alternateName: ['Number System Converter', 'NumSys Converter'],
     url: 'https://numbersystemconverter.com/',
-    // Profiles that officially represent the publisher (Spaarc Digital, the
-    // parent organization). Replace/extend with NumSys-specific profiles once
-    // dedicated accounts exist — only list live accounts the brand controls.
-    sameAs: [
-      'https://www.instagram.com/spaarcdigital',
-      'https://www.linkedin.com/company/spaarcdigital',
-      'https://x.com/spaarcdigital',
-      'https://www.youtube.com/@spaarcdigital',
-    ],
+    // NumSys has no dedicated social profiles yet. Do not borrow the parent
+    // organisation's accounts for the child entity; the relationship is
+    // expressed by parentOrganization below.
     logo: {
       '@type': 'ImageObject',
       url: 'https://numbersystemconverter.com/web-app-manifest-512x512.png',
@@ -120,6 +123,12 @@ const graph: Record<string, unknown>[] = [
       '@type': 'Organization',
       name: 'Spaarc Digital',
       url: 'https://www.spaarcdigital.com/',
+      sameAs: [
+        'https://www.instagram.com/spaarcdigital',
+        'https://www.linkedin.com/company/spaarcdigital',
+        'https://x.com/spaarcdigital',
+        'https://www.youtube.com/@spaarcdigital',
+      ],
     },
   },
   {
@@ -137,7 +146,14 @@ const graph: Record<string, unknown>[] = [
     name: title,
     description,
     isPartOf: { '@id': websiteId },
-    about: { '@id': organizationId },
+    about: includeAppSchema ? { '@id': `${canonicalURL}#app` } : { '@id': organizationId },
+    mainEntity: includeAppSchema ? { '@id': `${canonicalURL}#app` } : { '@id': organizationId },
+    reviewedBy: {
+      '@type': 'Organization',
+      name: 'NumSys editorial team',
+      parentOrganization: { '@type': 'Organization', name: 'Spaarc Digital' },
+      url: 'https://numbersystemconverter.com/about/#author',
+    },
     inLanguage: currentLocale.htmlLang,
     datePublished,
     dateModified,
@@ -148,15 +164,15 @@ if (includeAppSchema) {
   graph.push({
     '@type': 'WebApplication',
     '@id': `${canonicalURL}#app`,
-    name: 'Number System Converter',
+    name: appName,
     url: canonicalURL,
     description,
-    applicationCategory: 'UtilityApplication',
+    applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     image: imageURL,
-    featureList: [
+    featureList: appFeatureList ?? [
       'Convert Indian number system to International format',
       'Convert International number system to Indian format',
       'Full word expansion in both systems',
@@ -166,6 +182,23 @@ if (includeAppSchema) {
     ],
     creator: { '@id': organizationId },
     publisher: { '@id': organizationId },
+    inLanguage: currentLocale.htmlLang,
+  });
+}
+
+if (collection) {
+  graph.push({
+    '@type': 'ItemList',
+    '@id': `${canonicalURL}#itemlist`,
+    name: collection.name,
+    numberOfItems: collection.items.length,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: collection.items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+    })),
   });
 }
 
@@ -235,11 +268,9 @@ if (faqItems.length > 0) {
 
 		<!-- Primary SEO Meta Tags -->
 		<title>{title}</title>
-		<meta name="title" content={title} />
 		<meta name="description" content={description} />
-		<meta name="keywords" content={keywords} />
 		<meta name="robots" content={robots} />
-		<meta name="author" content="NumSys Editorial Team" />
+		<meta name="author" content="NumSys editorial team at Spaarc Digital" />
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- hreflang: every translated language plus x-default (English) -->
@@ -300,6 +331,23 @@ if (faqItems.length > 0) {
 					navigator.serviceWorker.register('/sw.js').catch(function () {});
 				});
 			}
+		</script>
+		<script is:inline>
+			// Wide data tables scroll horizontally. Make the scroll container
+			// reachable by keyboard and labelled for assistive technology.
+			document.querySelectorAll('table').forEach(function (table) {
+				var scrolls = table.scrollWidth > table.clientWidth;
+				var bodyTable = table.closest('.guide-body');
+				if (!scrolls && !bodyTable) return;
+				table.setAttribute('tabindex', '0');
+				if (!table.getAttribute('aria-label')) {
+					var caption = table.querySelector('caption');
+					table.setAttribute(
+						'aria-label',
+						caption && caption.textContent ? caption.textContent.trim() : 'Scrollable data table'
+					);
+				}
+			});
 		</script>
 	</body>
 </html>

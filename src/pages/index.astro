@@ -6,6 +6,7 @@ import FAQ from '../components/FAQ.astro';
 import { faqItems } from '../data/faq';
 import { guides, guideHref } from '../data/guides';
 import { nuances } from '../data/worldSystems';
+import { scaleRows } from '../data/scales';
 ---
 
 <Layout
@@ -23,8 +24,8 @@ import { nuances } from '../data/worldSystems';
 
         <div class="converter-heading">
           <span class="eyebrow">Free · No sign-up · Works offline</span>
-          <h1 class="converter-title">Number System Converter — Lakh, Crore, Million &amp; Billion</h1>
-          <p class="converter-lead">Convert lakh, crore, million and billion with full word expansion. Compare the Indian and International systems side by side, with every scale named.</p>
+          <h1 class="converter-title">Number System Converter — Crore to Million, Lakh to Billion</h1>
+          <p class="converter-lead">Type any Indian or International figure and see both systems side by side — digits, comma grouping and the full number in words. Free, no sign-up, nothing leaves your browser.</p>
           <ul class="hero-badges" aria-label="Converter capabilities">
             <li>13 naming scales</li>
             <li>Indian ⇄ International</li>
@@ -47,6 +48,7 @@ import { nuances } from '../data/worldSystems';
                 placeholder="e.g. 1"
                 inputmode="decimal"
                 autocomplete="off"
+                value="1"
               />
             </div>
             <div class="field-group field-scale">
@@ -108,7 +110,7 @@ import { nuances } from '../data/worldSystems';
           <div id="inputError" class="input-error" role="alert"></div>
 
           <!-- Converted Value Display -->
-          <div id="convertedValueArea" class="converted-value-area hidden">
+          <div id="convertedValueArea" class="converted-value-area hidden" aria-live="polite">
             <div class="converted-value-label">Converted Value</div>
             <div class="converted-value-row">
               <div id="convertedValue" class="converted-value code">—</div>
@@ -137,6 +139,15 @@ import { nuances } from '../data/worldSystems';
           <div id="resultsArea" class="results-area hidden">
             <!-- Separator -->
             <div class="results-divider"></div>
+
+            <!-- Share this conversion -->
+            <div class="share-row">
+              <button type="button" id="copyPermalink" class="share-btn" title="Copy a link to this exact conversion">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Copy link to this conversion
+              </button>
+              <span id="shareStatus" class="share-status" role="status" aria-live="polite"></span>
+            </div>
 
             <!-- Best Fit Highlight -->
             <div id="bestFitCard" class="best-fit-card">
@@ -174,9 +185,29 @@ import { nuances } from '../data/worldSystems';
                 <div class="number-words body-sm" id="indWords">—</div>
               </div>
             </div>
+
+            <!-- Post-result agency CTA: shown after a visitor runs a conversion -->
+            <aside class="agency-cta" id="agencyCta" aria-label="Build a tool like this">
+              <p>
+                <strong>Need a calculator like this for your business?</strong>
+                <a href="https://www.spaarcdigital.com/" target="_blank" rel="noopener noreferrer">Spaarc Digital</a>
+                builds fast, private web tools that convert.
+              </p>
+              <button type="button" class="agency-cta-dismiss" id="dismissAgencyCta" aria-label="Dismiss this message">×</button>
+            </aside>
           </div>
         </div>
         </div>
+
+        <noscript>
+          <div class="noscript-example card shadow-level-2">
+            <p class="body-sm">
+              <strong>Worked example (JavaScript disabled):</strong> 1 billion = 1 arab = 100 crore = 1,00,00,00,000.
+              1 million = 10 lakh. In words, 1,00,00,00,000 is “one arab” in the Indian system and
+              “one billion” in the International system.
+            </p>
+          </div>
+        </noscript>
 
         <p class="hero-footnote body-sm">
           Prefer the written method? Read the
@@ -187,60 +218,14 @@ import { nuances } from '../data/worldSystems';
           <a href="/knowledge-catalog/base-converter-calculator/">base converter guide</a>.
         </p>
         <p class="hero-review">
-          Reviewed <time datetime="2026-11-01">1 November 2026</time> by the
-          <a href="/about/#author">NumSys Editorial Team</a> ·
+          Reviewed <time datetime="2026-11-06">6 November 2026</time> by the
+          <a href="/about/#author">NumSys editorial team at Spaarc Digital</a> ·
           <a href="/about/#method">How the numbers are checked</a>
         </p>
 
       </div>
     </section>
 
-
-    <!-- STEP-BY-STEP EXPLAINER -->
-    <section id="with-steps" class="band-canvas section-band">
-      <div class="page-container">
-        <div class="section-header">
-          <span class="eyebrow">With steps</span>
-          <h2 class="display-lg">How the Number System Converter works, step by step</h2>
-          <p class="body-md" style="color: var(--color-body); max-width: 700px;">
-            Two rules cover every base: expand the source digits into decimal with positional weights, then divide repeatedly to reach the target base. The base converter in the guide runs both and prints every line. For example, 156₁₀ becomes 10011100₂ in eight divisions.
-          </p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="feature-card card shadow-level-3">
-            <h3 class="display-sm">1. Expand into decimal</h3>
-            <p class="body-sm">Multiply each digit by the base raised to its position, then add the products. <code>1A.8₁₆ = 16 + 10 + 0.5 = 26.5</code>.</p>
-          </div>
-          <div class="feature-card card shadow-level-3">
-            <h3 class="display-sm">2. Divide into the target base</h3>
-            <p class="body-sm">Divide the integer part repeatedly, record each remainder, then read them bottom-to-top. <code>156 ÷ 2 → 10011100₂</code>.</p>
-          </div>
-          <div class="feature-card card shadow-level-3">
-            <h3 class="display-sm">3. Check the answer</h3>
-            <p class="body-sm">Convert back using the weights: <code>128 + 16 + 8 + 4 = 156</code>. The two directions must agree — that is the check an exam or code review needs.</p>
-          </div>
-        </div>
-
-        <div class="home-answer">
-          <h3 class="display-sm">How do you convert decimal to binary step by step?</h3>
-          <p class="body-sm">
-            Divide by 2, record the remainder, and repeat with the quotient until it reaches zero. Read the remainders from the bottom up. For 156 the remainders are 0, 0, 1, 1, 1, 0, 0, 1 — so <strong>156₁₀ = 10011100₂</strong>.
-          </p>
-          <p class="body-sm">
-            Full worked method: <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps</a>.
-            Need the audit trail for an assignment? Use the
-            <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a>.
-          </p>
-        </div>
-
-        <p class="body-sm" style="color: var(--color-body); text-align: center; margin-top: var(--spacing-md);">
-          Want the method written out? Read the <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps guide</a>,
-          print the <a href="/knowledge-catalog/number-system-conversion-pdf/">conversion PDF</a>, or browse the
-          <a href="/knowledge-catalog/number-system-conversion-table/">full conversion table</a>.
-        </p>
-      </div>
-    </section>
 
     <!-- ═══════════════ ABOUT THE TOOL ═══════════════ -->
     <section class="band-canvas-soft section-band">
@@ -250,10 +235,10 @@ import { nuances } from '../data/worldSystems';
             <span class="eyebrow">About This Tool</span>
             <h2 class="display-lg">What is a Number System Converter?</h2>
             <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-              A number system converter can do two related jobs. It translates large numbers between the Indian naming system (lakh, crore, arab) and the International system (million, billion, trillion), with full word expansion — that is the tool on this page. It can also rewrite a value in a different radix — binary, octal, decimal, hexadecimal or any base up to 36 — which the <a href="/knowledge-catalog/base-converter-calculator/">base converter guide</a> covers.
+              The tool on this page does one job first: it translates large numbers between the Indian naming system (lakh, crore, arab) and the International system (million, billion, trillion), with full word expansion. The same site also carries a radix converter for binary, octal, decimal, hexadecimal and any base up to 36, which the <a href="/knowledge-catalog/base-converter-calculator/">base converter guide</a> covers.
             </p>
             <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-              Both jobs matter in finance, engineering and education. International reports quote billions while Indian documents quote crores; code uses binary and hex while people read decimal. The naming converter here bridges the first gap, the base converter guide bridges the second, and both show the working.
+              Getting this wrong changes a figure by a factor of ten or a hundred. International reports quote billions while Indian documents quote crores; code uses binary and hex while people read decimal. The naming converter here bridges the first gap, the base converter guide bridges the second, and both show the working.
             </p>
           </div>
           <div class="about-stats">
@@ -337,164 +322,36 @@ import { nuances } from '../data/worldSystems';
         <div class="section-header section-header-dark">
           <span class="eyebrow" style="color: rgba(255,255,255,0.5);">Reference</span>
           <h2 class="display-lg" style="color: #fff;">Number System Converter table: Indian vs International</h2>
-          <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 640px;">
-            A complete mapping of how each scale is named, formatted, and pronounced in the International versus Indian number system.
+          <p class="body-md" style="color: rgba(255,255,255,0.65); max-width: 680px;">
+            Every scale from thousand to shankh, side by side. Use this when you need to check a figure by hand —
+            <strong style="color:#fff;">1 billion is 1 arab is 100 crore</strong>.
           </p>
         </div>
 
-        <div class="ref-table-card">
+        <div class="ref-table-card" tabindex="0" role="region" aria-label="Indian and International number scale reference table">
           <table class="reference-table">
+            <caption class="visually-hidden">Powers of ten from thousand to shankh, with International and Indian names and comma grouping</caption>
             <thead>
               <tr>
-                <th>Value</th>
-                <th>International Name</th>
-                <th>Intl Format</th>
-                <th>Indian Name</th>
-                <th>Indian Format</th>
+                <th scope="col">Value</th>
+                <th scope="col">International Name</th>
+                <th scope="col">Intl Format</th>
+                <th scope="col">Indian Name</th>
+                <th scope="col">Indian Format</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="scale-name">10³</td>
-                <td>Thousand</td>
-                <td class="num-intl">1,000</td>
-                <td>&mdash;</td>
-                <td class="num-indian">1,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10⁵</td>
-                <td>Hundred Thousand</td>
-                <td class="num-intl">100,000</td>
-                <td>Lakh</td>
-                <td class="num-indian">1,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10⁶</td>
-                <td>Million</td>
-                <td class="num-intl">1,000,000</td>
-                <td>Ten Lakh</td>
-                <td class="num-indian">10,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10⁷</td>
-                <td>Ten Million</td>
-                <td class="num-intl">10,000,000</td>
-                <td>Crore</td>
-                <td class="num-indian">1,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10⁸</td>
-                <td>Hundred Million</td>
-                <td class="num-intl">100,000,000</td>
-                <td>Ten Crore</td>
-                <td class="num-indian">10,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10⁹</td>
-                <td>Billion</td>
-                <td class="num-intl">1,000,000,000</td>
-                <td>Arab</td>
-                <td class="num-indian">1,00,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10¹¹</td>
-                <td>Hundred Billion</td>
-                <td class="num-intl">100,000,000,000</td>
-                <td>Kharab</td>
-                <td class="num-indian">1,00,00,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10¹³</td>
-                <td>Ten Trillion</td>
-                <td class="num-intl">10,000,000,000,000</td>
-                <td>Neel</td>
-                <td class="num-indian">1,00,00,00,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10¹⁵</td>
-                <td>Quadrillion</td>
-                <td class="num-intl">1,000,000,000,000,000</td>
-                <td>Padma</td>
-                <td class="num-indian">1,00,00,00,00,00,00,000</td>
-              </tr>
-              <tr>
-                <td class="scale-name">10¹⁷</td>
-                <td>Hundred Quadrillion</td>
-                <td class="num-intl">100,000,000,000,000,000</td>
-                <td>Shankh</td>
-                <td class="num-indian">1,00,00,00,00,00,00,00,000</td>
-              </tr>
+              {scaleRows().map((row) => (
+                <tr>
+                  <td class="scale-name">{row.power}</td>
+                  <td>{row.intlName}</td>
+                  <td class="num-intl">{row.intlFormat}</td>
+                  <td>{row.indianName}</td>
+                  <td class="num-indian">{row.indianFormat}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ IN-DEPTH CONVERTER GUIDE ═══════════════ -->
-    <section id="converter-guide" class="band-canvas-soft section-band">
-      <div class="page-container">
-        <div class="section-header">
-          <span class="eyebrow">Converter guide</span>
-          <h2 class="display-lg">Number system converter with steps: binary, octal, decimal and hexadecimal</h2>
-          <p class="body-md" style="color: var(--color-body); max-width: 720px;">
-            A converter earns trust when it shows the arithmetic. The naming converter here and the base converter guide both print the working behind the answer, so a result can be checked instead of taken on faith.
-          </p>
-        </div>
-
-        <div class="deep-dive">
-          <p class="body-md">
-            The base converter rewrites any value between base 2 and base 36 and prints the positional expansion, every division and remainder, and the final digits. Binary is what processors execute, octal groups three bits at a time, decimal is what people read, and hexadecimal packs four bits into one character. That relationship is why programmers move between binary, octal and hex so easily: the digits describe identical bits, grouped differently.
-          </p>
-
-          <h3 class="display-sm">Worked example: one number, four bases</h3>
-          <p class="body-md">
-            Take 202. In base 10 the digits mean 2×10² + 0×10 + 2 = 202. Dividing repeatedly by 2 records remainders 0, 1, 0, 1, 0, 0, 1, 1; read bottom-up they form 11001010. Group the same bits in threes for octal 312 and in fours for hex CA. Expanding both confirms the result: 3×64 + 1×8 + 2 = 202, and 12×16 + 10 = 202. The quantity never changes — only the grouping does. Reading the trail from the bottom up, remainder by remainder, also makes it clear why the most significant digit is the last division: that is the point where the quotient reaches zero.
-          </p>
-          <p class="body-md">
-            Two checks catch most mistakes. Every digit must be smaller than its base — 2 is invalid in binary, and G is invalid below base 17 — and converting the answer back must return the original value. The base converter enforces both as you type, which is faster than finding the error after the number reaches a database, a spreadsheet or a report.
-          </p>
-
-          <h3 class="display-sm">Fractions, negatives and bases above 16</h3>
-          <p class="body-md">
-            Digits after the point use negative powers: hex 2B.4 is 2×16 + 11 + 4/16 = 43.25, and the base converter shows the multiply-by-base steps that generate those digits. Bases 11 to 36 extend the digit set with letters, so base 36 runs 0–9 then A–Z — useful for short links and ticket IDs because each character carries more values. Negative numbers are converted as magnitudes here; two's complement is a separate encoding step applied afterwards for machine integers, so convert the absolute value first and attach the sign in the target representation.
-          </p>
-
-          <h3 class="display-sm">When to use each base</h3>
-          <p class="body-md">
-            Use binary to reason about bit patterns, masks and permission flags. Octal survives in Unix modes, where 755 reads as rwxr-xr-x. Hex is the working language of colour codes such as #1A8F3C, memory addresses, MAC addresses and byte dumps. Decimal remains the default for anything a person will read. Convert to the base the next reader needs, and keep the step trail with the result so the work can be verified later by someone who did not run the conversion.
-          </p>
-
-          <h2 class="display-lg deep-dive-heading">Indian ⇄ International number system converter: lakh, crore, million and billion</h2>
-          <p class="body-md">
-            The second tab translates large values between the Indian system — thousand, lakh, crore, arab, kharab, neel, padma, shankh — and the International short scale of thousand, million, billion, trillion, quadrillion and quintillion. Indian notation separates the first three digits and then every two (12,34,56,789); International notation separates every three (123,456,789). The words change with the notation, so a figure copied from an Indian filing can look ten times larger or smaller in an international report.
-          </p>
-
-          <h3 class="display-sm">The conversions worth memorising</h3>
-          <p class="body-md">Four anchors cover most everyday work:</p>
-          <ul class="deep-dive-list body-md">
-            <li><strong>1 million = 10 lakh</strong> and 1 crore = 10 million</li>
-            <li><strong>1 billion = 100 crore = 1 arab</strong></li>
-            <li><strong>1 trillion = 1 lakh crore</strong></li>
-            <li><strong>1 lakh = 100 thousand</strong> and 1 thousand = 0.001 million</li>
-          </ul>
-          <p class="body-md">
-            Everything else moves a decimal point: 5.4 billion is 540 crore, 75 lakh is 7.5 million, 1.25 crore is 12.5 million, and 250 million is 25 crore. When a value fits no anchor, convert it and read the word expansion — if the digits say 540,000,000 but the words say five hundred forty crore, the scale is off by a factor of ten and the mismatch is obvious.
-          </p>
-
-          <h3 class="display-sm">Why the same number looks different</h3>
-          <p class="body-md">
-            Indian English writes 2.5 crore where an international wire story writes 25 million. Both are correct; they are conventions applied to the same scale. The pairs that cause the most confusion are lakh and million (a factor of ten) and crore and billion (a factor of one hundred). The risk sits in contracts, salaries, budgets, valuations and loan documents, where reading lakh as million changes a figure tenfold and crore as billion changes it a hundredfold. The side-by-side display and full word expansion act as a cross-check before a number is signed off or published.
-          </p>
-
-          <h3 class="display-sm">Using both converters together</h3>
-          <p class="body-md">
-            Many tasks need both tabs. A developer sizing a 4,294,967,296-byte limit can read it as hex 100000000 and as Indian words — 4 arab, 29 crore, 49 lakh, 67 thousand, 296 — while a finance team reads the same quantity as 4.29 billion. Copy the shareable link from either tab to send the exact conversion, including the bases or scales used, to a colleague.
-          </p>
-
-          <h3 class="display-sm">Accuracy, privacy and speed</h3>
-          <p class="body-md">
-            Every calculation runs in the browser, so salary figures, contract values and internal budgets are never uploaded. Results update as you type, both tabs accept decimals, and the step trail is produced by the same arithmetic that produces the answer — the explanation and the result cannot disagree.
-          </p>
         </div>
       </div>
     </section>
@@ -506,7 +363,7 @@ import { nuances } from '../data/worldSystems';
           <span class="eyebrow">Real-World Applications</span>
           <h2 class="display-lg">When do you need a Number System Converter?</h2>
           <p class="body-md" style="color: var(--color-body); max-width: 640px;">
-            Understanding both number systems is essential in many professional and educational contexts.
+            A factor-of-ten misread is the most common error when a crore figure is copied into a dollar report. The side-by-side display and word expansion make the scale visible before the number is signed off.
           </p>
         </div>
 
@@ -608,7 +465,7 @@ import { nuances } from '../data/worldSystems';
           <div class="conversion-item">
             <span class="conversion-left code">1 Quadrillion</span>
             <span class="conversion-arrow-small">&rarr;</span>
-            <span class="conversion-right code">1 Padma (100 Lakh Crore)</span>
+            <span class="conversion-right code">1 Padma (1,000 Lakh Crore)</span>
           </div>
           <div class="conversion-item">
             <span class="conversion-left code">1 Kharab</span>
@@ -635,6 +492,116 @@ import { nuances } from '../data/worldSystems';
     </section>
 
 
+    <!-- STEP-BY-STEP EXPLAINER (radix intent, kept below the naming content) -->
+    <section id="with-steps" class="band-canvas section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">With steps</span>
+          <h2 class="display-lg">How base conversion works, step by step</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 700px;">
+            Two rules cover every base: expand the source digits into decimal with positional weights, then divide repeatedly to reach the target base. The base converter in the guide runs both and prints every line. For example, 156₁₀ becomes 10011100₂ in eight divisions.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">1. Expand into decimal</h3>
+            <p class="body-sm">Multiply each digit by the base raised to its position, then add the products. <code>1A.8₁₆ = 16 + 10 + 0.5 = 26.5</code>.</p>
+          </div>
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">2. Divide into the target base</h3>
+            <p class="body-sm">Divide the integer part repeatedly, record each remainder, then read them bottom-to-top. <code>156 ÷ 2 → 10011100₂</code>.</p>
+          </div>
+          <div class="feature-card card shadow-level-3">
+            <h3 class="display-sm">3. Check the answer</h3>
+            <p class="body-sm">Convert back using the weights: <code>128 + 16 + 8 + 4 = 156</code>. The two directions must agree — that is the check an exam or code review needs.</p>
+          </div>
+        </div>
+
+        <div class="home-answer">
+          <h3 class="display-sm">How do you convert decimal to binary step by step?</h3>
+          <p class="body-sm">
+            Divide by 2, record the remainder, and repeat with the quotient until it reaches zero. Read the remainders from the bottom up. For 156 the remainders are 0, 0, 1, 1, 1, 0, 0, 1 — so <strong>156₁₀ = 10011100₂</strong>.
+          </p>
+          <p class="body-sm">
+            Full worked method: <a href="/knowledge-catalog/number-system-converter-with-steps/">number system converter with steps</a>.
+            Need the audit trail for an assignment? Use the
+            <a href="/knowledge-catalog/number-system-conversion-calculator-with-solution/">calculator with solution</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ IN-DEPTH CONVERTER GUIDE ═══════════════ -->
+    <section id="converter-guide" class="band-canvas-soft section-band">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="eyebrow">Converter guide</span>
+          <h2 class="display-lg">Number system converter with steps: binary, octal, decimal and hexadecimal</h2>
+          <p class="body-md" style="color: var(--color-body); max-width: 720px;">
+            A converter earns trust when it shows the arithmetic. The naming converter here and the base converter guide both print the working behind the answer, so a result can be checked instead of taken on faith.
+          </p>
+        </div>
+
+        <div class="deep-dive">
+          <p class="body-md">
+            The base converter rewrites any value between base 2 and base 36 and prints the positional expansion, every division and remainder, and the final digits. Binary is what processors execute, octal groups three bits at a time, decimal is what people read, and hexadecimal packs four bits into one character. That relationship is why programmers move between binary, octal and hex so easily: the digits describe identical bits, grouped differently.
+          </p>
+
+          <h3 class="display-sm">Worked example: one number, four bases</h3>
+          <p class="body-md">
+            Take 202. In base 10 the digits mean 2×10² + 0×10 + 2 = 202. Dividing repeatedly by 2 records remainders 0, 1, 0, 1, 0, 0, 1, 1; read bottom-up they form 11001010. Group the same bits in threes for octal 312 and in fours for hex CA. Expanding both confirms the result: 3×64 + 1×8 + 2 = 202, and 12×16 + 10 = 202. The quantity never changes — only the grouping does.
+          </p>
+          <p class="body-md">
+            Two checks catch most mistakes. Every digit must be smaller than its base — 2 is invalid in binary, and G is invalid below base 17 — and converting the answer back must return the original value. The base converter enforces both as you type, which is faster than finding the error after the number reaches a database, a spreadsheet or a report.
+          </p>
+
+          <h3 class="display-sm">Fractions, negatives and bases above 16</h3>
+          <p class="body-md">
+            Digits after the point use negative powers: hex 2B.4 is 2×16 + 11 + 4/16 = 43.25, and the base converter shows the multiply-by-base steps that generate those digits. Bases 11 to 36 extend the digit set with letters, so base 36 runs 0–9 then A–Z — useful for short links and ticket IDs because each character carries more values. Negative numbers are converted as magnitudes here; two's complement is a separate encoding step applied afterwards for machine integers, so convert the absolute value first and attach the sign in the target representation.
+          </p>
+
+          <h3 class="display-sm">When to use each base</h3>
+          <p class="body-md">
+            Use binary to reason about bit patterns, masks and permission flags. Octal survives in Unix modes, where 755 reads as rwxr-xr-x. Hex is the working language of colour codes such as #1A8F3C, memory addresses, MAC addresses and byte dumps. Decimal remains the default for anything a person will read. Convert to the base the next reader needs, and keep the step trail with the result so the work can be verified later by someone who did not run the conversion.
+          </p>
+
+          <h2 class="display-lg deep-dive-heading">Indian ⇄ International number system converter: lakh, crore, million and billion</h2>
+          <p class="body-md">
+            The second tab translates large values between the Indian system — thousand, lakh, crore, arab, kharab, neel, padma, shankh — and the International short scale of thousand, million, billion, trillion, quadrillion and quintillion. Indian notation separates the first three digits and then every two (12,34,56,789); International notation separates every three (123,456,789). The words change with the notation, so a figure copied from an Indian filing can look ten times larger or smaller in an international report.
+          </p>
+
+          <h3 class="display-sm">The conversions worth memorising</h3>
+          <p class="body-md">Four anchors cover most everyday work:</p>
+          <ul class="deep-dive-list body-md">
+            <li><strong>1 million = 10 lakh</strong> and 1 crore = 10 million</li>
+            <li><strong>1 billion = 100 crore = 1 arab</strong></li>
+            <li><strong>1 trillion = 1 lakh crore</strong></li>
+            <li><strong>1 lakh = 100 thousand</strong> and 1 thousand = 0.001 million</li>
+          </ul>
+          <p class="body-md">
+            Everything else moves a decimal point: 5.4 billion is 540 crore, 75 lakh is 7.5 million, 1.25 crore is 12.5 million, and 250 million is 25 crore. When a value fits no anchor, convert it and read the word expansion — if the digits say 540,000,000 but the words say five hundred forty crore, the scale is off by a factor of ten and the mismatch is obvious.
+          </p>
+
+          <h3 class="display-sm">Why the same number looks different</h3>
+          <p class="body-md">
+            Indian English writes 2.5 crore where an international wire story writes 25 million. Both are correct; they are conventions applied to the same scale. The pairs that cause the most confusion are lakh and million (a factor of ten) and crore and billion (a factor of one hundred). The risk sits in contracts, salaries, budgets, valuations and loan documents, where reading lakh as million changes a figure tenfold and crore as billion changes it a hundredfold. The side-by-side display and full word expansion act as a cross-check before a number is signed off or published.
+          </p>
+
+          <h3 class="display-sm">Using both converters together</h3>
+          <p class="body-md">
+            Many tasks need both tabs. A developer sizing a 4,294,967,296-byte limit can read it as hex 100000000 and as Indian words — 4 arab, 29 crore, 49 lakh, 67 thousand, 296 — while a finance team reads the same quantity as 4.29 billion. Copy the shareable link from either tab to send the exact conversion, including the bases or scales used, to a colleague.
+          </p>
+
+          <h3 class="display-sm">Accuracy, privacy and speed</h3>
+          <p class="body-md">
+            Every calculation runs in the browser, so salary figures, contract values and internal budgets are never uploaded. Results update as you type, both tabs accept decimals, and the step trail is produced by the same arithmetic that produces the answer — the explanation and the result cannot disagree.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
     <!-- NIBBLE CONVERSION TABLE -->
     <section id="conversion-table" class="band-canvas-soft section-band">
       <div class="page-container">
@@ -646,7 +613,7 @@ import { nuances } from '../data/worldSystems';
           </p>
         </div>
 
-        <div class="conversion-table-card card shadow-level-3">
+        <div class="conversion-table-card card shadow-level-3" tabindex="0" role="region" aria-label="Numbers 0 to 15 in decimal, binary, octal and hexadecimal">
           <table class="nibble-table">
             <caption>Numbers 0 to 15 in decimal, binary, octal and hexadecimal</caption>
             <thead>
@@ -760,11 +727,13 @@ import { nuances } from '../data/worldSystems';
             </p>
           </div>
           <div class="edu-block">
-            <h3 class="display-sm">Further Learning Resources</h3>
+            <h3 class="display-sm">Standards behind the conventions</h3>
             <p class="body-md" style="color: var(--color-body);">
-              For those interested in exploring more about number systems, financial literacy, and educational resources,
-              <a href="https://servebharat.com/" target="_blank" rel="noopener noreferrer">servebharat.com</a>
-              provides valuable insights and tools that complement the understanding of numerical concepts across different systems.
+              The scale conventions used here follow the
+              <a href="https://www.bipm.org/en/committees" target="_blank" rel="noopener noreferrer">BIPM / CGPM</a> short-scale definition,
+              <a href="https://www.iso.org/standard/76921.html" target="_blank" rel="noopener noreferrer">ISO 80000-1</a> for quantity and prefix conventions,
+              <a href="https://www.nist.gov/pml/special-publication-811" target="_blank" rel="noopener noreferrer">NIST SP 811</a> for number and unit style,
+              and <a href="https://cldr.unicode.org/" target="_blank" rel="noopener noreferrer">Unicode CLDR</a> for locale digit grouping.
             </p>
           </div>
         </div>
@@ -774,7 +743,6 @@ import { nuances } from '../data/worldSystems';
   </main>
 
   <Footer />
-</Layout>
 
 <!-- ═══════════════ CONVERSION LOGIC ═══════════════ -->
 <script>
@@ -798,8 +766,19 @@ import { nuances } from '../data/worldSystems';
   const intlWords = document.getElementById('intlWords') as HTMLDivElement;
   const indWords = document.getElementById('indWords') as HTMLDivElement;
 
+  // Share + post-result agency CTA
+  const shareBtn = document.getElementById('copyPermalink') as HTMLButtonElement | null;
+  const shareStatus = document.getElementById('shareStatus') as HTMLSpanElement | null;
+  const agencyCta = document.getElementById('agencyCta') as HTMLElement | null;
+  const dismissAgencyCta = document.getElementById('dismissAgencyCta') as HTMLButtonElement | null;
+
   // ── State ──
-  // No longer need targetSystem state since we have explicit "To" dropdown
+  let agencyDismissed = false;
+  try {
+    agencyDismissed = sessionStorage.getItem('agencyCtaDismissed') === '1';
+  } catch {
+    agencyDismissed = false;
+  }
 
   // ── Scale Data ──
   const intlScales = [
@@ -1064,6 +1043,39 @@ import { nuances } from '../data/worldSystems';
     }
   }
 
+  // ── Which optgroup is selected? ──
+  function getSelectedSystem(select: HTMLSelectElement): 'intl' | 'ind' {
+    const option = select.options[select.selectedIndex];
+    const label = option?.parentElement?.getAttribute('label') ?? '';
+    return label.includes('Indian') ? 'ind' : 'intl';
+  }
+
+  // Select an option inside a specific optgroup. Both systems share multipliers
+  // (1e9 is both Billion and Arab), so the system has to travel with the value.
+  function setScaleFromParams(
+    select: HTMLSelectElement,
+    value: string | null,
+    system: string | null,
+    fallbackIndex: number,
+  ): void {
+    if (!value) {
+      select.selectedIndex = fallbackIndex;
+      return;
+    }
+    const wantIndian = system === 'ind';
+    const group = Array.from(select.querySelectorAll('optgroup')).find(
+      (item) => (item.getAttribute('label') ?? '').includes('Indian') === wantIndian,
+    );
+    const option = group
+      ? Array.from(group.querySelectorAll('option')).find((item) => item.value === value)
+      : undefined;
+    if (option) {
+      option.selected = true;
+    } else {
+      select.selectedIndex = fallbackIndex;
+    }
+  }
+
   // ── Get the "From" scale display name ──
   function getFromScaleName(): string {
     const val = parseFloat(fromScale.value);
@@ -1084,8 +1096,24 @@ import { nuances } from '../data/worldSystems';
     return intlMatch?.name ?? indMatch?.name ?? '';
   }
 
+  // ── Shareable state: ?v=1&from=1e9&to=1e7&fsys=intl&tsys=ind ──
+  function syncUrl(): void {
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', numInput.value.trim());
+    url.searchParams.set('from', fromScale.value);
+    url.searchParams.set('to', toScale.value);
+    url.searchParams.set('fsys', getSelectedSystem(fromScale));
+    url.searchParams.set('tsys', getSelectedSystem(toScale));
+    window.history.replaceState(null, '', url);
+  }
+
+  function revealAgencyCta(): void {
+    if (agencyDismissed || !agencyCta) return;
+    agencyCta.classList.add('visible');
+  }
+
   // ── Convert ──
-  function convert(): void {
+  function convert(userInitiated = false): void {
     const parsed = parseInput();
     if (!parsed) {
       if (numInput.value.replace(/[,，\s]/g, '') === '') {
@@ -1118,6 +1146,11 @@ import { nuances } from '../data/worldSystems';
     // Words
     intlWords.textContent = numberToWordsInternational(integerPart);
     indWords.textContent = numberToWordsIndian(integerPart);
+
+    if (userInitiated) {
+      syncUrl();
+      revealAgencyCta();
+    }
   }
 
   // ── Get the "To" scale display name ──
@@ -1136,9 +1169,13 @@ import { nuances } from '../data/worldSystems';
     return intlMatch?.name ?? indMatch?.name ?? '';
   }
 
-  // ── To Scale Change ──
+  // ── Scale changes ──
+  fromScale.addEventListener('change', () => {
+    convert(true);
+  });
+
   toScale.addEventListener('change', () => {
-    convert();
+    convert(true);
   });
 
   // ── Swap the From and To scales ──
@@ -1147,7 +1184,7 @@ import { nuances } from '../data/worldSystems';
     const fromValue = fromScale.value;
     fromScale.value = toScale.value;
     toScale.value = fromValue;
-    convert();
+    convert(true);
   });
 
   // ── Copy to Clipboard ──
@@ -1175,7 +1212,7 @@ import { nuances } from '../data/worldSystems';
   });
 
   // ── Event Listeners ──
-  numInput.addEventListener('input', convert);
+  numInput.addEventListener('input', () => convert(true));
 
   // Quick example chips
   document.querySelectorAll('.chip').forEach(chip => {
@@ -1198,7 +1235,7 @@ import { nuances } from '../data/worldSystems';
           toScale.value = '1e9'; // Billion (International)
         }
       }
-      convert();
+      convert(true);
     });
   });
 
@@ -1206,16 +1243,52 @@ import { nuances } from '../data/worldSystems';
   numInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      convert();
+      convert(true);
     }
   });
 
-  // Prefill the naming converter so the first view always contains a result.
-  numInput.value = '1';
-  fromScale.value = '1e9';
-  toScale.value = '1e7';
+  // ── Copy a permalink to the current conversion ──
+  shareBtn?.addEventListener('click', async () => {
+    syncUrl();
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (shareStatus) shareStatus.textContent = 'Link copied';
+      shareBtn.classList.add('copied');
+      window.setTimeout(() => {
+        if (shareStatus) shareStatus.textContent = '';
+        shareBtn.classList.remove('copied');
+      }, 1600);
+    } catch {
+      if (shareStatus) {
+        shareStatus.textContent = 'Copy the address bar URL to share this conversion';
+      }
+    }
+  });
+
+  // ── Dismiss the post-result agency CTA for this session ──
+  dismissAgencyCta?.addEventListener('click', () => {
+    agencyDismissed = true;
+    agencyCta?.classList.remove('visible');
+    try {
+      sessionStorage.setItem('agencyCtaDismissed', '1');
+    } catch {
+      // Storage can be unavailable in private mode; the dismissal still applies.
+    }
+  });
+
+  // Prefill from a shared link, or fall back to a live example above the fold.
+  const initialParams = new URLSearchParams(window.location.search);
+  const paramValue = initialParams.get('v');
+  if (paramValue) numInput.value = paramValue;
+  setScaleFromParams(fromScale, initialParams.get('from'), initialParams.get('fsys'), 2); // Billion
+  setScaleFromParams(toScale, initialParams.get('to'), initialParams.get('tsys'), 1); // Crore
+  if (!paramValue) numInput.value = '1';
   convert();
+  // The pre-filled result is a completed conversion, so the post-result CTA is
+  // eligible immediately. It stays dismissible for the session.
+  revealAgencyCta();
 </script>
+</Layout>
 
 <style>
   /* ════════════ CONVERTER HERO ════════════ */
@@ -1628,8 +1701,8 @@ import { nuances } from '../data/worldSystems';
   .chip {
     display: inline-flex;
     align-items: center;
-    height: 28px;
-    padding: 0 12px;
+    min-height: 44px;
+    padding: 0 14px;
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
@@ -1806,8 +1879,8 @@ import { nuances } from '../data/worldSystems';
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     background: var(--color-canvas-soft);
     border: 1px solid var(--color-hairline);
@@ -1892,8 +1965,14 @@ import { nuances } from '../data/worldSystems';
   /* ════════════ REFERENCE TABLE (DARK BAND) ════════════ */
   .ref-table-card {
     border-radius: var(--radius-lg);
-    overflow: hidden;
+    overflow-x: auto;
     border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .ref-table-card:focus-visible,
+  .conversion-table-card:focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
   }
 
   /* ════════════ ABOUT SECTION ════════════ */
@@ -2143,6 +2222,15 @@ import { nuances } from '../data/worldSystems';
     .reference-table {
       min-width: 640px;
     }
+
+    /* Keep the power-of-ten column visible while the table scrolls. */
+    .reference-table th:first-child,
+    .reference-table td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #171717;
+    }
   }
   /* NEW: TABLE, NUANCES, GUIDES */
   .conversion-table-card {
@@ -2336,5 +2424,102 @@ import { nuances } from '../data/worldSystems';
 
   .deep-dive-list li::marker {
     color: var(--color-mute);
+  }
+
+  /* ════════════ SHARE + POST-RESULT CTA ════════════ */
+  .share-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-full);
+    background: var(--color-canvas-soft);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .share-btn:hover,
+  .share-btn.copied {
+    color: var(--color-ink);
+    border-color: var(--color-hairline-strong);
+    background: var(--color-canvas-soft-2);
+  }
+
+  .share-status {
+    font-size: 12px;
+    color: var(--color-mute);
+  }
+
+  .agency-cta {
+    display: none;
+    position: relative;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    padding-right: 44px;
+    border: 1px solid var(--color-hairline);
+    border-left: 3px solid var(--color-link);
+    border-radius: var(--radius-sm);
+    background: var(--color-link-bg-soft);
+  }
+
+  .agency-cta.visible {
+    display: flex;
+  }
+
+  .agency-cta p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--color-body);
+  }
+
+  .agency-cta strong {
+    color: var(--color-ink);
+  }
+
+  .agency-cta-dismiss {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    color: var(--color-mute);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .agency-cta-dismiss:hover {
+    color: var(--color-ink);
+  }
+
+  .noscript-example {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    text-align: left;
+    background: var(--color-canvas);
+    border-radius: var(--radius-md);
+  }
+
+  .noscript-example p {
+    margin: 0;
+    color: var(--color-body);
   }
 </style>

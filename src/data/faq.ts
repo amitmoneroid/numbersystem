@@ -37,7 +37,7 @@ export const faqItems: FaqItem[] = [
   {
     question: 'What is 100000000000000000000 in words?',
     answer:
-      '<strong>100,000,000,000,000,000,000</strong> (1 followed by 20 zeros) is <strong>One Hundred Quintillion</strong> in the International system. In the Indian system the same value is <strong>1,00,00,00,00,00,00,00,00,000</strong>, which is <strong>1,000 shankh</strong> (one shankh = 10¹⁷).',
+      '<strong>100,000,000,000,000,000,000</strong> (1 followed by 20 zeros) is <strong>One Hundred Quintillion</strong> in the International system. In the Indian system the same value is <strong>10,00,00,00,00,00,00,00,00,000</strong>, which is <strong>1,000 shankh</strong> (one shankh = 10¹⁷).',
   },
   {
     question: 'How do I convert my number to an International number?',

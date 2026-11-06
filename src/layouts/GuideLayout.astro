@@ -63,8 +63,14 @@ const articleSchema = {
   inLanguage: 'en',
   author: {
     '@type': 'Organization',
-    name: 'NumSys Editorial Team',
-    url: 'https://numbersystemconverter.com/about/#author',
+    '@id': 'https://numbersystemconverter.com/about/#author',
+    name: 'NumSys editorial team',
+    url: 'https://numbersystemconverter.com/about/',
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Spaarc Digital',
+      url: 'https://www.spaarcdigital.com/',
+    },
   },
   publisher: { '@id': 'https://numbersystemconverter.com/#organization' },
   isPartOf: { '@id': 'https://numbersystemconverter.com/#website' },
@@ -116,7 +122,7 @@ const articleSchema = {
             <p>{answer}</p>
           </div>
           <div class="guide-meta">
-            <span class="meta-item">By <a href="/about/#author">the NumSys Editorial Team</a></span>
+            <span class="meta-item">By <a href="/about/#author">the NumSys editorial team at Spaarc Digital</a></span>
             <span class="meta-dot" aria-hidden="true"></span>
             <span class="meta-item">Published <time datetime={guide.published}>{new Date(guide.published + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></span>
             <span class="meta-dot" aria-hidden="true"></span>
@@ -484,6 +490,11 @@ const articleSchema = {
     margin-block: var(--spacing-lg);
     display: block;
     overflow-x: auto;
+  }
+
+  .guide-body :global(table:focus-visible) {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
   }
 
   .guide-body :global(thead th) {

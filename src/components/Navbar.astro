@@ -1,11 +1,13 @@
 ---
 // Navbar.astro — Clean Vercel-style navigation bar with a locale switcher.
 import {
+  canonicalPath,
   defaultLocale,
   isLocale,
   localeMeta,
   locales,
   switchHref,
+  translatedPaths,
 } from '../i18n/routing';
 import { navUi } from '../i18n/ui';
 
@@ -24,6 +26,9 @@ const languageOptions = locales.map((code) => ({
   href: switchHref(path, code),
   current: code === locale,
 }));
+// Only show the switcher where a translated version of this page exists.
+// Sending a reader from an English-only guide to a locale homepage loses context.
+const showLanguageSwitcher = translatedPaths.has(canonicalPath(path));
 ---
 
 <header class="navbar">
@@ -44,6 +49,7 @@ const languageOptions = locales.map((code) => ({
     </ul>
 
     <div class="nav-actions">
+      {showLanguageSwitcher && (
       <details class="lang-switcher" id="langSwitcher">
         <summary class="lang-trigger" aria-label={t.language} title={t.language}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -67,6 +73,7 @@ const languageOptions = locales.map((code) => ({
           ))}
         </ul>
       </details>
+      )}
 
       <button type="button" class="theme-toggle" id="themeToggle" aria-label={t.themeToDark} aria-pressed="true" data-label-light={t.themeToLight} data-label-dark={t.themeToDark}>
         <span class="theme-icon" id="themeIcon">🌙</span>

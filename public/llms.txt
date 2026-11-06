@@ -17,13 +17,14 @@
 
 ## Reference
 
-- [Knowledge Catalog](https://numbersystemconverter.com/knowledge-catalog/): Directory of all seven guides, use cases, audience and FAQ.
+- [Knowledge Catalog](https://numbersystemconverter.com/knowledge-catalog/): Directory of all six guides, use cases, audience and FAQ.
 - [About](https://numbersystemconverter.com/about/): What the site does, how examples are checked, and the editorial team.
 - [Contact](https://numbersystemconverter.com/contact/): Report a conversion error or broken page.
 
 ## Key facts
 
 - 1 million = 10 lakh; 1 billion = 1 arab = 100 crore; 1 trillion = 1 lakh crore.
+- 1 quadrillion = 1 padma = 1,000 lakh crore; 1 shankh = 100 quadrillion.
 - Indian scale: lakh 10^5, crore 10^7, arab 10^9, kharab 10^11, neel 10^13, padma 10^15, shankh 10^17.
 - International short scale: million 10^6, billion 10^9, trillion 10^12, quadrillion 10^15.
 - Portuguese (Portugal) uses the long scale: bilião = 10^12. Brazilian Portuguese uses the short scale: bilhão = 10^9.

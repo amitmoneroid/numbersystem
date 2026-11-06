@@ -23,15 +23,27 @@ const baseLabel = (b: number) =>
 const fill = (template: string, values: Record<string, string | number>) =>
   template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ''));
 
+// Server-render a real worked example (156₁₀ → 10011100₂) so the no-JS and
+// first-paint state never shows the empty "1 ÷ 2" placeholder.
 const initialNote = fill(ui.noteTemplate, {
-  raw: '1',
+  raw: '156',
   from: 10,
-  result: '1',
+  result: '10011100',
   to: 2,
-  decimal: 1,
+  decimal: 156,
 });
 const initialStepTitle = fill(ui.divideTitle, { step: 1, to: 2 });
-const initialRead = fill(ui.readRemainders, { int: '<code>1</code>' });
+const initialRead = fill(ui.readRemainders, { int: '<code>10011100</code>' });
+const initialDivisionSteps = [
+  [156, 78, 0],
+  [78, 39, 0],
+  [39, 19, 1],
+  [19, 9, 1],
+  [9, 4, 1],
+  [4, 2, 0],
+  [2, 1, 0],
+  [1, 0, 1],
+] as const;
 const presetValues = [
   { value: '156', from: '10', to: '2' },
   { value: '10011100', from: '2', to: '10' },
@@ -50,7 +62,7 @@ const presetValues = [
   <div class="bc-grid">
     <div class="bc-field bc-value-field">
       <label for="bcValue" class="bc-label">{ui.valueLabel}</label>
-      <input id="bcValue" class="bc-input code" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false" />
+      <input id="bcValue" class="bc-input code" type="text" value="156" inputmode="text" autocomplete="off" spellcheck="false" />
     </div>
     <div class="bc-field">
       <label for="bcFrom" class="bc-label">{ui.fromLabel}</label>
@@ -75,7 +87,7 @@ const presetValues = [
   <div class="bc-result" id="bcResult" aria-live="polite">
     <div class="bc-result-label">{ui.resultLabel}</div>
     <div class="bc-result-row">
-      <output class="bc-result-value code" id="bcOutput">1</output>
+      <output class="bc-result-value code" id="bcOutput">10011100</output>
       <span class="bc-result-base" id="bcOutputBase">{ui.baseWord} 2</span>
       <div class="bc-result-actions">
         <button type="button" class="bc-copy" id="bcLink" aria-label={ui.linkAria}>{ui.link}</button>
@@ -86,10 +98,10 @@ const presetValues = [
   </div>
 
   <div class="bc-allbases" id="bcAllBases" aria-label={ui.allBasesAria}>
-    <div class="bc-allbase"><span>{ui.labels.binary}</span><code id="bcAllBin">1</code></div>
-    <div class="bc-allbase"><span>{ui.labels.octal}</span><code id="bcAllOct">1</code></div>
-    <div class="bc-allbase"><span>{ui.labels.decimal}</span><code id="bcAllDec">1</code></div>
-    <div class="bc-allbase"><span>{ui.labels.hex}</span><code id="bcAllHex">1</code></div>
+    <div class="bc-allbase"><span>{ui.labels.binary}</span><code id="bcAllBin">10011100</code></div>
+    <div class="bc-allbase"><span>{ui.labels.octal}</span><code id="bcAllOct">234</code></div>
+    <div class="bc-allbase"><span>{ui.labels.decimal}</span><code id="bcAllDec">156</code></div>
+    <div class="bc-allbase"><span>{ui.labels.hex}</span><code id="bcAllHex">9C</code></div>
   </div>
 
   <div class="bc-presets" aria-label={ui.presetsLabel}>
@@ -109,7 +121,9 @@ const presetValues = [
     <div class="bc-step-block">
       <h3 class="bc-step-title">{initialStepTitle}</h3>
       <ol class="bc-step-list">
-        <li><code>1 ÷ 2 = 0, {ui.remainderWord} <strong>1</strong> (1)</code></li>
+        {initialDivisionSteps.map(([from, quotient, remainder]) => (
+          <li><code>{from} ÷ 2 = {quotient}, {ui.remainderWord} <strong>{remainder}</strong> ({remainder})</code></li>
+        ))}
       </ol>
       <p class="bc-step-sum" set:html={initialRead} />
     </div>
@@ -525,8 +539,9 @@ const presetValues = [
   }
 
   .bc-chip {
+    min-height: 44px;
     font-size: 12px;
-    padding: 5px 10px;
+    padding: 8px 14px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-hairline);
     background: var(--color-canvas-soft);
@@ -598,8 +613,9 @@ const presetValues = [
   }
 
   .bc-copy {
+    min-height: 44px;
     font-size: 12px;
-    padding: 4px 10px;
+    padding: 8px 14px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-hairline);
     background: var(--color-canvas);

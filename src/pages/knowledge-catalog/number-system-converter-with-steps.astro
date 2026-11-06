@@ -51,7 +51,7 @@ const faqs = [
     tool: [{ '@type': 'HowToTool', name: 'NumSys base converter' }],
     step: [
       { '@type': 'HowToStep', name: 'Divide by 2', text: '156 ÷ 2 = 78, remainder 0.' },
-      { '@type': 'HowToStep', name: 'Repeat with the quotient', text: 'Continue dividing until the quotient is 0: 78 r0, 39 r1, 19 r1, 9 r1, 4 r0, 2 r0, 1 r1.' },
+      { '@type': 'HowToStep', name: 'Repeat with the quotient', text: 'Continue dividing until the quotient is 0: 78 ÷ 2 = 39 r0, 39 ÷ 2 = 19 r1, 19 ÷ 2 = 9 r1, 9 ÷ 2 = 4 r1, 4 ÷ 2 = 2 r0, 2 ÷ 2 = 1 r0, 1 ÷ 2 = 0 r1.' },
       { '@type': 'HowToStep', name: 'Read bottom-to-top', text: 'The remainders from the last division to the first are 10011100.' },
       { '@type': 'HowToStep', name: 'Check', text: 'Add the weights of the 1-bits: 128 + 16 + 8 + 4 = 156.' },
     ],
@@ -88,7 +88,7 @@ const faqs = [
 
   <h2 id="binary-to-decimal">Worked example: binary 10011100 back to decimal</h2>
   <p>Write the place value above each bit, then add the weights where the bit is 1.</p>
-  <table>
+  <table tabindex="0">
     <thead>
       <tr><th>Bit</th><th>1</th><th>0</th><th>0</th><th>1</th><th>1</th><th>1</th><th>0</th><th>0</th></tr>
     </thead>
@@ -143,9 +143,15 @@ const faqs = [
 
   <h2 id="world-benchmark">How the world’s number systems benchmark against the International scale</h2>
   <p>
-    The table below is the reference behind every worked example above. It lists how sixteen systems name 10⁶, 10⁹ and 10¹², and states the benchmark against the English short scale.
+    The excerpt below covers the systems this page uses in its worked examples. The complete
+    sixteen-system benchmark lives on the
+    <a href="/knowledge-catalog/number-system-conversion-table/#world-table">number system conversion table</a>.
   </p>
-  <WorldSystemsTable />
+  <WorldSystemsTable
+    limit={4}
+    moreHref="/knowledge-catalog/number-system-conversion-table/#world-table"
+    caption="Four of the sixteen numbering systems used in the worked examples above, benchmarked against the International short scale."
+  />
 
   <h2 id="nuances">Five nuances that change the answer by a factor of 1,000</h2>
 

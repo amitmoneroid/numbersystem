@@ -303,6 +303,6 @@ export const nuances: Nuance[] = [
     body:
       'Korean follows the Chinese myriad system: 억 (eok) = 10⁸, 조 (jo) = 10¹². A "10억 원" budget is one billion won, not ten billion — the unit already carries two extra zeros.',
     example: '10억 = 1,000,000,000 = 1 billion. 1조 = 1,000,000,000,000 = 1 trillion.',
-    guideSlug: 'number-system-converter-online',
+    guideSlug: 'number-system-conversion-table',
   },
 ];

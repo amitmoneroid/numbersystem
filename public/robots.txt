@@ -1,8 +1,7 @@
 # robots.txt for Number System Converter
 # https://numbersystemconverter.com/
 #
-# Policy: one rule set, applied to every crawler in each category.
-#
+# Policy (one authoritative block per crawler category):
 #   1. Search engines .................. allowed
 #   2. AI search / answer engines ...... allowed (retrieval, grounding, citation)
 #   3. AI training / dataset crawlers .. disallowed
@@ -25,6 +24,7 @@ User-agent: Googlebot-News
 User-agent: Bingbot
 User-agent: Applebot
 User-agent: YandexBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
 Allow: /
 
 # -----------------------------------------------------------------------------
@@ -40,6 +40,7 @@ User-agent: Perplexity-User
 User-agent: DuckAssistBot
 User-agent: MistralAI-User
 User-agent: YouBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
 Allow: /
 
 # -----------------------------------------------------------------------------
@@ -72,6 +73,7 @@ User-agent: Ai2Bot-Dolma
 User-agent: DeepSeekBot
 User-agent: magpie-crawler
 User-agent: KimiBot
+Content-Signal: search=no, ai-input=no, ai-train=no, use=none
 Disallow: /
 
 # Sitemap

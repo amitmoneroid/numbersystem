@@ -133,7 +133,7 @@ export interface FooterUi {
 
 export const footerUi: Record<Locale, FooterUi> = {
   en: {
-    pitch: 'A clear, fast number system converter built with clarity in mind.',
+    pitch: 'A browser-only converter for lakh, crore, million and billion — with the words spelled out.',
     learnHeading: 'Learn',
     pagesHeading: 'Pages',
     legalHeading: 'Legal',
@@ -143,10 +143,6 @@ export const footerUi: Record<Locale, FooterUi> = {
       {
         label: 'Converter with steps',
         href: '/knowledge-catalog/number-system-converter-with-steps/',
-      },
-      {
-        label: 'Converter online',
-        href: '/knowledge-catalog/number-system-converter-online/',
       },
       {
         label: 'Calculator with solution',
@@ -176,7 +172,7 @@ export const footerUi: Record<Locale, FooterUi> = {
     analytics: 'Analytics settings',
     copyright: '© 2026 NumSys Converter. All rights reserved.',
     lastUpdated: 'Last updated',
-    poweredBy: 'Powered by',
+    poweredBy: 'Built and maintained by',
   },
   es: {
     pitch: 'Un conversor de sistemas numéricos claro y rápido, pensado para entender cada paso.',
@@ -189,10 +185,6 @@ export const footerUi: Record<Locale, FooterUi> = {
       {
         label: 'Conversor con pasos',
         href: '/knowledge-catalog/number-system-converter-with-steps/',
-      },
-      {
-        label: 'Conversor en línea',
-        href: '/knowledge-catalog/number-system-converter-online/',
       },
       {
         label: 'Calculadora con solución',
@@ -237,10 +229,6 @@ export const footerUi: Record<Locale, FooterUi> = {
         href: '/knowledge-catalog/number-system-converter-with-steps/',
       },
       {
-        label: 'Convertisseur en ligne',
-        href: '/knowledge-catalog/number-system-converter-online/',
-      },
-      {
         label: 'Calculatrice avec solution',
         href: '/knowledge-catalog/number-system-conversion-calculator-with-solution/',
       },
@@ -281,10 +269,6 @@ export const footerUi: Record<Locale, FooterUi> = {
       {
         label: 'Umrechner mit Rechenweg',
         href: '/knowledge-catalog/number-system-converter-with-steps/',
-      },
-      {
-        label: 'Online-Umrechner',
-        href: '/knowledge-catalog/number-system-converter-online/',
       },
       {
         label: 'Rechner mit Lösungsweg',
@@ -329,10 +313,6 @@ export const footerUi: Record<Locale, FooterUi> = {
         href: '/knowledge-catalog/number-system-converter-with-steps/',
       },
       {
-        label: 'Conversor online',
-        href: '/knowledge-catalog/number-system-converter-online/',
-      },
-      {
         label: 'Calculadora com solução',
         href: '/knowledge-catalog/number-system-conversion-calculator-with-solution/',
       },
@@ -373,10 +353,6 @@ export const footerUi: Record<Locale, FooterUi> = {
       {
         label: 'Convertitore con passaggi',
         href: '/knowledge-catalog/number-system-converter-with-steps/',
-      },
-      {
-        label: 'Convertitore online',
-        href: '/knowledge-catalog/number-system-converter-online/',
       },
       {
         label: 'Calcolatrice con soluzione',
